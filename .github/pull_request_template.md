@@ -6,6 +6,8 @@ Please include a summary of the change and which issue is fixed. Also, provide r
 
 🔗 Project link: [test todo](https://github.com/orgs/rss-bug-busters/projects/1?pane=issue&itemId=61477634)
 
+## 🖼️ Screenshots (if appropriate) 🖼️:
+
 ## 🔄 Type of change 🔄
 
 Please delete options that are not relevant.
