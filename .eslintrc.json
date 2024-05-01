@@ -50,7 +50,10 @@
       "parser": "@typescript-eslint/parser",
       "parserOptions": {
         "sourceType": "module",
-        "project": ["./tsconfig.json", "./tsconfig.node.json"]
+        "project": ["./tsconfig.json", "./tsconfig.node.json"],
+        "ecmaFeatures": {
+          "jsx": true
+        }
       },
       "plugins": ["react-refresh", "@typescript-eslint", "typescript-sort-keys"],
       "extends": [

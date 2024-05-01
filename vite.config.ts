@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import dts from 'vite-plugin-dts';
@@ -8,12 +9,14 @@ import eslint from 'vite-plugin-eslint';
 import stylelint from 'vite-plugin-stylelint';
 import path from 'node:path';
 
+const root = import.meta.dirname;
+
 export default defineConfig({
   base: './',
   build: {
     emptyOutDir: true,
     minify: true,
-    outDir: path.resolve(import.meta.dirname, 'build'),
+    outDir: path.resolve(root, 'build'),
     sourcemap: true,
     target: 'es2017',
     cssCodeSplit: true,
@@ -33,7 +36,7 @@ export default defineConfig({
     dts(),
     sassDts({
       enabledMode: ['development', 'production'],
-      prettierFilePath: path.resolve(import.meta.dirname, '.prettierrc.json.'),
+      prettierFilePath: path.resolve(root, '.prettierrc.json.'),
     }),
     eslint({
       cache: true,
@@ -51,4 +54,10 @@ export default defineConfig({
     }),
     react(),
   ],
+  test: {
+    setupFiles: path.resolve(root, 'src/tests/setup.ts'),
+    globals: true,
+    environment: 'jsdom',
+    css: true,
+  },
 });
