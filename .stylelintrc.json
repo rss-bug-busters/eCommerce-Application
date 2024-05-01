@@ -1,29 +1,19 @@
 {
-    "plugins": [
-        "stylelint-order",
-        "stylelint-prettier"
-    ],
-    "extends": [
-        "stylelint-config-recommended",
-        "stylelint-config-clean-order",
-        "stylelint-prettier/recommended"
-    ],
-    "rules": {
-        "prettier/prettier": true
-    },
-    "overrides": [
-        {
-            "plugins": ["stylelint-scss"],
-            "files": ["**/*.s?(a|c)ss"],
-            "extends": [
-                "stylelint-config-recommended-scss",
-                "stylelint-config-prettier-scss"
-            ],
-            "customSyntax": "postcss-scss",
-            "rules": {
-                "prettier/prettier": true,
-                "scss/at-rule-no-unknown": true
-            }
-        }
-    ]
+  "plugins": ["stylelint-prettier", "stylelint-order"],
+  "extends": ["stylelint-config-standard", "stylelint-prettier/recommended", "stylelint-config-idiomatic-order"],
+  "rules": {
+    "prettier/prettier": true
+  },
+  "overrides": [
+    {
+      "plugins": ["stylelint-scss"],
+      "files": ["**/*.scss"],
+      "extends": [
+        "stylelint-config-standard-scss",
+        "stylelint-config-prettier-scss",
+        "stylelint-config-idiomatic-order"
+      ],
+      "customSyntax": "postcss-scss"
+    }
+  ]
 }

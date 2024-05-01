@@ -38,7 +38,7 @@ export default defineConfig({
     eslint({
       cache: true,
       fix: true,
-      include: 'src/**/*.ts',
+      include: ['src/**/*.{ts,tsx,js,jsx}'],
     }),
     stylelint({
       cache: true,
