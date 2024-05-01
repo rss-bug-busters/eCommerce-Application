@@ -1,0 +1,92 @@
+{
+  "noInlineConfig": true,
+  "root": true,
+  "env": { "browser": true, "es2020": true, "node": true },
+  "ignorePatterns": ["dist", "build", "node_modules"],
+  "plugins": [
+    "promise", "sonarjs", "unicorn", "import", "jsx-a11y"
+  ],
+  "extends": [
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/recommended",
+    "plugin:promise/recommended",
+    "airbnb",
+    "airbnb/hooks",
+    "prettier"
+  ],
+  "rules": {
+    "curly": ["error", "all"],
+    "padding-line-between-statements": [
+      "error",
+      { "blankLine": "always", "prev": "*", "next": "return" },
+      {
+        "blankLine": "always",
+        "prev": ["const", "let", "var"],
+        "next": "*"
+      },
+      {
+        "blankLine": "any",
+        "prev": ["const", "let", "var"],
+        "next": ["const", "let", "var"]
+      },
+      {
+        "blankLine": "any",
+        "prev": "directive",
+        "next": "directive"
+      },
+      {
+        "blankLine": "always",
+        "prev": ["block", "if", "for", "while"],
+        "next": "*"
+      },
+      {
+        "blankLine": "always",
+        "prev": "*",
+        "next": ["if", "for", "while", "block"]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "parserOptions": {
+        "sourceType": "module",
+        "project": ["./tsconfig.json", "./tsconfig.node.json"]
+      },
+      "plugins": ["react-refresh", "@typescript-eslint", "typescript-sort-keys"],
+      "extends": [
+        "airbnb-typescript",
+        "airbnb/hooks",
+        "plugin:@typescript-eslint/recommended-type-checked",
+        "plugin:@typescript-eslint/stylistic-type-checked"
+      ],
+      "rules": {
+        "react/react-in-jsx-scope": 0,
+        "@typescript-eslint/comma-dangle": 0,
+        "typescript-sort-keys/interface": "error",
+        "typescript-sort-keys/string-enum": "error",
+        "@typescript-eslint/indent": 0,
+        "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }]
+      },
+      "overrides": [
+        {
+          "files": ["**/*.d.ts", "**/*.d.tsx"],
+          "rules": {
+            "typescript-sort-keys/interface": 0,
+            "typescript-sort-keys/string-enum": 0
+          }
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": ["./tsconfig.json", "./tsconfig.node.json"]
+      },
+      "node": true
+    }
+  }
+}
