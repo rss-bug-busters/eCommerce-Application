@@ -1,9 +1,13 @@
+name: 🚀 Deploy
+concurrency:
+  group: production
+  cancel-in-progress: true
 on:
   workflow_dispatch:
-     
-name: 🚀 Deploy
+    
 jobs:
-  web-deploy:
+  deployment:
+    environment: production
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
