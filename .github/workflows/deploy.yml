@@ -1,0 +1,39 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+    - main
+    - develop
+  
+      
+name: 🚀 Deploy website on push
+jobs:
+  web-deploy:
+    name: 🎉 Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        
+    - name: 🔨 install node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: 'package.json'
+        cache: 'yarn'
+        
+    - name: 🔨 install packedge
+      run: yarn install --frozen-lockfile
+      
+    - name: 🔨 build
+      run: yarn run build
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        local-dir: './build/'
+        server-dir: './public_html/'
+        server: ${{ secrets.FTP_ADDRES }}
+        username: ${{ secrets.FTP_LOGIN }}
+        password: ${{ secrets.FTP_PASSWORD }}
