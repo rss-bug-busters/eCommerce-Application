@@ -1,5 +1,4 @@
 [![🧪 CI](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/CI.yml/badge.svg)](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/CI.yml)
-[![🚀 Deploy](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/deploy.yml/badge.svg?branch=${GH_BRANCH})](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/deploy.yml)
 
 # React + TypeScript + Vite
 
