@@ -41,4 +41,4 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
 
     - name: 📂 Deploy url
-      run: echo ${{ vars.DEPLOY_ADDRES }}
+      run: echo "::notice ${{ vars.DEPLOY_ADDRES }}"
