@@ -1,7 +1,6 @@
 /// <reference types="vitest" />
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import dts from 'vite-plugin-dts';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import sassDts from 'vite-plugin-sass-dts';
 import checker from 'vite-plugin-checker';
@@ -33,7 +32,6 @@ export default defineConfig({
   },
   plugins: [
     tsconfigPaths(),
-    dts(),
     sassDts({
       enabledMode: ['development', 'production'],
       prettierFilePath: path.resolve(root, '.prettierrc.json.'),
