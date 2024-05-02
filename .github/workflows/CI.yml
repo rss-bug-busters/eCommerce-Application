@@ -37,7 +37,7 @@ jobs:
           yarn install --frozen-lockfile
 
       - name: 🔍 lint
-        run: yarn lint-staged --diff="{GITHUB_BASE_REF}...{GITHUB_HEAD_REF}"
+        run: yarn lint-staged --diff="${GITHUB_BASE_REF}...${GITHUB_HEAD_REF}"
         id: lint
 
       - name: 🧪 test
