@@ -40,4 +40,5 @@ jobs:
         username: ${{ secrets.FTP_LOGIN }}
         password: ${{ secrets.FTP_PASSWORD }}
 
-    - name: 📂 Deploy url ${{ vars.DEPLOY_ADDRES }}
+    - name: 📂 Deploy url
+      run: echo ${{ vars.DEPLOY_ADDRES }}
