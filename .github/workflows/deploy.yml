@@ -35,7 +35,7 @@ jobs:
       with:
         protocol: ftps
         local-dir: './build/'
-        server-dir: './${{ secrets.FTP_ADDRES }}/public_html/'
+        server-dir: './htdocs/'
         server: ${{ secrets.FTP_ADDRES }}
         username: ${{ secrets.FTP_LOGIN }}
         password: ${{ secrets.FTP_PASSWORD }}
