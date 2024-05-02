@@ -24,7 +24,9 @@ jobs:
         cache: 'yarn'
         
     - name: 🔨 install packedge
-      run: yarn install --frozen-lockfile
+      run: | 
+        yarn set version 4.1.1
+        yarn install --frozen-lockfile
       
     - name: 🔨 build
       run: yarn run build
