@@ -1,0 +1,44 @@
+name: 🧪 CI
+
+on:
+  push:
+    branches:
+      - develop
+
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  ci:
+    name: 🧪 CI
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+    steps:
+    
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 💩 Enable Corepack before setting up Node
+        run: corepack enable
+
+      - name: 🔨 install node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'yarn'
+            
+      - name: 🔨 install packedge
+        run: | 
+          yarn set version 4.1.1
+          yarn install --frozen-lockfile
+
+      - name: 🔍 lint
+        run: yarn lint-staged --diff="${GITHUB_BASE_REF}...${GITHUB_HEAD_REF}"
+        id: lint
+
+      - name: 🧪 test
+        run: yarn run test:staged
