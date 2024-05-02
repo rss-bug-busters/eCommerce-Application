@@ -33,6 +33,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
+        protocol: ftps
         local-dir: './build/'
         server-dir: './public_html/'
         server: ${{ secrets.FTP_ADDRES }}
