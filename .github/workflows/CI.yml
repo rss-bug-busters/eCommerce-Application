@@ -32,12 +32,10 @@ jobs:
           cache: 'yarn'
             
       - name: 🔨 install packedge
-        run: | 
-          yarn set version 4.1.1
-          yarn install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: 🔍 lint
-        run: yarn lint-staged --diff="HEAD~1"
+        run: yarn lint-staged --diff='HEAD~1' --config "./lint-staged-check.config.js"
         id: lint
 
       - name: 🧪 test

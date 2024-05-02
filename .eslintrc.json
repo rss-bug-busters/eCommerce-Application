@@ -12,6 +12,7 @@
   ],
   "plugins": ["promise", "sonarjs", "unicorn", "import", "jsx-a11y"],
   "extends": [
+    "eslint:recommended",
     "plugin:sonarjs/recommended",
     "plugin:unicorn/recommended",
     "plugin:promise/recommended",
