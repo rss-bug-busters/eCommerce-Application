@@ -35,10 +35,10 @@ jobs:
       with:
         protocol: ftps
         local-dir: './build/'
-        server-dir: './${{ secrets.FTP_ADDRES }}/'
+        server-dir: './${{ secrets.FTP_ADDRES }}/public_html/'
         server: ${{ secrets.FTP_ADDRES }}
         username: ${{ secrets.FTP_LOGIN }}
         password: ${{ secrets.FTP_PASSWORD }}
 
     - name: 📂 Deploy url
-      run: echo ${{ secrets.FTP_ADDRES }}
+      run: echo ${{ vars.DEPLOY_ADDRES }}
