@@ -1,8 +1,10 @@
 on:
+  workflow_dispatch:
   push:
     branches:
-      - develop
-  workflow_dispatch:
+    - main
+    - develop
+  
       
 name: 🚀 Deploy website on push
 jobs:
@@ -30,7 +32,8 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        local-dir: 'build'
+        local-dir: './build/'
+        server-dir: './public_html/'
         server: ${{ secrets.FTP_ADDRES }}
         username: ${{ secrets.FTP_LOGIN }}
         password: ${{ secrets.FTP_PASSWORD }}
