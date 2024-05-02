@@ -2,7 +2,14 @@
   "noInlineConfig": true,
   "root": true,
   "env": { "browser": true, "es2020": true, "node": true },
-  "ignorePatterns": ["dist", "build", "node_modules", ".yarn", ".pnp.cjs", ".pnp.loader.mjs"],
+  "ignorePatterns": [
+    "dist",
+    "build",
+    "node_modules",
+    ".yarn",
+    ".pnp.cjs",
+    ".pnp.loader.mjs"
+  ],
   "plugins": ["promise", "sonarjs", "unicorn", "import", "jsx-a11y"],
   "extends": [
     "plugin:sonarjs/recommended",
