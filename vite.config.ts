@@ -36,6 +36,7 @@ export default defineConfig({
       enabledMode: ['development', 'production'],
       prettierFilePath: path.resolve(root, '.prettierrc.json.'),
     }),
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     eslint({
       cache: true,
       fix: true,
