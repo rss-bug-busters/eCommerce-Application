@@ -1,3 +1,6 @@
+[![🧪 CI](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/CI.yml/badge.svg)](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/CI.yml)
+[![🚀 Deploy](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/deploy.yml/badge.svg)](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/deploy.yml)
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
