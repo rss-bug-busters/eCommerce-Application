@@ -4,8 +4,6 @@ import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import sassDts from 'vite-plugin-sass-dts';
 import checker from 'vite-plugin-checker';
-import eslint from 'vite-plugin-eslint';
-import stylelint from 'vite-plugin-stylelint';
 import path from 'node:path';
 
 const root = import.meta.dirname;
@@ -37,21 +35,20 @@ export default defineConfig({
       enabledMode: ['development', 'production'],
       prettierFilePath: path.resolve(root, '.prettierrc.json.'),
     }),
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-    eslint({
-      cache: true,
-      fix: true,
-      include: ['src/**/*.{ts,tsx,js,jsx}'],
-    }),
-    stylelint({
-      cache: true,
-      cacheLocation: path.resolve(root, 'node_modules/.cache/stylelint/.stylelintcache'),
-      include: ['src/**/*.{css,scss,sass,less,styl,vue,svelte}'],
-      fix: true,
-    }),
-    checker({
-      typescript: true,
-    }),
+    process.env.VITEST
+      ? undefined
+      : checker({
+          typescript: true,
+          eslint: {
+            lintCommand:
+              `eslint "./src/**/*.{js,jsx,ts,tsx,cjs,mjs}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/eslint/.eslintcache')} `,
+          },
+          stylelint: {
+            lintCommand:
+              `stylelint "./src/**/*.{css,scss,sass,less,styl,vue,svelte}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/stylelint/.stylelintcache')}`,
+          },
+          enableBuild: false,
+        }),
     react(),
   ],
   test: {
