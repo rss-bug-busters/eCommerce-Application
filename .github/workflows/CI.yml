@@ -23,7 +23,7 @@ jobs:
           cache: 'yarn'
 
       - name: 🔨 install packedge
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
 
       - name: 🔍 ESlint
         run: yarn lint
