@@ -12,6 +12,7 @@ const root = import.meta.dirname;
 
 export default defineConfig({
   base: './',
+  root,
   build: {
     emptyOutDir: true,
     minify: true,
@@ -44,7 +45,7 @@ export default defineConfig({
     }),
     stylelint({
       cache: true,
-      cacheLocation: 'node_modules/.cache/stylelint/.stylelintcache',
+      cacheLocation: path.resolve(root, 'node_modules/.cache/stylelint/.stylelintcache'),
       include: ['src/**/*.{css,scss,sass,less,styl,vue,svelte}'],
       fix: true,
     }),
