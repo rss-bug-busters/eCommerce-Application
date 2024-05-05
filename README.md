@@ -1,3 +1,5 @@
+<a name="readme-top"></a>
+
 [![🧪 CI](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/CI.yml/badge.svg)](https://github.com/rss-bug-busters/eCommerce-Application/actions/workflows/CI.yml)
 
 # eCommerce Application
@@ -18,7 +20,7 @@ Key pages in the application include:
 - Basket page 🛒
 - About Us page 🙋‍♂️🙋‍♀️
 
-<p align="right">(<a href="#readme-top">back to top ⬆</a>)</p>
+<p align="right"><a href="#readme-top">back to top ⬆</a></p>
 
 ## Technology Stack
 
@@ -41,7 +43,7 @@ Key pages in the application include:
 
 - **Vitest**: Vitest is utilized for writing and executing tests, ensuring the reliability and correctness of the application's frontend components. Tests are also run during pre-push to maintain code quality standards.
 
-<p align="right">(<a href="#readme-top">back to top ⬆</a>)</p>
+<p align="right"><a href="#readme-top">back to top ⬆</a></p>
 
 ## Getting Started
 
@@ -71,7 +73,7 @@ Make sure you have the following tools installed on your computer:
    ```
    This will start the development server and your project will be available at the address specified in the console (e.g. http://localhost:3000/). It also prepares the environment using `yarn prepare` to activate Husky (a tool for managing git hooks).
 
-<p align="right">(<a href="#readme-top">back to top ⬆</a>)</p>
+<p align="right"><a href="#readme-top">back to top ⬆</a></p>
 
 ### Additional commands
 
@@ -143,7 +145,7 @@ Make sure you have the following tools installed on your computer:
     ```
     This script runs tests with coverage reporting using **Vitest** to provide insights into _test coverage_.
 
-<p align="right">(<a href="#readme-top">back to top ⬆</a>)</p>
+<p align="right"><a href="#readme-top">back to top ⬆</a></p>
 
 ## Contributing
 
@@ -158,10 +160,10 @@ Don't forget to give the project a star! Thanks again!
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
 
-<p align="right">(<a href="#readme-top">back to top ⬆</a>)</p>
+<p align="right"><a href="#readme-top">back to top ⬆</a></p>
 
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#readme-top">back to top ⬆</a>)</p>
+<p align="right"><a href="#readme-top">back to top ⬆</a></p>
