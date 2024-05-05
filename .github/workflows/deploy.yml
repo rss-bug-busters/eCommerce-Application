@@ -4,45 +4,42 @@ concurrency:
   cancel-in-progress: true
 on:
   workflow_dispatch:
-    
+
 jobs:
   deployment:
     environment: production
     name: 🎉 Deploy
     runs-on: ubuntu-latest
     steps:
-    
-    - name: 🚚 Get latest code
-      uses: actions/checkout@v4
-      with:
-        fetch-depth: 0
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-    - name: 💩 Enable Corepack before setting up Node
-      run: corepack enable
-        
-    - name: 🔨 install node
-      uses: actions/setup-node@v4
-      with:
-        node-version-file: 'package.json'
-        cache: 'yarn'
-        
-    - name: 🔨 install packedge
-      run: | 
-        yarn set version 4.1.1
-        yarn install --frozen-lockfile
-      
-    - name: 🔨 build
-      run: yarn run build
-    
-    - name: 📂 Sync files
-      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-      with:
-        protocol: ftps
-        local-dir: './build/'
-        server-dir: './htdocs/'
-        server: ${{ secrets.FTP_ADDRES }}
-        username: ${{ secrets.FTP_LOGIN }}
-        password: ${{ secrets.FTP_PASSWORD }}
+      - name: 💩 Enable Corepack before setting up Node
+        run: corepack enable
 
-    - name: 📂 Deploy url
-      run: echo ${{ vars.DEPLOY_ADDRES }}
+      - name: 🔨 install node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'yarn'
+
+      - name: 🔨 install packedge
+        run: yarn install --immutable --immutable-cache
+
+      - name: 🔨 build
+        run: yarn build
+
+      - name: 📂 Sync files
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          protocol: ftps
+          local-dir: './build/'
+          server-dir: './htdocs/'
+          server: ${{ secrets.FTP_ADDRES }}
+          username: ${{ secrets.FTP_LOGIN }}
+          password: ${{ secrets.FTP_PASSWORD }}
+
+      - name: 📂 Deploy url
+        run: echo ${{ vars.DEPLOY_ADDRES }}

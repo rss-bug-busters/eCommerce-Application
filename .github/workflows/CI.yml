@@ -7,10 +7,7 @@ jobs:
   ci:
     name: 🧪 CI
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: true
     steps:
-    
       - name: 🚚 Get latest code
         uses: actions/checkout@v4
         with:
@@ -24,15 +21,15 @@ jobs:
         with:
           node-version-file: 'package.json'
           cache: 'yarn'
-            
+
       - name: 🔨 install packedge
-        run: yarn install --frozen-lockfile
+        run: yarn install --immutable --immutable-cache
 
       - name: 🔍 ESlint
-        run: yarn eslint "**/*.{js,jsx,ts,tsx,cjs,mjs}" --ignore-path .gitignore
+        run: yarn lint
 
       - name: 🔍 Stylelint
-        run: yarn stylelint "**/*.{css,scss,sass,less,styl,vue,svelte}" --ignore-path .gitignore
+        run: yarn stylelint
 
       - name: 🧪 test
-        run: yarn run test:staged
+        run: yarn test:staged
