@@ -132,13 +132,13 @@ Make sure you have the following tools installed on your computer:
    yarn test
    ```
 
-   This script is used to run project tests using **Vitest**.
+   This script is used to run all test suites using **Vitest** but watch for changes and rerun tests when they change.
 
 10. ```zsh
     yarn test:staged
     ```
 
-    This script is used to run tests using **Vitest** only for changed _(staged)_ files.
+    This script is used to run tests using **Vitest** without _watch_ mode.
 
 11. ```zsh
     yarn coverage
