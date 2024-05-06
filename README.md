@@ -20,8 +20,6 @@ Key pages in the application include:
 - Basket page 🛒
 - About Us page 🙋‍♂️🙋‍♀️
 
-<p align="right"><a href="#readme-top">back to top ⬆</a></p>
-
 ## Technology Stack
 
 #### Frontend
