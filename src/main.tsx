@@ -6,6 +6,10 @@ import router from '@services/router/router';
 
 ReactDOM.createRoot(document.querySelector('#root')!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <RouterProvider
+      fallbackElement={<h1>Loading....</h1>}
+      router={router}
+      future={{ v7_startTransition: true }}
+    />
   </React.StrictMode>
 );

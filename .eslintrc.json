@@ -87,7 +87,7 @@
         "typescript-sort-keys/interface": "error",
         "typescript-sort-keys/string-enum": "error",
         "@typescript-eslint/indent": 0,
-        "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }]
+        "react-refresh/only-export-components": 0 /// not working https://github.com/ArnaudBarre/eslint-plugin-react-refresh/issues/25
       },
       "overrides": [
         {
