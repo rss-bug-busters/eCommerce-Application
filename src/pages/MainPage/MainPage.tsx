@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from './assets/viteLogo.png';
-import './app.scss';
+import reactLogo from '@assets/react.svg';
+import viteLogo from '@assets/viteLogo.png';
+import './mainPage.scss';
 
-function App() {
+function MainPage() {
   const [count, setCount] = useState(0);
 
   return (
@@ -30,4 +30,4 @@ function App() {
   );
 }
 
-export default App;
+export default MainPage;
