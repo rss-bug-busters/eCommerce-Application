@@ -40,12 +40,10 @@ export default defineConfig({
       : checker({
           typescript: true,
           eslint: {
-            lintCommand:
-              `eslint "./src/**/*.{js,jsx,ts,tsx,cjs,mjs}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/eslint/.eslintcache')} `,
+            lintCommand: `eslint "./src/**/*.{js,jsx,ts,tsx,cjs,mjs}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/eslint/.eslintcache')} `,
           },
           stylelint: {
-            lintCommand:
-              `stylelint "./src/**/*.{css,scss,sass,less,styl,vue,svelte}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/stylelint/.stylelintcache')}`,
+            lintCommand: `stylelint "./src/**/*.{css,scss,sass,less,styl,vue,svelte}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/stylelint/.stylelintcache')}`,
           },
           enableBuild: false,
         }),
