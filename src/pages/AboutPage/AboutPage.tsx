@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
 const AboutPage: FC = function () {
-  return <h1>AboutUs</h1>;
+  return (
+    <div data-testid="about-page">
+      <h1>AboutUs</h1>
+    </div>
+  );
 };
 
 export default AboutPage;

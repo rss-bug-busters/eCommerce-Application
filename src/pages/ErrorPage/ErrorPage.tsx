@@ -7,7 +7,7 @@ const ErrorPage: FC = function () {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div id="error-page">
+      <div id="error-page" data-testid="error-page">
         <h1>Oops! Something went wrong 😢</h1>
         <h2>{`${error.status} ${error.statusText}`}</h2>
         <p>{error.data}</p>
@@ -17,7 +17,7 @@ const ErrorPage: FC = function () {
   }
 
   return (
-    <div id="error-page">
+    <div id="error-page" data-testid="error-page">
       <h1>Oops! Something went wrong 😢</h1>
       <Link to={RoutePaths.MAIN}>Go Main page</Link>
     </div>

@@ -1,6 +1,6 @@
-import { createBrowserRouter } from 'react-router-dom';
+import { createHashRouter, RouteObject } from 'react-router-dom';
 
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import RoutePaths from '@utils/consts/RoutePaths';
 
 const Layout = lazy(() => import('@pages/Layout/Layout'));
@@ -13,76 +13,44 @@ const ProfilePage = lazy(() => import('@pages/ProfilePage/ProfilePage'));
 const RegistrationPage = lazy(() => import('@pages/RegistrationPage/RegistrationPage'));
 const ErrorPage = lazy(() => import('@pages/ErrorPage/ErrorPage'));
 
-const loader = <h1>Loading....</h1>;
-
-const router = createBrowserRouter([
+const routes: RouteObject[] = [
   {
     path: RoutePaths.MAIN,
-    element: (
-      <Suspense fallback={loader}>
-        <Layout />
-      </Suspense>
-    ),
+    element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
       {
         path: RoutePaths.MAIN,
-        element: (
-          <Suspense fallback={loader}>
-            <MainPage />
-          </Suspense>
-        ),
+        element: <MainPage />,
       },
       {
         path: RoutePaths.BASKET,
-        element: (
-          <Suspense fallback={loader}>
-            <BasketPage />
-          </Suspense>
-        ),
+        element: <BasketPage />,
       },
       {
         path: RoutePaths.LOGIN,
-        element: (
-          <Suspense fallback={loader}>
-            <LoginPage />
-          </Suspense>
-        ),
+        element: <LoginPage />,
       },
       {
         path: RoutePaths.PRODUCT,
-        element: (
-          <Suspense fallback={loader}>
-            <ProductPage />
-          </Suspense>
-        ),
+        element: <ProductPage />,
       },
       {
         path: RoutePaths.PROFILE,
-        element: (
-          <Suspense fallback={loader}>
-            <ProfilePage />
-          </Suspense>
-        ),
+        element: <ProfilePage />,
       },
       {
         path: RoutePaths.REGISTRATION,
-        element: (
-          <Suspense fallback={loader}>
-            <RegistrationPage />
-          </Suspense>
-        ),
+        element: <RegistrationPage />,
       },
       {
         path: RoutePaths.ABOUT,
-        element: (
-          <Suspense fallback={loader}>
-            <AboutPage />
-          </Suspense>
-        ),
+        element: <AboutPage />,
       },
     ],
   },
-]);
+];
 
-export default router;
+const hashRouter = createHashRouter(routes);
+
+export { hashRouter, routes };

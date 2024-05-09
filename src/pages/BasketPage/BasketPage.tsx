@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
 const BasketPage: FC = function () {
-  return <h1>Basket</h1>;
+  return (
+    <div data-testid="basket-page">
+      <h1>Basket</h1>
+    </div>
+  );
 };
 
 export default BasketPage;

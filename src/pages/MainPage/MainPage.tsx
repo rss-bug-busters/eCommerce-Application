@@ -7,7 +7,7 @@ function MainPage() {
   const [count, setCount] = useState(0);
 
   return (
-    <>
+    <div data-testid="main-page">
       <div>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -26,7 +26,7 @@ function MainPage() {
         </p>
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    </div>
   );
 }
 

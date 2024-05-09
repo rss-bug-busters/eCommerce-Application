@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
 const LoginPage: FC = function () {
-  return <h1>Login</h1>;
+  return (
+    <div data-testid="login-page">
+      <h1>Login</h1>
+    </div>
+  );
 };
 
 export default LoginPage;

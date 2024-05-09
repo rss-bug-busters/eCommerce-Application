@@ -1,7 +1,11 @@
 import { FC } from 'react';
 
 const RegistrationPage: FC = function () {
-  return <h1>Registration</h1>;
+  return (
+    <div data-testid="registration-page">
+      <h1>Registration</h1>
+    </div>
+  );
 };
 
 export default RegistrationPage;
