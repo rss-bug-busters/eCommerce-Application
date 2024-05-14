@@ -1,6 +1,6 @@
 import { describe } from 'vitest';
 import RoutePaths from '@utils/consts/RoutePaths';
-import routeIsRenderedByTestId from '@tests/untils/routeIsRenderedByTestId';
+import routeIsRenderedByTestId from '@tests/utils/routeIsRenderedByTestId';
 
 describe('all routes rendered', async () => {
   routeIsRenderedByTestId({
