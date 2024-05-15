@@ -73,6 +73,7 @@ export default defineConfig({
       reporter: ['text', 'json', 'html'],
       exclude: [
         ...configDefaults.exclude,
+        '**/coverage/**',
         '**/node_modules/**',
         '.pnp.loader.mjs',
         '.pnp.cjs',
