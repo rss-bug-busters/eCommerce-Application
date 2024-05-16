@@ -1,10 +1,10 @@
-/// <reference types="vitest" />
-import { defineConfig } from 'vite';
+import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import sassDts from 'vite-plugin-sass-dts';
 import checker from 'vite-plugin-checker';
 import path from 'node:path';
+import svgr from 'vite-plugin-svgr';
 
 const root = import.meta.dirname;
 
@@ -31,6 +31,11 @@ export default defineConfig({
   },
   plugins: [
     tsconfigPaths(),
+    svgr({
+      svgrOptions: {
+        plugins: ['@svgr/plugin-jsx'],
+      },
+    }),
     sassDts({
       enabledMode: ['development', 'production'],
       prettierFilePath: path.resolve(root, '.prettierrc.json.'),
@@ -54,5 +59,28 @@ export default defineConfig({
     globals: true,
     environment: 'jsdom',
     css: true,
+    include: [...configDefaults.include],
+    exclude: [
+      ...configDefaults.exclude,
+      '**/node_modules/**',
+      '**/build/**',
+      '**/dist/**',
+      '**/coverage/**',
+      '**/.{idea,git,cache,output,temp}/**',
+      './src/assets/**/*',
+    ],
+    coverage: {
+      reporter: ['text', 'json', 'html'],
+      exclude: [
+        ...configDefaults.exclude,
+        '**/coverage/**',
+        '**/node_modules/**',
+        '.pnp.loader.mjs',
+        '.pnp.cjs',
+        './src/assets/**',
+        '.lintstagedrc.js',
+        'commitlint.config.js',
+      ],
+    },
   },
 });
