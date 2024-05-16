@@ -7,6 +7,7 @@ import checker from 'vite-plugin-checker';
 import path from 'node:path';
 import svgr from 'vite-plugin-svgr';
 import { loadEnv } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
 
 const viteENV = loadEnv('all', process.cwd(), 'VITE_');
 
@@ -38,6 +39,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    nodePolyfills(),
     tsconfigPaths(),
     svgr({
       svgrOptions: {
