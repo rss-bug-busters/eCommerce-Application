@@ -1,9 +1,9 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import makeClient from '@services/api/client/client';
+import makeClient, { MakeClientOptions } from '@services/api/client/client';
 import { projectKey } from '@services/api/client/options/credential';
 
-const apiRoot = () =>
-  createApiBuilderFromCtpClient(makeClient()).withProjectKey({
+const apiRoot = (properties?: MakeClientOptions) =>
+  createApiBuilderFromCtpClient(makeClient(properties)).withProjectKey({
     projectKey,
   });
 

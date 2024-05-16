@@ -7,10 +7,11 @@ import refreshAuthMiddlewareOptions from '@services/api/client/options/refreshAu
 import passwordAuthMiddlewareOptions from '@services/api/client/options/passwordAuthMiddlewareOptions';
 import { projectKey } from '@services/api/client/options/credential';
 
-const makeClient = (makeClientOptions?: {
+export interface MakeClientOptions {
   user?: { password: string; username: string };
   withLogger?: boolean;
-}) => {
+}
+const makeClient = (makeClientOptions?: MakeClientOptions) => {
   let client = new ClientBuilder()
     .withProjectKey(projectKey)
     .withHttpMiddleware(httpMiddlewareOptions)
