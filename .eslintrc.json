@@ -96,6 +96,7 @@
           }
         ],
         "react-refresh/only-export-components": 0, /// not working https://github.com/ArnaudBarre/eslint-plugin-react-refresh/issues/25
+        "react/require-default-props": 0,
         "react/jsx-props-no-spreading": [
           "error",
           {
