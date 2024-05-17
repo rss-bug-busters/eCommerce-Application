@@ -1,9 +1,12 @@
 import { FC } from 'react';
+import LoginForm from './loginForm';
 
 const LoginPage: FC = function () {
   return (
-    <div data-testid="login-page">
-      <h1>Login</h1>
+    <div className="login-page">
+      <div className="login-container">
+        <LoginForm />
+      </div>
     </div>
   );
 };
