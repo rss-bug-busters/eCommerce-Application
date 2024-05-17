@@ -3,7 +3,7 @@ import LoginForm from './loginForm';
 
 const LoginPage: FC = function () {
   return (
-    <div className="login-page">
+    <div className="login-page" data-testid="login-page">
       <div className="login-container">
         <LoginForm />
       </div>
