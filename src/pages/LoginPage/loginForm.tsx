@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import './login-page.scss';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import RoutePaths from '@utils/consts/RoutePaths';
 import { ValidationLogin, ValidationPassword } from './Validation';
 
 interface FormData {
@@ -9,6 +11,13 @@ interface FormData {
 }
 
 function LoginForm() {
+  const navigate = useNavigate();
+  const isloged = false;
+
+  if (isloged) {
+    navigate(RoutePaths.MAIN);
+  }
+
   const [showPassword, setShowPassword] = useState(false);
   const [validLogin, setValidLogin] = useState(false);
   const [validPassword, setValidPassword] = useState(false);
@@ -28,6 +37,7 @@ function LoginForm() {
   const onSubmit = (data: FormData) => {
     if (validLogin && validPassword) {
       console.log(data);
+      navigate(RoutePaths.MAIN);
     }
   };
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
 const isWhitespace = (login: string) => {
   if (!login) {
@@ -75,12 +75,13 @@ export function ValidationLogin({ login, validLogin }: ValidationLoginProperties
     email: isEmail(login),
   };
 
-  if (validation.whitespace && validation.email) {
-    useEffect(()=>validLogin(true))
-    
-  } else {
-    useEffect(()=>validLogin(false))
-  }
+  useEffect(() => {
+    if (validation.whitespace && validation.email) {
+      validLogin(true);
+    } else {
+      validLogin(false);
+    }
+  });
 
   return (
     <>
@@ -114,18 +115,20 @@ export function ValidationPassword({
     whitespaces: isWhitespace(password),
   };
 
-  if (
-    validation.minLength &&
-    validation.uppercase &&
-    validation.lowercase &&
-    validation.digit &&
-    validation.special &&
-    validation.whitespaces
-  ) {
-    useEffect(()=>validPassword(true))
-  } else {
-    useEffect(()=>validPassword(false))
-  }
+  useEffect(() => {
+    if (
+      validation.minLength &&
+      validation.uppercase &&
+      validation.lowercase &&
+      validation.digit &&
+      validation.special &&
+      validation.whitespaces
+    ) {
+      validPassword(true);
+    } else {
+      validPassword(false);
+    }
+  });
 
   return (
     <>

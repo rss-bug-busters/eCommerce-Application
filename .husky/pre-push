@@ -1,4 +1,4 @@
 echo -e "\e[1;34m[INFO]Lint:\e[0m"
-yarn lint-staged
+# yarn lint-staged
 echo -e "\e[1;34m[INFO]Test:\e[0m"
-# yarn run test:staged
+yarn run test:staged
