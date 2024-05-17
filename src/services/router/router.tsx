@@ -1,4 +1,4 @@
-import { createHashRouter, RouteObject } from 'react-router-dom';
+import { createBrowserRouter, RouteObject } from 'react-router-dom';
 
 import { lazy } from 'react';
 import RoutePaths from '@utils/consts/RoutePaths';
@@ -30,7 +30,6 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.LOGIN,
         element: <LoginPage />,
-        action: 
       },
       {
         path: RoutePaths.PRODUCT,
@@ -52,6 +51,6 @@ const routes: RouteObject[] = [
   },
 ];
 
-const hashRouter = createHashRouter(routes);
+const router = createBrowserRouter(routes);
 
-export { hashRouter, routes };
+export { router, routes };

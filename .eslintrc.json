@@ -82,10 +82,6 @@
         "airbnb-typescript"
       ],
       "rules": {
-        "@typescript-eslint/no-unused-expressions": 0,
-        "jsx-a11y/label-has-associated-control": 0,
-        "@typescript-eslint/no-misused-promises": 0,
-        "react/jsx-props-no-spreading": 0,
         "react/react-in-jsx-scope": 0,
         "@typescript-eslint/comma-dangle": 0,
         "typescript-sort-keys/interface": "error",
