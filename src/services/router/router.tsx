@@ -30,6 +30,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.LOGIN,
         element: <LoginPage />,
+        action: 
       },
       {
         path: RoutePaths.PRODUCT,
