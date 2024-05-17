@@ -2,6 +2,7 @@ import { createBrowserRouter, RouteObject } from 'react-router-dom';
 
 import { lazy } from 'react';
 import RoutePaths from '@utils/consts/RoutePaths';
+import NeedAuth from '@hook/NeedAuth';
 
 const Layout = lazy(() => import('@pages/Layout/Layout'));
 const MainPage = lazy(() => import('@pages/MainPage/MainPage'));
@@ -13,10 +14,12 @@ const ProfilePage = lazy(() => import('@pages/ProfilePage/ProfilePage'));
 const RegistrationPage = lazy(() => import('@pages/RegistrationPage/RegistrationPage'));
 const ErrorPage = lazy(() => import('@pages/ErrorPage/ErrorPage'));
 
+const loading = <h1>Loading....</h1>;
+
 const routes: RouteObject[] = [
   {
     path: RoutePaths.MAIN,
-    element: <Layout />,
+    element: <Layout fallback={loading} />,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -25,23 +28,43 @@ const routes: RouteObject[] = [
       },
       {
         path: RoutePaths.BASKET,
-        element: <BasketPage />,
+        element: (
+          <NeedAuth fallback={loading}>
+            <BasketPage />
+          </NeedAuth>
+        ),
       },
       {
         path: RoutePaths.LOGIN,
-        element: <LoginPage />,
+        element: (
+          <NeedAuth authType="anonymous" fallback={loading}>
+            <LoginPage />
+          </NeedAuth>
+        ),
       },
       {
         path: RoutePaths.PRODUCT,
-        element: <ProductPage />,
+        element: (
+          <NeedAuth fallback={loading}>
+            <ProductPage />
+          </NeedAuth>
+        ),
       },
       {
         path: RoutePaths.PROFILE,
-        element: <ProfilePage />,
+        element: (
+          <NeedAuth fallback={loading}>
+            <ProfilePage />
+          </NeedAuth>
+        ),
       },
       {
         path: RoutePaths.REGISTRATION,
-        element: <RegistrationPage />,
+        element: (
+          <NeedAuth authType="anonymous" fallback={loading}>
+            <RegistrationPage />
+          </NeedAuth>
+        ),
       },
       {
         path: RoutePaths.ABOUT,
