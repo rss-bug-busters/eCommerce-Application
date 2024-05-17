@@ -1,3 +1,4 @@
+// import 'dotenv/config';
 import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -5,8 +6,16 @@ import sassDts from 'vite-plugin-sass-dts';
 import checker from 'vite-plugin-checker';
 import path from 'node:path';
 import svgr from 'vite-plugin-svgr';
+import { loadEnv } from 'vite';
+import { nodePolyfills } from 'vite-plugin-node-polyfills';
+
+const viteENV = loadEnv('all', process.cwd(), 'VITE_');
 
 const root = import.meta.dirname;
+
+const throwError = (text: string) => {
+  throw new Error(text);
+};
 
 export default defineConfig({
   base: './',
@@ -30,6 +39,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    nodePolyfills(),
     tsconfigPaths(),
     svgr({
       svgrOptions: {
@@ -82,5 +92,25 @@ export default defineConfig({
         'commitlint.config.js',
       ],
     },
+  },
+  define: {
+    VITE_COMMERCETOOLS_PROJECT_KEY:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_PROJECT_KEY) ??
+      throwError('VITE_COMMERCETOOLS_PROJECT_KEY is not defined'),
+    VITE_COMMERCETOOLS_CLIENT_ID:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_CLIENT_ID) ??
+      throwError('VITE_COMMERCETOOLS_CLIENT_ID is not defined'),
+    VITE_COMMERCETOOLS_SECRET:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_SECRET) ??
+      throwError('VITE_COMMERCETOOLS_SECRET is not defined'),
+    VITE_COMMERCETOOLS_SCOPE:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_SCOPE) ??
+      throwError('VITE_COMMERCETOOLS_SCOPE is not defined'),
+    VITE_COMMERCETOOLS_API_URL:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_API_URL) ??
+      throwError('VITE_COMMERCETOOLS_API_URL is not defined'),
+    VITE_COMMERCETOOLS_AUTH_URL:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_AUTH_URL) ??
+      throwError('VITE_COMMERCETOOLS_AUTHURL is not defined'),
   },
 });
