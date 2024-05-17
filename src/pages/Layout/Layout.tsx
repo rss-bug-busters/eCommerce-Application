@@ -1,13 +1,13 @@
 import { FC, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
+import Footer from '@components/Footer/Footer';
 import Header from '../../components/Header';
-import Footer from '../../components/Footer';
 
 const loading = <h1>Loading....</h1>;
 
 const Layout: FC = function () {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Header />
       <main>
         <Suspense fallback={loading}>
@@ -15,7 +15,7 @@ const Layout: FC = function () {
         </Suspense>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
