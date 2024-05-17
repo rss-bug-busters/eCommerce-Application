@@ -103,7 +103,7 @@
             "html": "enforce",
             "custom": "enforce",
             "explicitSpread": "enforce",
-            "exceptions": ["input", "textarea"]
+            "exceptions": ["input", "select", "textarea"]
           }
         ]
       },

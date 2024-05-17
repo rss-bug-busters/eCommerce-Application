@@ -2,19 +2,27 @@ import React from 'react';
 import InputField from '@components/ui/InputField/InputField';
 import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { SignUpFormType } from '@components/Auth/SignUp/SignUpForm/SignUpForm.types';
+import Select from '@components/ui/Select/Select';
 
 interface AddressFieldsProperties {
   errors: FieldErrors<SignUpFormType>;
   register: UseFormRegister<SignUpFormType>;
 }
 
+const countryOptions = [
+  { value: 'PLN', label: 'Poland' },
+  { value: 'BLR', label: 'Belarus' },
+  { value: 'RUS', label: 'Russia' },
+];
+
 const AddressFields: React.FC<AddressFieldsProperties> = function ({ register, errors }) {
   return (
-    <div className="flex flex-wrap gap-x-8 gap-y-3">
-      <InputField
+    <div className="flex flex-wrap gap-8">
+      <Select
         name="address.country"
+        options={countryOptions}
         register={register('address.country')}
-        placeholder="Country"
+        placeholder="Select Country"
         error={errors.address?.country}
       />
       <InputField

@@ -21,9 +21,9 @@ const SignUpForm: FC = function () {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-y-3 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
+      className="flex flex-col items-center gap-8 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
     >
-      <div className="flex flex-wrap gap-x-8 gap-y-3">
+      <div className="flex flex-wrap gap-8">
         <InputField
           name="name"
           register={register('name')}
@@ -35,6 +35,13 @@ const SignUpForm: FC = function () {
           register={register('surname')}
           placeholder="Surname"
           error={errors.surname}
+        />
+        <InputField
+          name="dateOfBirth"
+          register={register('dateOfBirth')}
+          placeholder="Date of birth"
+          error={errors.dateOfBirth}
+          type="date"
         />
         <InputField
           name="email"
@@ -58,7 +65,7 @@ const SignUpForm: FC = function () {
           type="password"
         />
       </div>
-      <h2 className=" text-xl text-center">Address</h2>
+      <h2 className=" text-xl text-center -mb-4">Address</h2>
       <AddressFields errors={errors} register={register} />
       <button
         type="submit"
