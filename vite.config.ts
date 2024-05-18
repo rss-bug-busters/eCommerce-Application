@@ -8,6 +8,7 @@ import path from 'node:path';
 import svgr from 'vite-plugin-svgr';
 import { loadEnv } from 'vite';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 const viteENV = loadEnv('all', process.cwd(), 'VITE_');
 
@@ -22,7 +23,6 @@ export default defineConfig({
   root,
   build: {
     emptyOutDir: true,
-    minify: true,
     outDir: path.resolve(root, 'build'),
     sourcemap: true,
     target: 'es2017',
@@ -39,6 +39,7 @@ export default defineConfig({
     },
   },
   plugins: [
+    react(),
     nodePolyfills(),
     tsconfigPaths(),
     svgr({
@@ -62,7 +63,7 @@ export default defineConfig({
           },
           enableBuild: false,
         }),
-    react(),
+    visualizer(),
   ],
   test: {
     setupFiles: path.resolve(root, 'src/tests/setup.ts'),
@@ -112,5 +113,7 @@ export default defineConfig({
     VITE_COMMERCETOOLS_AUTH_URL:
       JSON.stringify(viteENV.VITE_COMMERCETOOLS_AUTH_URL) ??
       throwError('VITE_COMMERCETOOLS_AUTHURL is not defined'),
+    VITE_COMMERCETOOLS_USE_LOGGER:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_USE_LOGGER) ?? '0',
   },
 });

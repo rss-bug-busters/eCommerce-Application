@@ -4,9 +4,8 @@ import {
   clientId,
   clientSecret,
   projectKey,
-} from '@services/api/client/options/credential';
-import tokenCache from '@services/api/client/utils/tokenCache';
-import fetch from 'cross-fetch';
+} from '@services/api/options/credential';
+import { tokenCache } from '@services/api/utils/tokenCache';
 
 const refreshAuthMiddlewareOptions = (token: string) => {
   const options: RefreshAuthMiddlewareOptions = {

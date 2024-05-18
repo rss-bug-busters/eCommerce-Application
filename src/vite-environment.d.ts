@@ -7,3 +7,4 @@ declare const VITE_COMMERCETOOLS_SECRET: string;
 declare const VITE_COMMERCETOOLS_SCOPE: string;
 declare const VITE_COMMERCETOOLS_API_URL: string;
 declare const VITE_COMMERCETOOLS_AUTH_URL: string;
+declare const VITE_COMMERCETOOLS_USE_LOGGER: '0' | '1';

@@ -10,8 +10,8 @@ const tokenCache: TokenCache = {
   },
 };
 
-export const clear = () => {
+const clearTokenCache = () => {
   localStorage.removeItem(localStorageKey);
 };
 
-export default tokenCache;
+export { tokenCache, clearTokenCache };
