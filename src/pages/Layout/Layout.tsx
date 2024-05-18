@@ -9,7 +9,7 @@ interface LayoutProperties {
 
 const Layout = function ({ fallback }: LayoutProperties) {
   return (
-    <div className="flex flex-col gap-8 min-h-screen">
+    <div className="grid grid-rows-[auto_1fr_auto] min-h-screen gap-8">
       <Header />
       <main className="flex-1">
         <Suspense fallback={fallback}>
