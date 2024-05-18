@@ -19,7 +19,7 @@ const LoginForm: FC = function () {
         const { body } = await getMe();
 
         if (body.authenticationMode === 'Password') {
-          navigate(RoutePaths.MAIN);
+          // navigate(RoutePaths.MAIN);
         }
       } catch (error) {
         console.error('Error during authentication check:', error);
@@ -91,12 +91,13 @@ const LoginForm: FC = function () {
           type="checkbox"
           checked={showPassword}
           onChange={() => setShowPassword((previous: boolean) => !previous)}
-          className="relative left-80 bottom-5"
+          className="relative left-80"
         />
         {/* <label htmlFor="passwordShow">Show Password</label> */}
-        <span className="relative absolute left-80 bottom-5">Show Password</span>
+        <span className="relative absolute left-80 ">Show Password</span>
       </div>
       <button
+        data-testid="login-page-submit-button"
         type="submit"
         className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white"
       >
