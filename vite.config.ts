@@ -115,5 +115,11 @@ export default defineConfig({
       throwError('VITE_COMMERCETOOLS_AUTHURL is not defined'),
     VITE_COMMERCETOOLS_USE_LOGGER:
       JSON.stringify(viteENV.VITE_COMMERCETOOLS_USE_LOGGER) ?? '0',
+    VITE_COMMERCETOOLS_TEST_USER_EMAIL:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_TEST_USER_EMAIL) ??
+      throwError('VITE_COMMERCETOOLS_TEST_USER_EMAIL is not defined'),
+    VITE_COMMERCETOOLS_TEST_USER_PASSWORD:
+      JSON.stringify(viteENV.VITE_COMMERCETOOLS_TEST_USER_PASSWORD) ??
+      throwError('VITE_COMMERCETOOLS_TEST_USER_PASSWORD is not defined'),
   },
 });

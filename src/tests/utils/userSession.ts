@@ -17,11 +17,11 @@ const api = (properties?: BuildClientOptions) =>
     projectKey,
   });
 
-const preparePasswordToken = async () => {
+const preparePasswordToken = async (username: string, password: string) => {
   if (!sessions.password) {
     const credentials = {
-      username: 'testuser@testing.test.com',
-      password: 's53%qpQ"~S=!t#x\\FJuy$v@9mX;*,6:Y`fP\'+7w8',
+      username,
+      password,
     };
 
     await api({
@@ -30,7 +30,8 @@ const preparePasswordToken = async () => {
       .me()
       .get()
       .execute()
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         throw new Error('User password session preparation failed');
       });
 
@@ -54,9 +55,9 @@ const prepareAnonymousToken = async () => {
   }
 };
 
-const userSessionPrepare = async () => {
+const userSessionPrepare = async (username: string, password: string) => {
   clearTokenCache();
-  await preparePasswordToken();
+  await preparePasswordToken(username, password);
   clearTokenCache();
   await prepareAnonymousToken();
   clearTokenCache();
