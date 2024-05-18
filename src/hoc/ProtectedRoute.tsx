@@ -1,12 +1,7 @@
 import { ReactNode, useEffect } from 'react';
-import useUserQueries from '@services/api/hooks/useUserQueries';
-
-import { ClientResponse, Customer } from '@commercetools/platform-sdk';
-import { HttpErrorType } from '@commercetools/sdk-client-v2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
-import { useQuery } from '@tanstack/react-query';
-import QueryKeys from '@utils/consts/QueryKeys';
+import useCurrentUser from '@hooks/useCurrentUser';
 
 interface NeedAuthProperties {
   authorization?: 'password' | 'anonymous';
@@ -15,16 +10,9 @@ interface NeedAuthProperties {
 }
 
 function ProtectedRoute({ children, fallback, authorization }: NeedAuthProperties) {
-  const { user } = useUserQueries();
   const navigate = useNavigate();
   const location = useLocation();
-  const { isSuccess, isError, error } = useQuery<ClientResponse<Customer>, HttpErrorType>(
-    {
-      queryFn: user,
-      queryKey: [QueryKeys.USER],
-      retry: false,
-    }
-  );
+  const { isSuccess, isError, error } = useCurrentUser();
 
   useEffect(() => {
     if (

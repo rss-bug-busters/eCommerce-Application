@@ -58,7 +58,7 @@
       "@types/*": ["src/types/*"],
       "@pages/*": ["src/pages/*"],
 
-      "@hook/*": ["src/hook/*"],
+      "@hoc/*": ["src/hoc/*"],
       "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"],
       "@services/*": ["src/services/*"],
