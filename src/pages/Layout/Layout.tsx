@@ -1,16 +1,18 @@
-import { FC, Suspense } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 
-const loading = <h1>Loading....</h1>;
+interface LayoutProperties {
+  fallback: ReactNode;
+}
 
-const Layout: FC = function () {
+const Layout = function ({ fallback }: LayoutProperties) {
   return (
     <>
       <Header />
       <main>
-        <Suspense fallback={loading}>
+        <Suspense fallback={fallback}>
           <Outlet />
         </Suspense>
       </main>

@@ -58,6 +58,8 @@
       "@types/*": ["src/types/*"],
       "@pages/*": ["src/pages/*"],
 
+      "@hook/*": ["src/hook/*"],
+      "@hooks/*": ["src/hooks/*"],
       "@utils/*": ["src/utils/*"],
       "@services/*": ["src/services/*"],
       "@assets/*": ["src/assets/*"],

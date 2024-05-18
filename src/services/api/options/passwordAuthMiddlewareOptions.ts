@@ -4,10 +4,9 @@ import {
   clientSecret,
   projectKey,
   scopes,
-} from '@services/api/client/options/credential';
-import fetch from 'cross-fetch';
+} from '@services/api/options/credential';
 import { PasswordAuthMiddlewareOptions } from '@commercetools/sdk-client-v2';
-import tokenCache from '@services/api/client/utils/tokenCache';
+import { tokenCache } from '@services/api/utils/tokenCache';
 
 const passwordAuthMiddlewareOptions = ({
   username,

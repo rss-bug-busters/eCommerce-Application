@@ -5,9 +5,8 @@ import {
   clientSecret,
   projectKey,
   scopes,
-} from '@services/api/client/options/credential';
-import fetch from 'cross-fetch';
-import tokenCache from '@services/api/client/utils/tokenCache';
+} from '@services/api/options/credential';
+import { tokenCache } from '@services/api/utils/tokenCache';
 
 const anonymousAuthMiddlewareOptions: AnonymousAuthMiddlewareOptions = {
   host: authUrl,
