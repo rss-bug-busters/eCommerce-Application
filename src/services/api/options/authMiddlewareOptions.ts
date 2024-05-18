@@ -1,4 +1,3 @@
-import fetch from 'cross-fetch';
 import { AuthMiddlewareOptions } from '@commercetools/sdk-client-v2';
 import {
   authUrl,
@@ -6,7 +5,7 @@ import {
   clientSecret,
   projectKey,
   scopes,
-} from '@services/api/client/options/credential';
+} from '@services/api/options/credential';
 
 const authMiddlewareOptions: AuthMiddlewareOptions = {
   host: authUrl,

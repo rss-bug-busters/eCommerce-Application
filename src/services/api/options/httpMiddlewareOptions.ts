@@ -1,6 +1,5 @@
-import fetch from 'cross-fetch';
 import { HttpMiddlewareOptions } from '@commercetools/sdk-client-v2';
-import { apiUrl } from '@services/api/client/options/credential';
+import { apiUrl } from '@services/api/options/credential';
 
 const httpMiddlewareOptions: HttpMiddlewareOptions = {
   host: apiUrl,

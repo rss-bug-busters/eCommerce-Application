@@ -1,12 +1,15 @@
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
-import makeClient, { MakeClientOptions } from '@services/api/client/client';
-import { projectKey } from '@services/api/client/options/credential';
+import useClient from '@services/api/hooks/useClient';
+import { projectKey } from '@services/api/options/credential';
+import { BuildClientOptions } from '@services/api/utils/buildClient';
 
-const apiRoot = (properties?: MakeClientOptions) =>
-  createApiBuilderFromCtpClient(makeClient(properties)).withProjectKey({
-    projectKey,
-  });
+const useApi = () => {
+  const apiClient = useClient();
 
-const useApi = () => ({ apiRoot });
+  return (properties?: BuildClientOptions) =>
+    createApiBuilderFromCtpClient(apiClient(properties)).withProjectKey({
+      projectKey,
+    });
+};
 
 export default useApi;
