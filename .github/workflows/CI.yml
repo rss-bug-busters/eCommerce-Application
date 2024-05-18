@@ -34,6 +34,9 @@ jobs:
       - name: 🔨 install packedge
         run: yarn install --immutable
 
+      - name: 👍 Typescript checks
+        run: yarn tsc
+
       - name: 🔍 ESlint
         run: yarn lint
 
