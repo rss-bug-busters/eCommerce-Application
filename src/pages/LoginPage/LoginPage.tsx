@@ -1,12 +1,10 @@
+import Login from '@components/Login/Login';
 import { FC } from 'react';
-import LoginForm from './loginForm';
 
 const LoginPage: FC = function () {
   return (
-    <div className="login-page" data-testid="login-page">
-      <div className="login-container">
-        <LoginForm />
-      </div>
+    <div data-testid="login-page">
+      <Login />
     </div>
   );
 };
