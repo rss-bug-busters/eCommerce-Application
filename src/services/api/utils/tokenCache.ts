@@ -7,7 +7,7 @@ const tokenCache: TokenCache = {
     try {
       return JSON.parse(localStorage.getItem(localStorageKey) ?? '{}') as TokenStore;
     } catch {
-      return {};
+      return {} as TokenStore;
     }
   },
   set: (cache) => {
