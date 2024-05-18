@@ -1,24 +1,52 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputField from '@components/ui/inputField/InputField';
+import useUser from '@services/api/hooks/useUser';
+import RoutePaths from '@utils/consts/RoutePaths';
 import { LoginFormSchema, LoginFormType } from './LoginValidation/LoginValidation.types';
-// import useUser from '@services/api/hooks/useUser';
-
-const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
-  // useUser().login(data.email,data.password)
-  console.log(data);
-};
 
 const LoginForm: FC = function () {
   const [showPassword, setShowPassword] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | undefined>();
+  const { login } = useUser();
+  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm<LoginFormType>({
     resolver: zodResolver(LoginFormSchema),
   });
+
+  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
+    try {
+      setErrorMessage(undefined);
+      const response = await login(data.email, data.password);
+      const { statusCode } = response;
+
+      if (statusCode === 200) {
+        const { body } = response;
+
+        navigate(RoutePaths.MAIN);
+        console.log(body);
+      }
+    } catch (error) {
+      const errorServerMessage = error instanceof Error ? error.message : String(error);
+
+      setErrorMessage(errorServerMessage);
+    }
+  };
+
+  useEffect(() => {
+    const subscription = watch(() => {
+      setErrorMessage(undefined);
+    });
+
+    return () => subscription.unsubscribe();
+  }, [watch]);
 
   return (
     <form
@@ -44,10 +72,10 @@ const LoginForm: FC = function () {
           type="checkbox"
           checked={showPassword}
           onChange={() => setShowPassword((previous: boolean) => !previous)}
-          id="passwordShow"
+          className="relative left-80 bottom-5"
         />
         {/* <label htmlFor="passwordShow">Show Password</label> */}
-        <span>Show Password</span>
+        <span className="relative absolute left-80 bottom-5">Show Password</span>
       </div>
       <button
         type="submit"
@@ -55,6 +83,7 @@ const LoginForm: FC = function () {
       >
         Sign In
       </button>
+      <p className="text-red-600">{errorMessage}</p>
     </form>
   );
 };
