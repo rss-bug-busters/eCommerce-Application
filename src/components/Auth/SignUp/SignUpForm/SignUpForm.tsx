@@ -21,9 +21,9 @@ const SignUpForm: FC = function () {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-8 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
+      className="flex flex-col p-5 items-center gap-8 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
     >
-      <div className="flex flex-wrap gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <InputField
           name="name"
           register={register('name')}

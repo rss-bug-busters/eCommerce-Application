@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 const Header: FC = function () {
   return (
     <header className="sticky flex justify-between items-center bg-slate-50 z-50 top-0 p-4 border-b shadow-2xl">
-      <h1 className="text-3xl font-bold text-gray-700">eCommerce</h1>
+      <Link to={RoutePaths.MAIN}>
+        <h1 className="text-3xl font-bold text-gray-700">eCommerce</h1>
+      </Link>
       <div className="flex items-center justify-center gap-4">
         <Link to={RoutePaths.MAIN} className="font-bold text-blue-900 cursor-pointer">
           Home

@@ -17,7 +17,7 @@ const countryOptions = [
 
 const AddressFields: React.FC<AddressFieldsProperties> = function ({ register, errors }) {
   return (
-    <div className="flex flex-wrap gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 flex-wrap gap-8">
       <Select
         name="address.country"
         options={countryOptions}
