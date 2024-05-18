@@ -110,7 +110,7 @@ dist
 
 #idea
 .idea
-..vscode
+.vscode
 
 #husky
 .husky/_
