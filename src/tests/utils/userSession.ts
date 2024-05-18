@@ -18,8 +18,6 @@ const api = (properties?: BuildClientOptions) =>
   });
 
 const preparePasswordToken = async (username: string, password: string) => {
-  console.log(`"${username}"`, `"${password}"`);
-
   if (!sessions.password) {
     const credentials = {
       username,
