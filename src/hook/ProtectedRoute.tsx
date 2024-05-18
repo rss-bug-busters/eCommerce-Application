@@ -1,48 +1,54 @@
 import { ReactNode, useEffect } from 'react';
-import useUser from '@services/api/hooks/useUser';
-import { useQuery } from '@tanstack/react-query';
+import useUserQueries from '@services/api/hooks/useUserQueries';
+
 import { ClientResponse, Customer } from '@commercetools/platform-sdk';
 import { HttpErrorType } from '@commercetools/sdk-client-v2';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
+import { useQuery } from '@tanstack/react-query';
+import QueryKeys from '@utils/consts/QueryKeys';
 
 interface NeedAuthProperties {
-  authType?: 'password' | 'anonymous';
+  authorization?: 'password' | 'anonymous';
   children: ReactNode;
   fallback: ReactNode;
 }
 
-function NeedAuth({ children, fallback, authType = 'password' }: NeedAuthProperties) {
-  const { getMe: userQuery } = useUser();
+function ProtectedRoute({ children, fallback, authorization }: NeedAuthProperties) {
+  const { user } = useUserQueries();
   const navigate = useNavigate();
   const location = useLocation();
   const { isSuccess, isError, error } = useQuery<ClientResponse<Customer>, HttpErrorType>(
     {
-      queryFn: userQuery,
-      queryKey: ['user'],
+      queryFn: user,
+      queryKey: [QueryKeys.USER],
       retry: false,
     }
   );
 
   useEffect(() => {
-    if (error?.statusCode === 403 && isError && authType === 'password') {
+    if (
+      (error?.statusCode === 403 || error?.statusCode === 401) &&
+      isError &&
+      authorization === 'password'
+    ) {
       navigate(RoutePaths.LOGIN, {
         state: {
           from: location,
         },
       });
     }
-  }, [error, isError, location, navigate, authType]);
+  }, [error, isError, location, navigate, authorization]);
 
   useEffect(() => {
-    if (authType === 'anonymous' && isSuccess) {
+    if (authorization === 'anonymous' && isSuccess) {
       navigate(RoutePaths.MAIN, {
         state: {
           from: location,
         },
       });
     }
-  }, [isSuccess, location, navigate, authType]);
+  }, [isSuccess, location, navigate, authorization]);
 
   if (isError || isSuccess) {
     return children;
@@ -51,4 +57,4 @@ function NeedAuth({ children, fallback, authType = 'password' }: NeedAuthPropert
   return fallback;
 }
 
-export default NeedAuth;
+export default ProtectedRoute;

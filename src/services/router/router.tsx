@@ -2,8 +2,8 @@ import { createBrowserRouter, RouteObject } from 'react-router-dom';
 
 import { lazy } from 'react';
 import RoutePaths from '@utils/consts/RoutePaths';
-import NeedAuth from '@hook/NeedAuth';
 
+const ProtectedRoute = lazy(() => import('@hook/ProtectedRoute'));
 const Layout = lazy(() => import('@pages/Layout/Layout'));
 const MainPage = lazy(() => import('@pages/MainPage/MainPage'));
 const BasketPage = lazy(() => import('@pages/BasketPage/BasketPage'));
@@ -27,48 +27,44 @@ const routes: RouteObject[] = [
         element: <MainPage />,
       },
       {
-        path: RoutePaths.BASKET,
-        element: (
-          <NeedAuth fallback={loading}>
-            <BasketPage />
-          </NeedAuth>
-        ),
+        path: RoutePaths.ABOUT,
+        element: <AboutPage />,
+      },
+      {
+        path: RoutePaths.PRODUCT,
+        element: <ProductPage />,
       },
       {
         path: RoutePaths.LOGIN,
         element: (
-          <NeedAuth authType="anonymous" fallback={loading}>
+          <ProtectedRoute authorization="anonymous" fallback={loading}>
             <LoginPage />
-          </NeedAuth>
-        ),
-      },
-      {
-        path: RoutePaths.PRODUCT,
-        element: (
-          <NeedAuth fallback={loading}>
-            <ProductPage />
-          </NeedAuth>
-        ),
-      },
-      {
-        path: RoutePaths.PROFILE,
-        element: (
-          <NeedAuth fallback={loading}>
-            <ProfilePage />
-          </NeedAuth>
+          </ProtectedRoute>
         ),
       },
       {
         path: RoutePaths.REGISTRATION,
         element: (
-          <NeedAuth authType="anonymous" fallback={loading}>
+          <ProtectedRoute authorization="anonymous" fallback={loading}>
             <RegistrationPage />
-          </NeedAuth>
+          </ProtectedRoute>
         ),
       },
       {
-        path: RoutePaths.ABOUT,
-        element: <AboutPage />,
+        path: RoutePaths.BASKET,
+        element: (
+          <ProtectedRoute authorization="password" fallback={loading}>
+            <BasketPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: RoutePaths.PROFILE,
+        element: (
+          <ProtectedRoute authorization="password" fallback={loading}>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },
