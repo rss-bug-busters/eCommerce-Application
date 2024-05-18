@@ -3,26 +3,45 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { routes } from '@services/router/router';
 import RoutePaths from '@utils/consts/RoutePaths';
 import { test, expect } from 'vitest';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { applyUserSession } from '@tests/utils/userSession';
 
 const routeIsRenderedByTestId = ({
   route,
-  testName,
   testId,
+  needAuth = false,
+  testName = 'render',
 }: {
+  needAuth?: boolean;
   route: RoutePaths | string;
   testId: string;
-  testName: string;
+  testName?: string;
 }) => {
-  test(`${testName} (${route})`, async () => {
+  test(`${testName} (${route}) with ${needAuth ? 'auth' : 'no auth'}`, async () => {
     const router = createMemoryRouter(routes, {
       initialEntries: [RoutePaths.MAIN, route],
       initialIndex: 1,
     });
 
-    render(<RouterProvider router={router} />);
+    function RenderElement() {
+      const queryClient = new QueryClient();
+
+      applyUserSession(needAuth ? 'password' : 'anonymous');
+
+      return (
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider
+            fallbackElement={<h1>Loading....</h1>}
+            router={router}
+            future={{ v7_startTransition: true }}
+          />
+        </QueryClientProvider>
+      );
+    }
+    render(<RenderElement />);
 
     await waitFor(() => screen.getByTestId(testId));
-    expect(screen.getByTestId(testId));
+    expect(screen.getByTestId(testId)).toBeTruthy();
   });
 };
 
