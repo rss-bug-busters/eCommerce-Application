@@ -10,8 +10,27 @@ import { LoginFormSchema, LoginFormType } from './LoginValidation/LoginValidatio
 const LoginForm: FC = function () {
   const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
-  const { login } = useUser();
+  const { login, getMe } = useUser();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const checkLoggedStatus = async () => {
+      try {
+        const { body } = await getMe();
+
+        if (body.authenticationMode === 'Password') {
+          navigate(RoutePaths.MAIN);
+        }
+      } catch (error) {
+        console.error('Error during authentication check:', error);
+      }
+    };
+
+    checkLoggedStatus().catch((error) =>
+      console.error('Error in checkLoggedStatus:', error)
+    );
+  }, [getMe, navigate]);
+
   const {
     register,
     handleSubmit,
