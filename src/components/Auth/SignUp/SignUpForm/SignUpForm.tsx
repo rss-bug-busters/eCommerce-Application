@@ -8,6 +8,7 @@ import { MyCustomerDraft } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import Spinner from '@assets/svg/spinner.svg?react';
+import { toast } from 'react-toastify';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
 
 const SignUpForm: FC = function () {
@@ -19,7 +20,6 @@ const SignUpForm: FC = function () {
     resolver: zodResolver(SignUpFormSchema),
   });
   const { register: signUp, login } = useUserQueries();
-  const [submitError, setSubmitError] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -37,13 +37,19 @@ const SignUpForm: FC = function () {
 
     try {
       setIsLoading(true);
-      setSubmitError('');
-      await signUp(newUser);
+      const prom = async () => signUp(newUser);
+
+      await toast.promise(prom, {
+        pending: 'Creating account...',
+        success: 'Account created successfully!',
+        error: 'Failed to create account',
+      });
+
       await login(email, password);
       navigate(RoutePaths.MAIN);
     } catch (error) {
       if (error instanceof Error) {
-        setSubmitError(error.message);
+        toast.error(error.message);
       }
     } finally {
       setIsLoading(false);
@@ -106,7 +112,6 @@ const SignUpForm: FC = function () {
         {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
       </button>
-      {submitError && <p className="text-red-600">{submitError}</p>}
     </form>
   );
 };
