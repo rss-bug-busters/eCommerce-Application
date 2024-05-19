@@ -37,7 +37,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.LOGIN,
         element: (
-          <ProtectedRoute authorization="anonymous" fallback={loading}>
+          <ProtectedRoute authorization="anonymous">
             <LoginPage />
           </ProtectedRoute>
         ),
@@ -45,7 +45,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.REGISTRATION,
         element: (
-          <ProtectedRoute authorization="anonymous" fallback={loading}>
+          <ProtectedRoute authorization="anonymous">
             <RegistrationPage />
           </ProtectedRoute>
         ),
@@ -53,7 +53,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.BASKET,
         element: (
-          <ProtectedRoute authorization="password" fallback={loading}>
+          <ProtectedRoute authorization="password">
             <BasketPage />
           </ProtectedRoute>
         ),
@@ -61,7 +61,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.PROFILE,
         element: (
-          <ProtectedRoute authorization="password" fallback={loading}>
+          <ProtectedRoute authorization="password">
             <ProfilePage />
           </ProtectedRoute>
         ),
