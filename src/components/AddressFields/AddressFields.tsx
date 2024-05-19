@@ -10,9 +10,9 @@ interface AddressFieldsProperties {
 }
 
 const countryOptions = [
-  { value: 'PLN', label: 'Poland' },
-  { value: 'BLR', label: 'Belarus' },
-  { value: 'RUS', label: 'Russia' },
+  { value: 'PL', label: 'Poland' },
+  { value: 'BY', label: 'Belarus' },
+  { value: 'RU', label: 'Russia' },
 ];
 
 const AddressFields: React.FC<AddressFieldsProperties> = function ({ register, errors }) {
@@ -33,9 +33,9 @@ const AddressFields: React.FC<AddressFieldsProperties> = function ({ register, e
       />
       <InputField
         name="address.street"
-        register={register('address.street')}
+        register={register('address.streetName')}
         placeholder="Street"
-        error={errors.address?.street}
+        error={errors.address?.streetName}
       />
       <InputField
         name="address.postalCode"

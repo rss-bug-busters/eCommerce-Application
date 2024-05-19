@@ -30,16 +30,12 @@ export const SignUpFormSchema = z
         message: `You must be at least ${MIN_AGE} years old`,
       }),
     address: z.object({
-      country: z.enum(['PLN', 'BLR', 'RUS'], { message: 'Country is required' }),
-      // .refine(
-      //   (postalCode, context) => validatePostalCode(context.parent.country, postalCode),
-      //   { message: 'Invalid postal code for selected country' }
-      // ),
+      country: z.enum(['PL', 'BY', 'RU'], { message: 'Country is required' }),
       city: z
         .string()
         .min(1, { message: 'City is required' })
         .regex(/[A-zА-я]*$/, { message: 'City must contain only letters' }),
-      street: z.string().min(1, { message: 'Street is required' }),
+      streetName: z.string().min(1, { message: 'Street is required' }),
       postalCode: z.string().min(1, { message: 'Postal code is required' }),
     }),
   })

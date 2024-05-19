@@ -1,13 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import InputField from '@components/ui/InputField/InputField';
 import AddressFields from '@components/AddressFields/AddressFields';
+import useUserQueries from '@services/api/hooks/useUserQueries';
+import { MyCustomerDraft } from '@commercetools/platform-sdk';
+import { useNavigate } from 'react-router-dom';
+import RoutePaths from '@utils/consts/RoutePaths';
+import Spinner from '@assets/svg/spinner.svg?react';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
-
-const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
-  console.log(data);
-};
 
 const SignUpForm: FC = function () {
   const {
@@ -17,6 +18,37 @@ const SignUpForm: FC = function () {
   } = useForm<SignUpFormType>({
     resolver: zodResolver(SignUpFormSchema),
   });
+  const { register: signUp, login } = useUserQueries();
+  const [submitError, setSubmitError] = useState<string>('');
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const navigate = useNavigate();
+
+  const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
+    const { name, surname, dateOfBirth, email, password, address } = data;
+
+    const newUser: MyCustomerDraft = {
+      email,
+      password,
+      firstName: name,
+      lastName: surname,
+      dateOfBirth,
+      addresses: [address],
+    };
+
+    try {
+      setIsLoading(true);
+      setSubmitError('');
+      await signUp(newUser);
+      await login(email, password);
+      navigate(RoutePaths.MAIN);
+    } catch (error) {
+      if (error instanceof Error) {
+        setSubmitError(error.message);
+      }
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <form
@@ -71,8 +103,10 @@ const SignUpForm: FC = function () {
         type="submit"
         className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white"
       >
+        {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
       </button>
+      {submitError && <p className="text-red-600">{submitError}</p>}
     </form>
   );
 };
