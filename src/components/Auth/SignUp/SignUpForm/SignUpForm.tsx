@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { FC, useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import InputField from '@components/ui/InputField/InputField';
 import AddressFields from '@components/AddressFields/AddressFields';
 import useUserQueries from '@services/api/hooks/useUserQueries';
@@ -16,15 +16,39 @@ const SignUpForm: FC = function () {
     register,
     handleSubmit,
     formState: { errors },
+    control,
+    setValue,
   } = useForm<SignUpFormType>({
     resolver: zodResolver(SignUpFormSchema),
   });
   const { register: signUp, login } = useUserQueries();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
+  const [useSameAddress, setUseSameAddress] = useState(true);
+
+  const shipping = useWatch({
+    control,
+    name: 'shippingAddress',
+  });
+
+  const handleUseSameAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUseSameAddress(event.target.checked);
+
+    if (event.target.checked) {
+      setValue('billingAddress', shipping);
+    }
+  };
 
   const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
-    const { name, surname, dateOfBirth, email, password, address } = data;
+    const {
+      name,
+      surname,
+      dateOfBirth,
+      email,
+      password,
+      shippingAddress,
+      billingAddress,
+    } = data;
 
     const newUser: MyCustomerDraft = {
       email,
@@ -32,7 +56,9 @@ const SignUpForm: FC = function () {
       firstName: name,
       lastName: surname,
       dateOfBirth,
-      addresses: [address],
+      addresses: useSameAddress ? [shippingAddress] : [shippingAddress, billingAddress],
+      defaultBillingAddress: useSameAddress ? 0 : 1,
+      defaultShippingAddress: 0,
     };
 
     try {
@@ -59,7 +85,7 @@ const SignUpForm: FC = function () {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-8 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
+      className="flex flex-col items-center gap-6 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
     >
       <div className="flex flex-wrap gap-8">
         <InputField
@@ -103,8 +129,28 @@ const SignUpForm: FC = function () {
           type="password"
         />
       </div>
-      <h2 className=" text-xl text-center -mb-4">Address</h2>
-      <AddressFields errors={errors} register={register} />
+      <h2 className=" text-xl text-center -mb-4">Shipping Address</h2>
+      <div className="flex flex-col items-center">
+        <AddressFields errors={errors} register={register} prefix="shippingAddress" />
+        <label htmlFor="useSameAddress" className="flex items-center mt-4 cursor-pointer">
+          <input
+            className="w-4 h-4 accent-green-700"
+            id="useSameAddress"
+            type="checkbox"
+            checked={useSameAddress}
+            onChange={handleUseSameAddressChange}
+          />
+          <span className="ml-2 text-orange-900 text-lg font-semibold">
+            Use same address for billing
+          </span>
+        </label>
+      </div>
+      {!useSameAddress && (
+        <>
+          <h2 className="text-xl text-center -mb-4">Billing Address</h2>
+          <AddressFields errors={errors} register={register} prefix="billingAddress" />
+        </>
+      )}
       <button
         type="submit"
         className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white"

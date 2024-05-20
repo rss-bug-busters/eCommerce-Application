@@ -1,5 +1,5 @@
+import { AddressSchema } from '@components/AddressFields/AddressFields.types';
 import diffInYears from '@utils/dates';
-import { validatePostalCode } from '@utils/validation';
 import { z } from 'zod';
 
 const nameCheck = (name: string) =>
@@ -29,23 +29,13 @@ export const SignUpFormSchema = z
       .refine((date) => diffInYears(new Date(), new Date(date)) >= MIN_AGE, {
         message: `You must be at least ${MIN_AGE} years old`,
       }),
-    address: z.object({
-      country: z.enum(['PL', 'BY', 'RU'], { message: 'Country is required' }),
-      city: z
-        .string()
-        .min(1, { message: 'City is required' })
-        .regex(/[A-zА-я]*$/, { message: 'City must contain only letters' }),
-      streetName: z.string().min(1, { message: 'Street is required' }),
-      postalCode: z.string().min(1, { message: 'Postal code is required' }),
-    }),
+    shippingAddress: AddressSchema,
+    billingAddress: AddressSchema,
+    useSameAddress: z.boolean().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',
     path: ['confirmPassword'],
-  })
-  .refine((data) => validatePostalCode(data.address.country, data.address.postalCode), {
-    message: 'Invalid postal code for selected country',
-    path: ['address', 'postalCode'],
   });
 
 export type SignUpFormType = z.infer<typeof SignUpFormSchema>;
