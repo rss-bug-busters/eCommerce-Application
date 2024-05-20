@@ -13,7 +13,7 @@ export const AddressSchema = z
   })
   .refine((data) => validatePostalCode(data.country, data.postalCode), {
     message: 'Invalid postal code for selected country',
-    path: ['address', 'postalCode'],
+    path: ['postalCode'],
   });
 
 export type AddressType = z.infer<typeof AddressSchema>;

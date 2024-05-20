@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import InputField from '@components/ui/InputField/InputField';
 import AddressFields from '@components/AddressFields/AddressFields';
@@ -117,7 +117,11 @@ const SignUpForm: FC = function () {
     }
   };
 
-  // setValue('billingAddress', shipping);
+  useEffect(() => {
+    if (useSameAddress) {
+      setValue('billingAddress', shipping);
+    }
+  }, [setValue, shipping, useSameAddress]);
 
   return (
     <form
