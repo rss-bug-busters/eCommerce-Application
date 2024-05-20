@@ -32,6 +32,8 @@ export const SignUpFormSchema = z
     shippingAddress: AddressSchema,
     billingAddress: AddressSchema,
     useSameAddress: z.boolean().optional(),
+    isDefaultShipping: z.boolean().optional(),
+    isDefaultBilling: z.boolean().optional(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: 'Passwords do not match',

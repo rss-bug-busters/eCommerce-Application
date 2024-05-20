@@ -49,11 +49,47 @@ const useUserQueries = () => {
 
   const user = async () => api().me().get().execute();
 
+  const addShippingAddress = async (addressKey: string, version: number) =>
+    api()
+      .me()
+      .post({
+        body: {
+          actions: [
+            {
+              action: 'addShippingAddressId',
+              addressKey,
+            },
+          ],
+          version,
+        },
+      })
+      .execute()
+      .then(user);
+
+  const addBillingAddress = async (addressKey: string, version: number) =>
+    api()
+      .me()
+      .post({
+        body: {
+          actions: [
+            {
+              action: 'addBillingAddressId',
+              addressKey,
+            },
+          ],
+          version,
+        },
+      })
+      .execute()
+      .then(user);
+
   return {
     user,
     register,
     login,
     logout,
+    addShippingAddress,
+    addBillingAddress,
   };
 };
 
