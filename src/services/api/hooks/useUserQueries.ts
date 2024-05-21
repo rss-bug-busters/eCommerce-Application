@@ -12,7 +12,7 @@ const useUserQueries = () => {
     await client.resetQueries();
   };
 
-  const login = async (email: string, password: string) => {
+  const login = async ({ email, password }: { email: string; password: string }) => {
     const oldToken = tokenCache.get();
 
     return api({ user: { password, username: email } })
@@ -45,7 +45,14 @@ const useUserQueries = () => {
           .me()
           .get()
           .execute()
-      );
+      )
+      .then(async (resp) => {
+        if (resp.statusCode === 200) {
+          await client.resetQueries();
+        }
+
+        return resp;
+      });
 
   const user = async () => api().me().get().execute();
 

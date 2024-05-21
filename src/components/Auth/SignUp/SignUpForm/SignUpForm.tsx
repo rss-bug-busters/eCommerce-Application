@@ -94,7 +94,7 @@ const SignUpForm: FC = function () {
         error: 'Failed to create account',
       });
 
-      await login(email, password);
+      await login({ email, password });
 
       if (newShipping.key) {
         const { body } = await addShippingAddress(newShipping.key, userResp.body.version);
