@@ -47,7 +47,7 @@ const useUserQueries = () => {
           .execute()
       )
       .then(async (response) => {
-        if (response.statusCode === 201) {
+        if (response.statusCode === 200) {
           await client.resetQueries();
         }
 
