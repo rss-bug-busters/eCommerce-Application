@@ -21,12 +21,7 @@ const SignUpForm: FC = function () {
   } = useForm<SignUpFormType>({
     resolver: zodResolver(SignUpFormSchema),
   });
-  const {
-    register: signUp,
-    login,
-    addShippingAddress,
-    addBillingAddress,
-  } = useUserQueries();
+  const { register: signUp, addShippingAddress, addBillingAddress } = useUserQueries();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const navigate = useNavigate();
   const [useSameAddress, setUseSameAddress] = useState(true);
@@ -93,8 +88,6 @@ const SignUpForm: FC = function () {
         success: 'Account created successfully!',
         error: 'Failed to create account',
       });
-
-      await login({ email, password });
 
       if (newShipping.key) {
         const { body } = await addShippingAddress(newShipping.key, userResp.body.version);
