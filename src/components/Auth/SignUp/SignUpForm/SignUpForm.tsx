@@ -125,10 +125,11 @@ const SignUpForm: FC = function () {
 
   return (
     <form
+      noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-6 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
+      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl border border-gray-200 rounded-xl m-auto"
     >
-      <div className="flex flex-wrap gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
         <InputField
           name="name"
           register={register('name')}
@@ -171,11 +172,8 @@ const SignUpForm: FC = function () {
         />
       </div>
       <div className="flex items-center gap-x-2">
-        <h2 className=" text-xl text-center -mb-4">Shipping Address</h2>
-        <label
-          htmlFor="isDefaultShipping"
-          className="flex items-center mt-4 cursor-pointer"
-        >
+        <h2 className=" text-xl text-center">Shipping Address</h2>
+        <label htmlFor="isDefaultShipping" className="flex items-center cursor-pointer">
           (
           <input
             {...register('isDefaultShipping')}
@@ -207,10 +205,10 @@ const SignUpForm: FC = function () {
       {!useSameAddress && (
         <>
           <div className="flex items-center gap-x-2">
-            <h2 className=" text-xl text-center -mb-4">Billing Address</h2>
+            <h2 className=" text-xl text-center">Billing Address</h2>
             <label
               htmlFor="isDefaultBilling"
-              className="flex items-center mt-4 cursor-pointer"
+              className="flex items-center cursor-pointer"
             >
               (
               <input
@@ -230,7 +228,7 @@ const SignUpForm: FC = function () {
       )}
       <button
         type="submit"
-        className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white"
+        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white"
       >
         {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
