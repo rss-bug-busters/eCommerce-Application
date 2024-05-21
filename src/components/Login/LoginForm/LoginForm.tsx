@@ -20,7 +20,6 @@ const LoginForm: FC = function () {
   } = useForm<LoginFormType>({
     resolver: zodResolver(LoginFormSchema),
   });
-
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     try {
       setErrorMessage(undefined);
@@ -56,7 +55,7 @@ const LoginForm: FC = function () {
           register={register('email')}
           placeholder="Email"
           error={errors.email}
-          type="email"
+          type="text"
         />
         <InputField
           name="password"
