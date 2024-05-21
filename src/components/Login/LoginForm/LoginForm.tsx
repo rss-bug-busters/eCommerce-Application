@@ -2,13 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import InputField from '@components/ui/inputField/InputField';
+import InputField from '@components/ui/InputField/InputField';
 import useUserQueries from '@services/api/hooks/useUserQueries';
 import RoutePaths from '@utils/consts/RoutePaths';
 import { LoginFormSchema, LoginFormType } from './LoginValidation/LoginValidation.types';
 
 const LoginForm: FC = function () {
-  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | undefined>();
   const { login } = useUserQueries();
   const navigate = useNavigate();
@@ -29,10 +28,7 @@ const LoginForm: FC = function () {
       const { statusCode } = response;
 
       if (statusCode === 200) {
-        const { body } = response;
-
         navigate(RoutePaths.MAIN);
-        console.log(body);
       }
     } catch (error) {
       const errorServerMessage = error instanceof Error ? error.message : String(error);
@@ -52,9 +48,9 @@ const LoginForm: FC = function () {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-8 max-w-xl border border-gray-200 rounded-xl p-2 m-auto"
+      className="flex flex-col items-center gap-8 p-5 border border-gray-200 rounded-xl m-auto"
     >
-      <div className="flex flex-wrap gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
         <InputField
           name="email"
           register={register('email')}
@@ -67,16 +63,8 @@ const LoginForm: FC = function () {
           register={register('password')}
           placeholder="Password"
           error={errors.password}
-          type={showPassword ? 'text' : 'password'}
+          type="password"
         />
-        <input
-          type="checkbox"
-          checked={showPassword}
-          onChange={() => setShowPassword((previous: boolean) => !previous)}
-          className="relative left-80"
-        />
-        {/* <label htmlFor="passwordShow">Show Password</label> */}
-        <span className="relative left-80 ">Show Password</span>
       </div>
       <button
         data-testid="login-page-submit-button"
