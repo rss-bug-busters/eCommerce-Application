@@ -3,7 +3,7 @@ import { createBrowserRouter, RouteObject } from 'react-router-dom';
 import { lazy } from 'react';
 import RoutePaths from '@utils/consts/RoutePaths';
 
-const ProtectedRoute = lazy(() => import('@hook/ProtectedRoute'));
+const ProtectedRoute = lazy(() => import('@hoc/ProtectedRoute'));
 const Layout = lazy(() => import('@pages/Layout/Layout'));
 const MainPage = lazy(() => import('@pages/MainPage/MainPage'));
 const BasketPage = lazy(() => import('@pages/BasketPage/BasketPage'));
