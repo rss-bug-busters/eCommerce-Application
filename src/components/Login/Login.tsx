@@ -6,12 +6,14 @@ import LoginForm from './LoginForm/LoginForm';
 const Login: FC = function () {
   return (
     <div className="flex flex-col items-center justify-center gap-3">
-      <h1 className="text-4xl font-bold text-gray-700">Sign In</h1>
+      <h1 className="text-4xl font-bold text-gray-700 dark:text-white">Sign In</h1>
       <div className="flex items-center justify-center">
-        <span className="text-sm text-gray-500">Dont have an account?</span>
+        <span className="text-sm dark:text-white/65 text-gray-500">
+          Dont have an account?
+        </span>
         <Link
           to={RoutePaths.REGISTRATION}
-          className="font-bold text-blue-900 ml-2 cursor-pointer"
+          className="font-bold text-blue-900 dark:text-white ml-2 cursor-pointer"
         >
           Sign Up
         </Link>

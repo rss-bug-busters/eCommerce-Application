@@ -172,7 +172,7 @@ const SignUpForm: FC = function () {
         />
       </div>
       <div className="flex items-center gap-x-2">
-        <h2 className=" text-xl text-center">Shipping Address</h2>
+        <h2 className=" text-xl text-center dark:text-white">Shipping Address</h2>
         <label htmlFor="isDefaultShipping" className="flex items-center cursor-pointer">
           (
           <input
@@ -205,7 +205,7 @@ const SignUpForm: FC = function () {
       {!useSameAddress && (
         <>
           <div className="flex items-center gap-x-2">
-            <h2 className=" text-xl text-center">Billing Address</h2>
+            <h2 className=" text-xl text-center dark:text-white">Billing Address</h2>
             <label
               htmlFor="isDefaultBilling"
               className="flex items-center cursor-pointer"
@@ -228,7 +228,7 @@ const SignUpForm: FC = function () {
       )}
       <button
         type="submit"
-        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white"
+        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white  dark:bg-blue-600 dark:hover:bg-blue-700"
       >
         {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up

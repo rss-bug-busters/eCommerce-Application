@@ -48,9 +48,9 @@ const LoginForm: FC = function () {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col items-center gap-8 p-5 border border-gray-200 rounded-xl m-auto"
+      className="flex flex-col items-center gap-8 p-5 border border-gray-200 rounded-xl m-auto dark:bg-stone-900"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+      <div className="grid grid-cols-1 gap-5 md:gap-8">
         <InputField
           name="email"
           register={register('email')}
@@ -69,7 +69,7 @@ const LoginForm: FC = function () {
       <button
         data-testid="login-page-submit-button"
         type="submit"
-        className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white"
+        className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white dark:bg-blue-600 dark:hover:bg-blue-700"
       >
         Sign In
       </button>
