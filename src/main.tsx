@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 import { router } from '@services/router/router';
-import './tailwindcss.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import './tailwindcss.css';
 import spa from '@utils/spa';
 import Loader from '@components/ui/Loader/Loader';
 

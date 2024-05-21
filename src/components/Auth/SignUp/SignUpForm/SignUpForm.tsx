@@ -79,36 +79,39 @@ const SignUpForm: FC = function () {
       ...(useAsDefaultBilling ? { defaultBillingAddress: useSameAddress ? 0 : 1 } : {}),
     };
 
-    try {
-      setIsLoading(true);
-      toast.dismiss();
-      const prom = async () => signUp(newUser);
+    setIsLoading(true);
+    toast.dismiss();
+    const prom = async () => signUp(newUser);
 
-      const userResp = await toast.promise(prom, {
-        pending: 'Creating account...',
-        success: 'Account created successfully!',
-        error: 'Failed to create account',
-      });
+    const userResp = await toast.promise(prom, {
+      pending: 'Creating account...',
+      success: 'Account created successfully!',
+      error: {
+        render({ data: error }) {
+          setIsLoading(false);
 
-      if (newShipping.key) {
-        const { body } = await addShippingAddress(newShipping.key, userResp.body.version);
+          if (error instanceof Error) {
+            return `Failed: ${error.message}`;
+          }
 
-        if (newBilling.key) {
-          await addBillingAddress(
-            useSameAddress ? newShipping.key : newBilling.key,
-            body.version
-          );
-        }
+          return 'Failed to create account';
+        },
+      },
+    });
+
+    if (newShipping.key) {
+      const { body } = await addShippingAddress(newShipping.key, userResp.body.version);
+
+      if (newBilling.key) {
+        await addBillingAddress(
+          useSameAddress ? newShipping.key : newBilling.key,
+          body.version
+        );
       }
-
-      navigate(RoutePaths.MAIN);
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
-    } finally {
-      setIsLoading(false);
     }
+
+    navigate(RoutePaths.MAIN);
+    setIsLoading(false);
   };
 
   useEffect(() => {
