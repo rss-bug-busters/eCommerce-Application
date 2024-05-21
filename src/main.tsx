@@ -23,6 +23,7 @@ ReactDOM.createRoot(document.querySelector('#root')!).render(
       />
     </QueryClientProvider>
     <ToastContainer
+      stacked
       position="top-center"
       autoClose={5000}
       limit={2}
