@@ -8,7 +8,7 @@ import RoutePaths from '@utils/consts/RoutePaths';
 
 const Footer: FC = function () {
   return (
-    <footer className="bg-slate-50 text-center text-surface/75 dark:bg-stone-900 dark:text-white/75 lg:text-left">
+    <footer className="bg-slate-50 text-slate-800 text-center text-surface/75 dark:bg-stone-800 dark:text-white/75 lg:text-left">
       <div className="mx-6 py-10 text-center md:text-left justify-items-center">
         <div className="md:grid-cols-2 lg:grid-cols-4 grid-1 grid gap-8">
           <FooterText />

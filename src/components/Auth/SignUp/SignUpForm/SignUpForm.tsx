@@ -120,7 +120,7 @@ const SignUpForm: FC = function () {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl border border-gray-200 rounded-xl m-auto"
+      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-stone-800 border border-gray-200 rounded-xl m-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
         <InputField
@@ -176,7 +176,10 @@ const SignUpForm: FC = function () {
             checked={useAsDefaultShipping}
             onChange={handleSetDefault}
           />
-          <span className="ml-2 text-orange-900 text-xs">Set as default address</span>)
+          <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-xs">
+            Set as default address
+          </span>
+          )
         </label>
       </div>
       <div className="flex flex-col items-center">
@@ -190,7 +193,7 @@ const SignUpForm: FC = function () {
             checked={useSameAddress}
             onChange={handleUseSameAddressChange}
           />
-          <span className="ml-2 text-orange-900 text-lg font-semibold">
+          <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-lg font-semibold">
             Use same address for billing
           </span>
         </label>
@@ -212,7 +215,9 @@ const SignUpForm: FC = function () {
                 checked={useAsDefaultBilling}
                 onChange={() => setUseAsDefaultBilling(!useAsDefaultBilling)}
               />
-              <span className="ml-2 text-orange-900 text-xs">Set as default address</span>
+              <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-xs">
+                Set as default address
+              </span>
               )
             </label>
           </div>
@@ -221,7 +226,7 @@ const SignUpForm: FC = function () {
       )}
       <button
         type="submit"
-        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white  dark:bg-blue-600 dark:hover:bg-blue-700"
+        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-slate-600 dark:hover:bg-slate-500"
       >
         {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
