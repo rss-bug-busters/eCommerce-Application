@@ -49,12 +49,15 @@ const Header: FC = function () {
       </div>
       {isLogin ? (
         <div className="flex items-center justify-end gap-4">
-          <span className="font-bold hover:underline text-blue-900 dark:text-white/75 cursor-pointer">
-            {email}
-          </span>
-          <span>
-            <Profile />
-          </span>
+          <Link className="flex gap-2" to={RoutePaths.PROFILE}>
+            <span className="font-bold hover:underline text-blue-900 dark:text-white/75 cursor-pointer">
+              {email}
+            </span>
+            <span>
+              <Profile />
+            </span>
+          </Link>
+
           <button
             type="button"
             className="font-bold hover:underline text-blue-900 dark:text-white/75 cursor-pointer"
