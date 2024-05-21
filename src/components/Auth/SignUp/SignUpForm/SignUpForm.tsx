@@ -151,7 +151,7 @@ const SignUpForm: FC = function () {
           register={register('email')}
           placeholder="Email"
           error={errors.email}
-          type="email"
+          type="text"
         />
         <InputField
           name="password"

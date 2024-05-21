@@ -21,9 +21,14 @@ export const SignUpFormSchema = z
     email: z.string().email({ message: 'Invalid email' }),
     password: z
       .string()
-      .regex(/[A-Z]/, { message: 'Password must contain at least one uppercase letter' })
-      .regex(/[a-z]/, { message: 'Password must contain at least one lowercase letter' })
+      .regex(/[A-ZА-Я]/, {
+        message: 'Password must contain at least one uppercase letter',
+      })
+      .regex(/[a-zа-я]/, {
+        message: 'Password must contain at least one lowercase letter',
+      })
       .regex(/\d/, { message: 'Password must contain at least one number' })
+      .regex(/^\S.*\S$/, { message: 'Must not contain leading or trailing whitespace' })
       .min(8, { message: 'Password must be at least 8 characters' }),
     confirmPassword: z.string().min(1, { message: 'Confirm password is required' }),
     dateOfBirth: z
