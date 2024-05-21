@@ -23,7 +23,7 @@ const Header: FC = function () {
   }, [data, error, isError, isSuccess]);
 
   return (
-    <header className="sticky flex justify-between items-center bg-slate-50 z-50 top-0 p-2 border-b shadow-2xl">
+    <header className="sticky flex flex-wrap justify-between items-center bg-slate-50 z-50 top-0 p-2 border-b shadow-2xl">
       <Link to={RoutePaths.MAIN}>
         <h1 className="text-3xl font-bold text-gray-700">eCommerce</h1>
       </Link>
