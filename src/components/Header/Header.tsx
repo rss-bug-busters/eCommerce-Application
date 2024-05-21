@@ -23,9 +23,9 @@ const Header: FC = function () {
   }, [data, error, isError, isSuccess]);
 
   return (
-    <header className="sticky text-slate-900/75 dark:text-white/75 flex flex-wrap justify-between items-center bg-slate-50 z-50 top-0 p-2 border-b dark:border-none shadow-2xl dark:shadow-stone-700/90 dark:bg-stone-800">
+    <header className="sticky text-zinc-900/75 dark:text-white/75 flex flex-wrap justify-between items-center bg-zinc-50 z-50 top-0 p-2 border-b dark:border-none shadow-xl dark:shadow-zinc-700/90 dark:bg-zinc-800">
       <Link to={RoutePaths.MAIN}>
-        <h1 className="text-3xl px-2 dark:text-slate-200 hover:text-slate-500 font-semibold">
+        <h1 className="text-3xl px-2 dark:text-zinc-200 hover:text-zinc-500 font-semibold">
           eCommerce
         </h1>
       </Link>

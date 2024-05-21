@@ -19,7 +19,7 @@ const ErrorPage: FC = function () {
             {error.status} <br />
             {error.statusText}
           </h1>
-          <h2 className="text-xl text-slate-400">
+          <h2 className="text-xl text-zinc-400">
             We could not find what you were looking for
             <p>{error.status !== 404 && error.data}</p>
           </h2>

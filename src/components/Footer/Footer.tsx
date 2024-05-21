@@ -8,7 +8,7 @@ import RoutePaths from '@utils/consts/RoutePaths';
 
 const Footer: FC = function () {
   return (
-    <footer className="bg-slate-50 text-slate-800 text-center text-surface/75 dark:bg-stone-800 dark:text-white/75 lg:text-left">
+    <footer className="bg-zinc-50 text-zinc-800 text-center text-surface/75 dark:bg-zinc-800 dark:text-white/75 lg:text-left">
       <div className="mx-6 py-10 text-center md:text-left justify-items-center">
         <div className="md:grid-cols-2 lg:grid-cols-4 grid-1 grid gap-8">
           <FooterText />
@@ -47,7 +47,7 @@ const Footer: FC = function () {
           />
         </div>
       </div>
-      <div className="bg-zinc-100 p-4 text-center dark:bg-stone-950/30">
+      <div className="bg-zinc-100 p-4 text-center dark:bg-zinc-950/30">
         <span>© {new Date().getFullYear()} Copyright: </span>
         <a className="font-semibold" href="https://github.com/rss-bug-busters/">
           rss-bug-busters

@@ -124,7 +124,7 @@ const SignUpForm: FC = function () {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-stone-800 border border-gray-200 rounded-xl m-auto"
+      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
         <InputField
@@ -230,7 +230,7 @@ const SignUpForm: FC = function () {
       )}
       <button
         type="submit"
-        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-slate-600 dark:hover:bg-slate-500"
+        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
       >
         {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
