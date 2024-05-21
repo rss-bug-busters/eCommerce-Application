@@ -19,6 +19,13 @@ const useUserQueries = () => {
       .me()
       .get()
       .execute()
+      .then(async (response) => {
+        if (response.statusCode === 200) {
+          await client.resetQueries();
+        }
+
+        return response;
+      })
       .catch((error: unknown) => {
         if (oldToken.token) {
           tokenCache.set(oldToken);
@@ -45,7 +52,14 @@ const useUserQueries = () => {
           .me()
           .get()
           .execute()
-      );
+      )
+      .then(async (response) => {
+        if (response.statusCode === 201) {
+          await client.resetQueries();
+        }
+
+        return response;
+      });
 
   const user = async () => api().me().get().execute();
 

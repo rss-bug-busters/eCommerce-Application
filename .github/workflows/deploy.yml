@@ -5,6 +5,10 @@ concurrency:
 on:
   workflow_dispatch:
 
+  pull_request:
+    branches:
+      - develop
+
 env:
   VITE_COMMERCETOOLS_PROJECT_KEY: ${{ vars.VITE_COMMERCETOOLS_PROJECT_KEY }}
   VITE_COMMERCETOOLS_CLIENT_ID: ${{ vars.VITE_COMMERCETOOLS_CLIENT_ID }}
