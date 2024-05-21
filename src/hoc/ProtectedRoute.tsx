@@ -6,10 +6,9 @@ import useCurrentUser from '@hooks/useCurrentUser';
 interface NeedAuthProperties {
   authorization?: 'password' | 'anonymous';
   children: ReactNode;
-  fallback: ReactNode;
 }
 
-function ProtectedRoute({ children, fallback, authorization }: NeedAuthProperties) {
+function ProtectedRoute({ children, authorization }: NeedAuthProperties) {
   const navigate = useNavigate();
   const location = useLocation();
   const { isSuccess, isError, error } = useCurrentUser();
@@ -38,11 +37,7 @@ function ProtectedRoute({ children, fallback, authorization }: NeedAuthPropertie
     }
   }, [isSuccess, location, navigate, authorization]);
 
-  if (isError || isSuccess) {
-    return children;
-  }
-
-  return fallback;
+  return children;
 }
 
 export default ProtectedRoute;

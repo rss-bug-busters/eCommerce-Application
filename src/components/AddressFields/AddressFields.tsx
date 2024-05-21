@@ -6,42 +6,47 @@ import Select from '@components/ui/Select/Select';
 
 interface AddressFieldsProperties {
   errors: FieldErrors<SignUpFormType>;
+  prefix: 'billingAddress' | 'shippingAddress';
   register: UseFormRegister<SignUpFormType>;
 }
 
 const countryOptions = [
-  { value: 'PLN', label: 'Poland' },
-  { value: 'BLR', label: 'Belarus' },
-  { value: 'RUS', label: 'Russia' },
+  { value: 'PL', label: 'Poland' },
+  { value: 'BY', label: 'Belarus' },
+  { value: 'RU', label: 'Russia' },
 ];
 
-const AddressFields: React.FC<AddressFieldsProperties> = function ({ register, errors }) {
+const AddressFields: React.FC<AddressFieldsProperties> = function ({
+  register,
+  errors,
+  prefix,
+}) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 flex-wrap gap-8">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
       <Select
-        name="address.country"
+        name={`${prefix}.country`}
         options={countryOptions}
-        register={register('address.country')}
+        register={register(`${prefix}.country`)}
         placeholder="Select Country"
-        error={errors.address?.country}
+        error={errors[`${prefix}`]?.country}
       />
       <InputField
-        name="address.city"
-        register={register('address.city')}
+        name={`${prefix}.city`}
+        register={register(`${prefix}.city`)}
         placeholder="City"
-        error={errors.address?.city}
+        error={errors[`${prefix}`]?.city}
       />
       <InputField
-        name="address.street"
-        register={register('address.street')}
+        name={`${prefix}.streetName`}
+        register={register(`${prefix}.streetName`)}
         placeholder="Street"
-        error={errors.address?.street}
+        error={errors[`${prefix}`]?.streetName}
       />
       <InputField
-        name="address.postalCode"
-        register={register('address.postalCode')}
+        name={`${prefix}.postalCode`}
+        register={register(`${prefix}.postalCode`)}
         placeholder="Postal code"
-        error={errors.address?.postalCode}
+        error={errors[`${prefix}`]?.postalCode}
       />
     </div>
   );
