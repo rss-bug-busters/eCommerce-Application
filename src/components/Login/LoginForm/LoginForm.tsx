@@ -37,7 +37,10 @@ const LoginForm: FC = function () {
 
   return (
     <form
-      onSubmit={handleSubmit((data) => loginMutation.mutate(data))}
+      onSubmit={handleSubmit((data) => {
+        toast.dismiss();
+        loginMutation.mutate(data);
+      })}
       className="flex flex-col items-center gap-8 p-5 dark:bg-stone-800 border border-gray-200 rounded-xl m-auto "
     >
       <div className="grid grid-cols-1 gap-5 md:gap-8">

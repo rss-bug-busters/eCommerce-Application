@@ -81,6 +81,7 @@ const SignUpForm: FC = function () {
 
     try {
       setIsLoading(true);
+      toast.dismiss();
       const prom = async () => signUp(newUser);
 
       const userResp = await toast.promise(prom, {
