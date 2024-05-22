@@ -14,7 +14,9 @@
             .map((s) => s.replaceAll('~and~', '&'))
             .join('?');
 
-          window.location.replace(l.pathname.slice(0, -1) + decoded + l.hash);
+          window.location.replace(
+            window.location.origin + l.pathname.slice(0, -1) + decoded + l.hash
+          );
         }
       })(window.location);
     </script>
