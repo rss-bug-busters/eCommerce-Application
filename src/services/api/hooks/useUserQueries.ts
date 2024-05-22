@@ -45,14 +45,7 @@ const useUserQueries = () => {
           .me()
           .get()
           .execute()
-      )
-      .then(async (response) => {
-        if (response.statusCode === 200) {
-          await client.resetQueries();
-        }
-
-        return response;
-      }); // убрать после добавления мутации на регистрацию
+      );
 
   const user = async () => api().me().get().execute();
 

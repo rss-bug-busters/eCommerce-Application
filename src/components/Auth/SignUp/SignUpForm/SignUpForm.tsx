@@ -3,12 +3,12 @@ import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import InputField from '@components/ui/InputField/InputField';
 import AddressFields from '@components/AddressFields/AddressFields';
-import useUserQueries from '@services/api/hooks/useUserQueries';
-import { BaseAddress, MyCustomerDraft } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import Spinner from '@assets/svg/spinner.svg?react';
 import { toast } from 'react-toastify';
+import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
+import { useQueryClient } from '@tanstack/react-query';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
 
 const SignUpForm: FC = function () {
@@ -21,8 +21,7 @@ const SignUpForm: FC = function () {
   } = useForm<SignUpFormType>({
     resolver: zodResolver(SignUpFormSchema),
   });
-  const { register: signUp, addShippingAddress, addBillingAddress } = useUserQueries();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const client = useQueryClient();
   const navigate = useNavigate();
   const [useSameAddress, setUseSameAddress] = useState(true);
   const [useAsDefaultShipping, setUseAsDefaultShipping] = useState(true);
@@ -48,70 +47,20 @@ const SignUpForm: FC = function () {
     setUseAsDefaultShipping(!useAsDefaultShipping);
   };
 
+  const { mutate: signUpMutation, isPending } = useSignUpMutation();
+
   const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
-    const {
-      name,
-      surname,
-      dateOfBirth,
-      email,
-      password,
-      shippingAddress,
-      billingAddress,
-    } = data;
-
-    const newShipping: BaseAddress = {
-      key: 'shipping-address',
-      ...shippingAddress,
-    };
-    const newBilling: BaseAddress = {
-      key: 'billing-address',
-      ...billingAddress,
-    };
-
-    const newUser: MyCustomerDraft = {
-      email,
-      password,
-      firstName: name,
-      lastName: surname,
-      dateOfBirth,
-      addresses: useSameAddress ? [newShipping] : [newShipping, newBilling],
-      ...(useAsDefaultShipping ? { defaultShippingAddress: 0 } : {}),
-      ...(useAsDefaultBilling ? { defaultBillingAddress: useSameAddress ? 0 : 1 } : {}),
-    };
-
-    setIsLoading(true);
     toast.dismiss();
-    const prom = async () => signUp(newUser);
-
-    const userResp = await toast.promise(prom, {
-      pending: 'Creating account...',
-      success: 'Account created successfully!',
-      error: {
-        render({ data: error }) {
-          setIsLoading(false);
-
-          if (error instanceof Error) {
-            return `Failed: ${error.message}`;
-          }
-
-          return 'Failed to create account';
-        },
+    signUpMutation(data, {
+      async onSuccess() {
+        toast.success('Account created successfully!');
+        await client.resetQueries();
+        navigate(RoutePaths.MAIN);
+      },
+      onError(error) {
+        toast.error(`Failed: ${error.message}`);
       },
     });
-
-    if (newShipping.key) {
-      const { body } = await addShippingAddress(newShipping.key, userResp.body.version);
-
-      if (newBilling.key) {
-        await addBillingAddress(
-          useSameAddress ? newShipping.key : newBilling.key,
-          body.version
-        );
-      }
-    }
-
-    navigate(RoutePaths.MAIN);
-    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -232,7 +181,7 @@ const SignUpForm: FC = function () {
         type="submit"
         className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
       >
-        {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
+        {isPending && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
       </button>
     </form>
