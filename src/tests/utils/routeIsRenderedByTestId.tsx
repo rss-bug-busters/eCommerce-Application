@@ -5,6 +5,7 @@ import RoutePaths from '@utils/consts/RoutePaths';
 import { test, expect } from 'vitest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { applyUserSession } from '@tests/utils/userSession';
+import Loader from '@components/ui/Loader/Loader';
 
 const routeIsRenderedByTestId = ({
   route,
@@ -31,7 +32,7 @@ const routeIsRenderedByTestId = ({
       return (
         <QueryClientProvider client={queryClient}>
           <RouterProvider
-            fallbackElement={<h1>Loading....</h1>}
+            fallbackElement={<Loader />}
             router={router}
             future={{ v7_startTransition: true }}
           />

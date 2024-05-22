@@ -2,6 +2,7 @@ import { createBrowserRouter, RouteObject } from 'react-router-dom';
 
 import { lazy } from 'react';
 import RoutePaths from '@utils/consts/RoutePaths';
+import Loader from '@components/ui/Loader/Loader';
 
 const ProtectedRoute = lazy(() => import('@hoc/ProtectedRoute'));
 const Layout = lazy(() => import('@pages/Layout/Layout'));
@@ -14,12 +15,10 @@ const ProfilePage = lazy(() => import('@pages/ProfilePage/ProfilePage'));
 const RegistrationPage = lazy(() => import('@pages/RegistrationPage/RegistrationPage'));
 const ErrorPage = lazy(() => import('@pages/ErrorPage/ErrorPage'));
 
-const loading = <h1>Loading....</h1>;
-
 const routes: RouteObject[] = [
   {
     path: RoutePaths.MAIN,
-    element: <Layout fallback={loading} />,
+    element: <Layout fallback={<Loader />} />,
     errorElement: <ErrorPage />,
     children: [
       {

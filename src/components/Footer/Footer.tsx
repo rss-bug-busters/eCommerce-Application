@@ -8,7 +8,7 @@ import RoutePaths from '@utils/consts/RoutePaths';
 
 const Footer: FC = function () {
   return (
-    <footer className="text-center text-surface/75 dark:bg-black/90 dark:text-white/75 lg:text-left">
+    <footer className="bg-zinc-50 text-zinc-800 text-center text-surface/75 dark:bg-zinc-800 dark:text-white/75 lg:text-left">
       <div className="mx-6 py-10 text-center md:text-left justify-items-center">
         <div className="md:grid-cols-2 lg:grid-cols-4 grid-1 grid gap-8">
           <FooterText />
@@ -20,25 +20,26 @@ const Footer: FC = function () {
             title="Useful links"
             links={[
               { link: RoutePaths.PROFILE, name: 'Account' },
-              { link: '#', name: 'Orders' },
-              { link: '#', name: 'Help' },
+              { link: RoutePaths.PROFILE, name: 'Orders' },
+              { link: 'mailto:mail@mail.com', name: 'Help' },
             ]}
           />
           <LinkList
             title="Contact"
             links={[
               {
-                link: '#!',
-                name: 'Moscow Borovickya 1 ',
+                target: '_blank',
+                link: 'https://www.google.by/maps/@-75.1004764,123.3314896,1725m/data=!3m1!1e3!5m1!1e4?entry=ttu',
+                name: 'Concordia Station ',
                 svg: <Home />,
               },
               {
-                link: '#',
+                link: 'mailto:mail@mail.com',
                 name: 'mail@mail.com',
                 svg: <Mail />,
               },
               {
-                link: '#',
+                link: 'tel:+1234567890',
                 name: '+1234567890',
                 svg: <Phone />,
               },
@@ -46,7 +47,7 @@ const Footer: FC = function () {
           />
         </div>
       </div>
-      <div className="bg-black p-6 text-center">
+      <div className="bg-zinc-100 p-4 text-center dark:bg-zinc-950/30">
         <span>© {new Date().getFullYear()} Copyright: </span>
         <a className="font-semibold" href="https://github.com/rss-bug-busters/">
           rss-bug-busters

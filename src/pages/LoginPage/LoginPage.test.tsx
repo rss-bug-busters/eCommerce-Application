@@ -5,6 +5,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import { routes } from '@services/router/router';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { applyUserSession } from '@tests/utils/userSession';
+import Loader from '@components/ui/Loader/Loader';
 
 describe('LoginPage', () => {
   const loginButtonId = 'login-page-submit-button';
@@ -23,7 +24,7 @@ describe('LoginPage', () => {
     return (
       <QueryClientProvider client={queryClient}>
         <RouterProvider
-          fallbackElement={<h1>Loading....</h1>}
+          fallbackElement={<Loader />}
           router={router}
           future={{ v7_startTransition: true }}
         />

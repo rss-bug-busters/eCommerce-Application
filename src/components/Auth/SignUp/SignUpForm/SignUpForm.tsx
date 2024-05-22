@@ -3,12 +3,12 @@ import { FC, useEffect, useState } from 'react';
 import { SubmitHandler, useForm, useWatch } from 'react-hook-form';
 import InputField from '@components/ui/InputField/InputField';
 import AddressFields from '@components/AddressFields/AddressFields';
-import useUserQueries from '@services/api/hooks/useUserQueries';
-import { BaseAddress, MyCustomerDraft } from '@commercetools/platform-sdk';
 import { useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import Spinner from '@assets/svg/spinner.svg?react';
 import { toast } from 'react-toastify';
+import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
+import { useQueryClient } from '@tanstack/react-query';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
 
 const SignUpForm: FC = function () {
@@ -21,13 +21,7 @@ const SignUpForm: FC = function () {
   } = useForm<SignUpFormType>({
     resolver: zodResolver(SignUpFormSchema),
   });
-  const {
-    register: signUp,
-    login,
-    addShippingAddress,
-    addBillingAddress,
-  } = useUserQueries();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const client = useQueryClient();
   const navigate = useNavigate();
   const [useSameAddress, setUseSameAddress] = useState(true);
   const [useAsDefaultShipping, setUseAsDefaultShipping] = useState(true);
@@ -53,68 +47,20 @@ const SignUpForm: FC = function () {
     setUseAsDefaultShipping(!useAsDefaultShipping);
   };
 
+  const { mutate: signUpMutation, isPending } = useSignUpMutation();
+
   const onSubmit: SubmitHandler<SignUpFormType> = async (data) => {
-    const {
-      name,
-      surname,
-      dateOfBirth,
-      email,
-      password,
-      shippingAddress,
-      billingAddress,
-    } = data;
-
-    const newShipping: BaseAddress = {
-      key: 'shipping-address',
-      ...shippingAddress,
-    };
-    const newBilling: BaseAddress = {
-      key: 'billing-address',
-      ...billingAddress,
-    };
-
-    const newUser: MyCustomerDraft = {
-      email,
-      password,
-      firstName: name,
-      lastName: surname,
-      dateOfBirth,
-      addresses: useSameAddress ? [newShipping] : [newShipping, newBilling],
-      ...(useAsDefaultShipping ? { defaultShippingAddress: 0 } : {}),
-      ...(useAsDefaultBilling ? { defaultBillingAddress: useSameAddress ? 0 : 1 } : {}),
-    };
-
-    try {
-      setIsLoading(true);
-      const prom = async () => signUp(newUser);
-
-      const userResp = await toast.promise(prom, {
-        pending: 'Creating account...',
-        success: 'Account created successfully!',
-        error: 'Failed to create account',
-      });
-
-      await login(email, password);
-
-      if (newShipping.key) {
-        const { body } = await addShippingAddress(newShipping.key, userResp.body.version);
-
-        if (newBilling.key) {
-          await addBillingAddress(
-            useSameAddress ? newShipping.key : newBilling.key,
-            body.version
-          );
-        }
-      }
-
-      navigate(RoutePaths.MAIN);
-    } catch (error) {
-      if (error instanceof Error) {
-        toast.error(error.message);
-      }
-    } finally {
-      setIsLoading(false);
-    }
+    toast.dismiss();
+    signUpMutation(data, {
+      async onSuccess() {
+        toast.success('Account created successfully!');
+        await client.resetQueries();
+        navigate(RoutePaths.MAIN);
+      },
+      onError(error) {
+        toast.error(`Failed: ${error.message}`);
+      },
+    });
   };
 
   useEffect(() => {
@@ -127,7 +73,7 @@ const SignUpForm: FC = function () {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl border border-gray-200 rounded-xl m-auto"
+      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
         <InputField
@@ -172,7 +118,7 @@ const SignUpForm: FC = function () {
         />
       </div>
       <div className="flex items-center gap-x-2">
-        <h2 className=" text-xl text-center">Shipping Address</h2>
+        <h2 className=" text-xl text-center dark:text-white">Shipping Address</h2>
         <label htmlFor="isDefaultShipping" className="flex items-center cursor-pointer">
           (
           <input
@@ -183,7 +129,10 @@ const SignUpForm: FC = function () {
             checked={useAsDefaultShipping}
             onChange={handleSetDefault}
           />
-          <span className="ml-2 text-orange-900 text-xs">Set as default address</span>)
+          <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-xs">
+            Set as default address
+          </span>
+          )
         </label>
       </div>
       <div className="flex flex-col items-center">
@@ -197,7 +146,7 @@ const SignUpForm: FC = function () {
             checked={useSameAddress}
             onChange={handleUseSameAddressChange}
           />
-          <span className="ml-2 text-orange-900 text-lg font-semibold">
+          <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-lg font-semibold">
             Use same address for billing
           </span>
         </label>
@@ -205,7 +154,7 @@ const SignUpForm: FC = function () {
       {!useSameAddress && (
         <>
           <div className="flex items-center gap-x-2">
-            <h2 className=" text-xl text-center">Billing Address</h2>
+            <h2 className=" text-xl text-center dark:text-white">Billing Address</h2>
             <label
               htmlFor="isDefaultBilling"
               className="flex items-center cursor-pointer"
@@ -219,7 +168,9 @@ const SignUpForm: FC = function () {
                 checked={useAsDefaultBilling}
                 onChange={() => setUseAsDefaultBilling(!useAsDefaultBilling)}
               />
-              <span className="ml-2 text-orange-900 text-xs">Set as default address</span>
+              <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-xs">
+                Set as default address
+              </span>
               )
             </label>
           </div>
@@ -228,9 +179,9 @@ const SignUpForm: FC = function () {
       )}
       <button
         type="submit"
-        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white"
+        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
       >
-        {isLoading && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
+        {isPending && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
         Sign Up
       </button>
     </form>
