@@ -1,4 +1,3 @@
-// import 'dotenv/config';
 import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -19,7 +18,7 @@ const throwError = (text: string) => {
 };
 
 export default defineConfig({
-  base: './',
+  base: '/',
   root,
   build: {
     emptyOutDir: true,
