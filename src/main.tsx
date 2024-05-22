@@ -6,10 +6,8 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './tailwindcss.css';
-import spa from '@utils/spa';
-import Loader from '@components/ui/Loader/Loader';
 
-spa(window.location);
+import Loader from '@components/ui/Loader/Loader';
 
 const queryClient = new QueryClient();
 
