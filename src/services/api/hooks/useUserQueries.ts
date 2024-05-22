@@ -2,12 +2,14 @@ import useApi from '@services/api/hooks/useApi';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
 import { clearTokenCache, tokenCache } from '@services/api/utils/tokenCache';
 import { useQueryClient } from '@tanstack/react-query';
+import revokeTokens from '@services/api/utils/revokeToken';
 
 const useUserQueries = () => {
   const api = useApi();
   const client = useQueryClient();
 
   const logout = async () => {
+    revokeTokens().catch(() => {});
     clearTokenCache();
     await client.resetQueries();
   };
