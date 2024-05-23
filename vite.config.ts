@@ -54,6 +54,9 @@ export default defineConfig({
     process.env.VITEST
       ? undefined
       : checker({
+          overlay: {
+            initialIsOpen: 'error',
+          },
           typescript: true,
           eslint: {
             lintCommand: `eslint "./src/**/*.{js,jsx,ts,tsx,cjs,mjs}" --ignore-path .gitignore --cache --cache-location ${path.resolve(root, 'node_modules/.cache/eslint/.eslintcache')} `,

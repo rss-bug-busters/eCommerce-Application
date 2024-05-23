@@ -63,16 +63,16 @@ const Header: FC = function () {
       ) : (
         <div className="flex  items-center justify-end gap-4">
           <Link
-            to={RoutePaths.REGISTRATION}
-            className="font-bold hover:underline cursor-pointer"
-          >
-            Register
-          </Link>
-          <Link
             to={RoutePaths.LOGIN}
             className="font-bold hover:underline cursor-pointer"
           >
             Log in
+          </Link>
+          <Link
+            to={RoutePaths.REGISTRATION}
+            className="font-bold hover:underline cursor-pointer"
+          >
+            Sign up
           </Link>
         </div>
       )}
