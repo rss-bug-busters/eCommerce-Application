@@ -19,7 +19,7 @@ const throwError = (text: string) => {
 };
 
 export default defineConfig({
-  base: './',
+  base: '/',
   root,
   build: {
     emptyOutDir: true,
