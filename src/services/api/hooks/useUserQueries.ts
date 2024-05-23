@@ -2,7 +2,7 @@ import useApi from '@services/api/hooks/useApi';
 import { MyCustomerDraft } from '@commercetools/platform-sdk';
 import { clearTokenCache, tokenCache } from '@services/api/utils/tokenCache';
 import { useQueryClient } from '@tanstack/react-query';
-import revokeTokens from '@services/api/utils/revokeToken';
+import revokeTokens from '@services/api/utils/revokeTokens';
 
 const useUserQueries = () => {
   const api = useApi();
