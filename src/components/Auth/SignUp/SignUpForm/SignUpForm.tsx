@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import Spinner from '@assets/svg/spinner.svg?react';
 import { toast } from 'react-toastify';
-import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
+import useSignUpMutation from '@hooks/useSignUpMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
 

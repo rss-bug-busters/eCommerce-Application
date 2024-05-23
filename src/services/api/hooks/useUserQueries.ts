@@ -9,7 +9,7 @@ const useUserQueries = () => {
   const client = useQueryClient();
 
   const logout = async () => {
-    revokeTokens().catch(() => {});
+    await revokeTokens().catch(() => {});
     clearTokenCache();
     await client.resetQueries();
   };
@@ -31,7 +31,7 @@ const useUserQueries = () => {
   };
 
   const register = async ({ email, password, ...rest }: MyCustomerDraft) =>
-    api()
+    api({ needAnonymousAuth: true })
       .me()
       .signup()
       .post({

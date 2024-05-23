@@ -7,9 +7,9 @@ import anonymousAuthMiddlewareOptions from '@services/api/options/anonymousAuthM
 import { QueryClient } from '@tanstack/react-query';
 
 import refreshTokenQuery from '@services/api/utils/refreshTokenQuery';
-import authMiddlewareOptions from '@services/api/options/authMiddlewareOptions';
 
 export interface BuildClientOptions {
+  needAnonymousAuth?: boolean;
   queryClient?: QueryClient;
   user?: { password: string; username: string };
 }
@@ -26,17 +26,16 @@ const buildClient = (makeClientOptions?: BuildClientOptions) => {
     (action: Dispatch): Dispatch =>
     async (request, response) => {
       if (response.statusCode === 401) {
-        const token = tokenCache.get();
+        const { token, refreshToken } = tokenCache.get();
 
-        if (!token.refreshToken) {
+        if (!refreshToken || !token) {
           clearTokenCache();
-          await makeClientOptions?.queryClient?.resetQueries();
 
           return action(request, response);
         }
 
-        if (token.refreshToken) {
-          const refreshResp = await refreshTokenQuery(token.refreshToken);
+        if (refreshToken) {
+          const refreshResp = await refreshTokenQuery(refreshToken);
 
           if (refreshResp.status === 400) {
             clearTokenCache();
@@ -51,7 +50,7 @@ const buildClient = (makeClientOptions?: BuildClientOptions) => {
             tokenCache.set({
               token: refreshRespData.access_token,
               expirationTime: Date.now() + refreshRespData.expires_in * 1000,
-              refreshToken: token.refreshToken,
+              refreshToken,
             });
 
             await makeClientOptions?.queryClient?.resetQueries();
@@ -62,10 +61,11 @@ const buildClient = (makeClientOptions?: BuildClientOptions) => {
       return action(request, response);
     };
 
+  const { token } = tokenCache.get();
+
   let client = new ClientBuilder()
     .withProjectKey(projectKey)
     .withHttpMiddleware(httpMiddlewareOptions)
-    .withClientCredentialsFlow(authMiddlewareOptions)
     .withAfterExecutionMiddleware({
       middleware: () => refreshMiddleware,
     });
@@ -80,9 +80,11 @@ const buildClient = (makeClientOptions?: BuildClientOptions) => {
     return client.build();
   }
 
-  client = tokenCache.get().token
-    ? client.withExistingTokenFlow(`Bearer ${tokenCache.get().token}`, { force: false })
-    : client.withAnonymousSessionFlow(anonymousAuthMiddlewareOptions);
+  if (token) {
+    client = client.withExistingTokenFlow(`Bearer ${token}`, { force: false });
+  } else if (makeClientOptions?.needAnonymousAuth) {
+    client = client.withAnonymousSessionFlow(anonymousAuthMiddlewareOptions);
+  }
 
   if (+VITE_COMMERCETOOLS_USE_LOGGER) {
     client = client.withLoggerMiddleware();
