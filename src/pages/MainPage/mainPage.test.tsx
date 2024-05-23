@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
+import { MemoryRouter } from 'react-router-dom';
 import MainPage from './MainPage';
 
 describe('A truthy statement', () => {
@@ -10,6 +11,10 @@ describe('A truthy statement', () => {
 
 describe('App', () => {
   it('renders the MainPage component', () => {
-    render(<MainPage />);
+    render(
+      <MemoryRouter>
+        <MainPage />
+      </MemoryRouter>
+    );
   });
 });
