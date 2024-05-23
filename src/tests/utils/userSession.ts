@@ -40,7 +40,7 @@ const preparePasswordToken = async (username: string, password: string) => {
 
 const prepareAnonymousToken = async () => {
   if (!sessions.anonymous) {
-    await api()
+    await api({ needAnonymousAuth: true })
       .me()
       .get()
       .execute()
