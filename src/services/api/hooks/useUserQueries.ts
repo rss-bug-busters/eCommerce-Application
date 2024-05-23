@@ -65,8 +65,7 @@ const useUserQueries = () => {
           version,
         },
       })
-      .execute()
-      .then(user);
+      .execute();
 
   const addBillingAddress = async (addressKey: string, version: number) =>
     api()
@@ -82,8 +81,7 @@ const useUserQueries = () => {
           version,
         },
       })
-      .execute()
-      .then(user);
+      .execute();
 
   return {
     user,
