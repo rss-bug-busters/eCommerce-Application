@@ -1,3 +1,6 @@
+import RoutePaths from '@utils/consts/RoutePaths';
+import { Link } from 'react-router-dom';
+
 function MainPage() {
   return (
     <div data-testid="main-page" className="flex flex-col items-center">
@@ -9,6 +12,20 @@ function MainPage() {
         molestie feugiat. Nunc auctor consectetur elit, quis pulvina. Lorem ipsum dolor
         sit amet, consectetur adipiscing elit. Nulla fringilla nunc in molestie feugiat
       </p>
+      <div className="flex gap-4 text-xl">
+        <Link
+          to={RoutePaths.LOGIN}
+          className="font-semibold text-zinc-600 hover:text-zinc-400 hover:scale-110"
+        >
+          Log in
+        </Link>
+        <Link
+          to={RoutePaths.REGISTRATION}
+          className="font-semibold text-zinc-600 hover:text-zinc-400 hover:scale-110"
+        >
+          Sign up
+        </Link>
+      </div>
     </div>
   );
 }
