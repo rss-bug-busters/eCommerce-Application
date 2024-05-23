@@ -1,7 +1,7 @@
 import { authUrl, basicToken } from '@services/api/options/credential';
 import { tokenCache } from '@services/api/utils/tokenCache';
 
-const revokeTokens = async () => {
+const revokeTokensQuery = async () => {
   const url = `${authUrl}/oauth/token/revoke`;
   const { token, refreshToken } = tokenCache.get();
 
@@ -33,4 +33,4 @@ const revokeTokens = async () => {
   }
 };
 
-export default revokeTokens;
+export default revokeTokensQuery;
