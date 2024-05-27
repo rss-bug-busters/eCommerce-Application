@@ -3,7 +3,7 @@ enum RoutePaths {
   BASKET = '/basket',
   LOGIN = '/login',
   MAIN = '/',
-  PRODUCT = '/product',
+  PRODUCT = '/product/:id',
   PROFILE = '/profile',
   REGISTRATION = '/registration',
 }
