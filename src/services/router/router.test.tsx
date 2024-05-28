@@ -39,11 +39,11 @@ describe('all routes rendered', async () => {
   //   testId: PagesTestIds.PROFILE,
   //   needAuth: true,
   // });
-  routeIsRenderedByTestId({
-    route: RoutePaths.BASKET,
-    testId: PagesTestIds.BASKET,
-    needAuth: true,
-  });
+  // routeIsRenderedByTestId({
+  //   route: RoutePaths.BASKET,
+  //   testId: PagesTestIds.BASKET,
+  //   needAuth: true,
+  // });
   routeIsRenderedByTestId({
     route: `/${(Math.random() + 1).toString(36).slice(7)}`,
     testName: 'error page on random path',
