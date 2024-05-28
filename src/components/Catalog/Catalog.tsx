@@ -8,7 +8,13 @@ interface Properties {
 }
 
 function Catalog(properties: Properties) {
-  const { data, isSuccess, isError, error } = useProducts();
+  const { data, isSuccess, isError, error } = useProducts({
+    // sort: {
+    //   field: 'price',
+    //   // local: 'en-US',
+    //   order: 'asc',
+    // },
+  });
 
   console.log(properties);
 

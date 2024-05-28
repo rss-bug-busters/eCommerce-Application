@@ -1,21 +1,21 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { Link } from 'react-router-dom';
 import routePaths from '@utils/consts/RoutePaths';
+import { useTranslation } from 'react-i18next';
 
 interface Properties {
   key?: string | number;
-  location?: string;
-  priceCountry?: string;
   product: ProductProjection;
 }
 
-function ItemCard({ product, location = 'en-US', priceCountry = 'US' }: Properties) {
+function ItemCard({ product }: Properties) {
   const { name, description, masterVariant, id, key } = product;
-  const price = masterVariant.prices?.find((item) => item.country === priceCountry);
+  const { price, images } = masterVariant;
+  const { i18n, t } = useTranslation();
 
-  const priceFormatter = new Intl.NumberFormat(location, {
+  const priceFormatter = new Intl.NumberFormat(i18n.language, {
     style: 'currency',
-    currency: price?.value.currencyCode ?? 'USD',
+    currency: price?.value.currencyCode,
   });
 
   const priceValue: undefined | string =
@@ -28,9 +28,9 @@ function ItemCard({ product, location = 'en-US', priceCountry = 'US' }: Properti
       price.discounted.value.centAmount / 10 ** price.discounted.value.fractionDigits
     );
 
-  const descriptionValue: string = description?.[location] ?? '';
+  const descriptionValue: string = description?.[i18n.language] ?? '';
 
-  const nameValue = name[location] ?? '';
+  const nameValue = name[i18n.language] ?? '';
 
   const productLink = routePaths.PRODUCT.replace(':id', `${id}`);
 
@@ -41,9 +41,9 @@ function ItemCard({ product, location = 'en-US', priceCountry = 'US' }: Properti
         key={key ?? id}
       >
         <img
-          className="p-8 w-full h-full rounded-t-lg"
-          src={masterVariant.images?.[0]?.url ?? ''}
-          alt="product"
+          className="p-8 w-full  h-full rounded-t-lg"
+          src={images?.[0]?.url ?? ''}
+          alt={t('item_card.img_alt')}
         />
         <div className="px-5 pb-5">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -75,7 +75,7 @@ function ItemCard({ product, location = 'en-US', priceCountry = 'US' }: Properti
               }}
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Add to cart
+              {t('item_card.add_to_cart')}
             </button>
           </div>
         </div>
