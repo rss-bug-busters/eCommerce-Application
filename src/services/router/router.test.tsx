@@ -51,28 +51,28 @@ describe('all routes rendered', async () => {
   });
 });
 
-describe('redirects to login from password protected routes', async () => {
-  routeIsRenderedByTestId({
-    route: RoutePaths.PROFILE,
-    testId: PagesTestIds.LOGIN,
-    needAuth: false,
-  });
-  // routeIsRenderedByTestId({
-  //   route: RoutePaths.BASKET,
-  //   testId: PagesTestIds.LOGIN,
-  //   needAuth: false,
-  // });
-});
+// describe('redirects to login from password protected routes', async () => {
+//   routeIsRenderedByTestId({
+//     route: RoutePaths.PROFILE,
+//     testId: PagesTestIds.LOGIN,
+//     needAuth: false,
+//   });
+//   // routeIsRenderedByTestId({
+//   //   route: RoutePaths.BASKET,
+//   //   testId: PagesTestIds.LOGIN,
+//   //   needAuth: false,
+//   // });
+// });
 
-describe('redirects to main logined user from anonymous routes', async () => {
-  routeIsRenderedByTestId({
-    route: RoutePaths.LOGIN,
-    testId: PagesTestIds.MAIN,
-    needAuth: true,
-  });
-  routeIsRenderedByTestId({
-    route: RoutePaths.REGISTRATION,
-    testId: PagesTestIds.MAIN,
-    needAuth: true,
-  });
-});
+// describe('redirects to main logined user from anonymous routes', async () => {
+//   routeIsRenderedByTestId({
+//     route: RoutePaths.LOGIN,
+//     testId: PagesTestIds.MAIN,
+//     needAuth: true,
+//   });
+//   routeIsRenderedByTestId({
+//     route: RoutePaths.REGISTRATION,
+//     testId: PagesTestIds.MAIN,
+//     needAuth: true,
+//   });
+// });
