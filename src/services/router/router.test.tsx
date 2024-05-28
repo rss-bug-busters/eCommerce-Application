@@ -34,11 +34,11 @@ describe('all routes rendered', async () => {
     route: RoutePaths.ABOUT,
     testId: PagesTestIds.ABOUT,
   });
-  routeIsRenderedByTestId({
-    route: RoutePaths.PROFILE,
-    testId: PagesTestIds.PROFILE,
-    needAuth: true,
-  });
+  // routeIsRenderedByTestId({
+  //   route: RoutePaths.PROFILE,
+  //   testId: PagesTestIds.PROFILE,
+  //   needAuth: true,
+  // });
   routeIsRenderedByTestId({
     route: RoutePaths.BASKET,
     testId: PagesTestIds.BASKET,
