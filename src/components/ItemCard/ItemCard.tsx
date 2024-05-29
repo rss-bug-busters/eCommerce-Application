@@ -35,7 +35,7 @@ function ItemCard({ product }: Properties) {
   const productLink = routePaths.PRODUCT.replace(':id', `${id}`);
 
   return (
-    <Link to={productLink}>
+    <Link to={productLink} preventScrollReset={false}>
       <div
         className="grid grid-rows-[1fr_auto_auto] w-full h-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-zinc-800 dark:border-gray-700"
         key={key ?? id}

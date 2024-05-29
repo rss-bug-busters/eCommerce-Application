@@ -3494,6 +3494,7 @@ __metadata:
     tailwindcss: "npm:^3.4.3"
     typescript: "npm:^5.4.5"
     typescript-plugin-css-modules: "npm:^5.1.0"
+    use-debounce: "npm:^10.0.1"
     vite: "npm:^5.2.0"
     vite-plugin-checker: "npm:^0.6.4"
     vite-plugin-node-polyfills: "npm:^0.21.0"
@@ -9537,6 +9538,15 @@ __metadata:
     punycode: "npm:^1.4.1"
     qs: "npm:^6.11.2"
   checksum: 10c0/7546b878ee7927cfc62ca21dbe2dc395cf70e889c3488b2815bf2c63355cb3c7db555128176a01b0af6cccf265667b6fd0b4806de00cb71c143c53986c08c602
+  languageName: node
+  linkType: hard
+
+"use-debounce@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "use-debounce@npm:10.0.1"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/377a11814a708f5c392f465cbbe2d119a8a2635c8226cc5e30eba397c4436f8e8234385d069467b369d105ed0d3be733c6a08d8ae1004017c6d6f58f4d4c24d8
   languageName: node
   linkType: hard
 

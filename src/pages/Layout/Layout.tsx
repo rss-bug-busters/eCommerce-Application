@@ -1,5 +1,5 @@
 import { FC, ReactNode, Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import Footer from '@components/Footer/Footer';
 import Header from '../../components/Header/Header';
 
@@ -16,6 +16,7 @@ const Layout: FC<LayoutProperties> = function ({ fallback, children }) {
         <Suspense fallback={fallback}>{children ?? <Outlet />}</Suspense>
       </main>
       <Footer />
+      <ScrollRestoration />
     </div>
   );
 };

@@ -4,12 +4,10 @@ import useApi from '@services/api/hooks/useApi';
 import { useTranslation } from 'react-i18next';
 import usePriceInfo from '@hooks/usePriceInfo.ts';
 
-interface UseProductsOptions {
+export interface UseProductsOptions {
   limit?: number;
   offset?: number;
-  search?: {
-    query: string;
-  };
+  search?: string;
   sort?: {
     field: string;
     needLocal?: boolean;
@@ -21,7 +19,7 @@ const useProducts = (options?: UseProductsOptions) => {
   const api = useApi();
   const { priceInfo } = usePriceInfo();
   const { i18n } = useTranslation();
-  const { sort, search, offset = 0 } = options ?? {};
+  const { sort, search, offset = 0, limit = 12 } = options ?? {};
 
   return useQuery({
     queryFn: () =>
@@ -31,17 +29,23 @@ const useProducts = (options?: UseProductsOptions) => {
         .get({
           queryArgs: {
             offset,
-            limit: 12,
+            limit,
             sort: sort
-              ? `${sort.field}${sort.needLocal ? '.' : ''}${i18n.language ?? ''} ${sort.order}`
+              ? `${sort.field}${sort.needLocal ? '.' : ''}${sort.needLocal ? i18n.language : ''} ${sort.order}`
               : undefined,
-            [`text.${i18n.language}`]: search?.query,
+            [`text.${i18n.language}`]: search,
+            fuzzy: true,
             priceCurrency: priceInfo.priceCurrency,
             priceCountry: priceInfo.priceCountry,
           },
         })
         .execute(),
-    queryKey: [QueryKeys.CATALOG_PRODUCTS],
+    queryKey: [
+      QueryKeys.CATALOG_PRODUCTS,
+      `search:${search}`,
+      `offset:${offset}`,
+      `limit:${limit}`,
+    ],
     retry: false,
   });
 };
