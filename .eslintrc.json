@@ -22,6 +22,7 @@
     "prettier"
   ],
   "rules": {
+    "no-restricted-syntax": 0,
     "func-names": 0,
     "prettier/prettier": "error",
     "unicorn/filename-case": [
