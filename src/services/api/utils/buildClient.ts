@@ -81,7 +81,9 @@ const buildClient = (makeClientOptions?: BuildClientOptions) => {
   }
 
   client = tokenCache.get().token
-    ? client.withExistingTokenFlow(`Bearer ${tokenCache.get().token}`, { force: false })
+    ? client.withExistingTokenFlow(`Bearer ${tokenCache.get().token}`, {
+        force: false,
+      })
     : client.withAnonymousSessionFlow(anonymousAuthMiddlewareOptions);
 
   if (+VITE_COMMERCETOOLS_USE_LOGGER) {

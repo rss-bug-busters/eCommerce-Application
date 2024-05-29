@@ -8,12 +8,12 @@ const Login: FC = function () {
     <div className="flex flex-col items-center justify-center gap-3">
       <h1 className="text-4xl font-bold text-gray-700 dark:text-white">Sign In</h1>
       <div className="flex items-center justify-center">
-        <span className="text-sm dark:text-white/65 text-gray-500">
+        <span className="text-sm text-gray-500 dark:text-white/65">
           Don`t have an account?
         </span>
         <Link
           to={RoutePaths.REGISTRATION}
-          className="font-bold text-zinc-600 ml-2 cursor-pointer hover:text-zinc-400 hover:scale-110 dark:text-white "
+          className="ml-2 cursor-pointer font-bold text-zinc-600 hover:scale-110 hover:text-zinc-400 dark:text-white "
         >
           Sign Up
         </Link>

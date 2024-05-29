@@ -36,20 +36,20 @@ const InputField: FC<InputFieldProperties> = function ({
         {...register}
         placeholder={placeholder + (isRequired ? '*' : '')}
         type={isPassword && showPassword ? 'text' : type}
-        className={`flex items-center justify-start w-64 h-12 p-3 pr-9 outline-none border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'}`}
+        className={`flex h-12 w-64 items-center justify-start rounded-full border bg-transparent p-3 pr-9 outline-none ${error ? 'border-red-600' : 'border-gray-300'}`}
       />
       {isPassword && (
         <button
           type="button"
-          className="absolute top-4 right-4"
+          className="absolute right-4 top-4"
           onClick={handleShowPassword}
         >
-          {showPassword ? <Hide className="w-5 h-5" /> : <Show className="w-5 h-5" />}
+          {showPassword ? <Hide className="h-5 w-5" /> : <Show className="h-5 w-5" />}
         </button>
       )}
       <span
         data-testid={`error-${name}`}
-        className="text-red-600 text-xs absolute top-12 ml-2 max-md:w-max"
+        className="absolute top-12 ml-2 text-xs text-red-600 max-md:w-max"
       >
         {error?.message}
       </span>

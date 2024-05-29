@@ -8,7 +8,7 @@ function MainPage() {
 
   return (
     <div data-testid="main-page" className="grid">
-      <Search className="mx-auto sm:w-1/2 mb-5" setSearch={setSearchValue} />
+      <Search className="mx-auto mb-5 sm:w-1/2" setSearch={setSearchValue} />
       <Filter />
       <Catalog search={searchValue} />
     </div>
