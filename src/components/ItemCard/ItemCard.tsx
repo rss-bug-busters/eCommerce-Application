@@ -2,6 +2,7 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import { Link } from 'react-router-dom';
 import routePaths from '@utils/consts/RoutePaths';
 import { useTranslation } from 'react-i18next';
+import ProgressiveImage from '@components/ui/ProgressiveImage/ProgressiveImage';
 
 interface Properties {
   key?: string | number;
@@ -37,34 +38,43 @@ function ItemCard({ product }: Properties) {
   return (
     <Link to={productLink} preventScrollReset={false}>
       <div
-        className="grid grid-rows-[1fr_auto_auto] w-full h-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-zinc-800 dark:border-gray-700"
+        className="grid h-full w-full max-w-sm grid-rows-[1fr_auto] gap-4 rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-zinc-800"
         key={key ?? id}
       >
-        <img
-          className="p-8 w-full  h-full rounded-t-lg"
-          src={images?.[0]?.url ?? ''}
-          alt={t('item_card.img_alt')}
-        />
+        <div className="h-96 w-full overflow-hidden">
+          <ProgressiveImage
+            placeholder={
+              <div
+                className="h-96 w-96 animate-pulse cursor-wait self-center rounded-t-lg bg-gray-700"
+                role="status"
+              />
+            }
+            className="h-full w-full rounded-t-lg object-fill"
+            src={images?.[0]?.url ?? ''}
+            alt={t('item_card.img_alt')}
+          />
+        </div>
+
         <div className="px-5 pb-5">
           <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">
             {nameValue}
           </h5>
-          <div className="flex items-center mt-2.5 mb-5">
+          <div className="mb-5 mt-2.5 flex items-center">
             <p className="text-gray-500 dark:text-gray-400">
               {`${descriptionValue.slice(0, 97)}...`}
             </p>
           </div>
           <div className="flex items-center justify-between">
-            <div>
+            <div className="relative">
               <p
-                className={`font-bold text-gray-900 dark:text-white ${discountValue ? 'line-through' : 'text-2xl'}`}
+                className={`font-bold text-gray-900 dark:text-white ${discountValue ? 'absolute -top-4 line-through' : 'text-2xl'}`}
               >
                 {priceValue ?? ''}
               </p>
               {discountValue && (
-                <p className="text-2xl font-bold text-gray-900 dark:text-white">
+                <span className=" text-2xl font-bold text-gray-900 dark:text-white">
                   {discountValue ?? ''}
-                </p>
+                </span>
               )}
             </div>
             <button
@@ -73,7 +83,7 @@ function ItemCard({ product }: Properties) {
                 event.preventDefault();
                 console.log(`Add to cart ${id}`);
               }}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               {t('item_card.add_to_cart')}
             </button>
