@@ -6,7 +6,6 @@ import Hide from '@assets/svg/eye-close.svg?react';
 interface InputFieldProfileProperties {
   error?: FieldError;
   isRequired?: boolean;
-  key?: string;
   name: string;
   placeholder: string;
   readOnly?: boolean;
