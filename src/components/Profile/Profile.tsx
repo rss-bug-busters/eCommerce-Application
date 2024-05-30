@@ -1,23 +1,16 @@
 import { FC } from 'react';
-import useUserQueries from '@services/api/hooks/useUserQueries';
+import ProfileForm from './ProfileForm/ProfileForm';
 
 const Profile: FC = function () {
-  const { user } = useUserQueries();
-
-  console.log(user());
-
   return (
-    <div className="flex flex-col items-center justify-center gap-3">
-      <button
-        type="button"
-        className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
-        onClick={async () => console.log(user())}
-      >
-        TEST
-      </button>
+    <div className="flex flex-col items-center justify-center gap-2 md:gap-5">
+      <h1 className="text-4xl font-bold text-gray-700 dark:text-white">Profile</h1>
+      <ProfileForm />
     </div>
   );
 };
+
+export default Profile;
 
 // const getUserData = async () => {
 //   const { user } = useUserQueries();
@@ -29,4 +22,4 @@ const Profile: FC = function () {
 //   console.log(dataJson);
 // };
 
-export default Profile;
+//
