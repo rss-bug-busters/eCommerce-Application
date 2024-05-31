@@ -12,7 +12,7 @@ const Layout: FC<LayoutProperties> = function ({ fallback, children }) {
   return (
     <div className="grid min-h-screen grid-rows-[auto_1fr_auto] gap-8 dark:bg-zinc-900 dark:text-white/75">
       <Header />
-      <main>
+      <main className="pl-3 pr-3">
         <Suspense fallback={fallback}>{children ?? <Outlet />}</Suspense>
       </main>
       <Footer />

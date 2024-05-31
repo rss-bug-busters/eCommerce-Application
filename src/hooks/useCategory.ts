@@ -15,7 +15,7 @@ const useCategory = () => {
           },
         })
         .execute(),
-    queryKey: [queryKeys.CATEGORY],
+    queryKey: [queryKeys.CATEGORY, 'all'],
     retry: false,
   });
 };

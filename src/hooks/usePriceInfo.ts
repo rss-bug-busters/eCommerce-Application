@@ -1,8 +1,10 @@
 import { useTranslation } from 'react-i18next';
 
 interface PriceInfo {
+  fractionDigits: number;
   priceCountry: string;
   priceCurrency: string;
+  priceSymbol: string;
 }
 
 const usePriceInfo = () => {
@@ -12,6 +14,8 @@ const usePriceInfo = () => {
   switch (i18n.language) {
     case 'en-GB': {
       priceInfo = {
+        fractionDigits: 2,
+        priceSymbol: '£',
         priceCountry: 'GB',
         priceCurrency: 'GBP',
       };
@@ -20,6 +24,8 @@ const usePriceInfo = () => {
 
     case 'de': {
       priceInfo = {
+        fractionDigits: 2,
+        priceSymbol: '€',
         priceCountry: 'DE',
         priceCurrency: 'EUR',
       };
@@ -28,6 +34,8 @@ const usePriceInfo = () => {
 
     default: {
       priceInfo = {
+        fractionDigits: 2,
+        priceSymbol: '$',
         priceCountry: 'US',
         priceCurrency: 'USD',
       };

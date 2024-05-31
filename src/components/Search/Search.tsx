@@ -1,15 +1,21 @@
 import React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import SearchSVG from '@assets/svg/search.svg?react';
+import { useSearchParams } from 'react-router-dom';
 
 export interface SearchProperties {
   className?: string;
-  setSearch: React.Dispatch<React.SetStateAction<string | undefined>>;
 }
 
-function Search({ className, setSearch }: SearchProperties) {
+function Search({ className }: SearchProperties) {
+  const [searchParameters, setSearchParameters] = useSearchParams();
   const debounced = useDebouncedCallback((event: React.FormEvent<HTMLInputElement>) => {
-    setSearch((event.target as HTMLInputElement).value);
+    const searchValue = (event.target as HTMLInputElement).value;
+
+    setSearchParameters({
+      ...Object.fromEntries(searchParameters.entries()),
+      search: searchValue,
+    });
   }, 250);
 
   return (
@@ -23,10 +29,11 @@ function Search({ className, setSearch }: SearchProperties) {
           type="search"
           id="default-search"
           className="block w-full rounded-lg border border-gray-300 bg-gray-50 p-4 ps-10 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-zinc-800 dark:text-white dark:placeholder-gray-400 dark:focus:border-zinc-950 dark:focus:ring-zinc-950"
-          placeholder="Search Mockups, Logos..."
+          placeholder="Product search..."
           required
           onInput={debounced}
           aria-label="search"
+          defaultValue={searchParameters.get('search') ?? undefined}
         />
       </div>
     </div>

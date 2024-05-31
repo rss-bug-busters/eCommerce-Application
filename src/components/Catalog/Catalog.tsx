@@ -1,23 +1,21 @@
-import useProducts, { UseProductsOptions } from '@hooks/useProducts';
 import ItemCard from '@components/ItemCard/ItemCard';
+import {
+  ClientResponse,
+  ProductProjectionPagedSearchResponse,
+} from '@commercetools/platform-sdk';
 
-interface Properties extends UseProductsOptions {
+interface Properties {
   className?: string;
+  data?: ClientResponse<ProductProjectionPagedSearchResponse>;
 }
 
-function Catalog({ search, sort, className }: Properties) {
-  const { data, isSuccess } = useProducts({
-    search,
-    sort,
-  });
-
+function Catalog({ className, data }: Properties) {
   return (
     <div className={`grid justify-center ${className}`} data-testid="catalog">
       <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {isSuccess &&
-          data.body.results.map((product) => (
-            <ItemCard key={product.id} product={product} />
-          ))}
+        {data?.body.results.map((product) => (
+          <ItemCard key={product.id} product={product} />
+        ))}
       </div>
     </div>
   );
