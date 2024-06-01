@@ -1,4 +1,6 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
+import useUserQueries from '@services/api/hooks/useUserQueries';
+import { Customer } from '@commercetools/platform-sdk';
 import ProfileForm from './ProfileForm/ProfileForm';
 
 const Profile: FC = function () {
@@ -14,8 +16,27 @@ const Profile: FC = function () {
   const onEditPassword = () => {
     setEditPassword(!editPassword);
   };
+  const { user } = useUserQueries();
+  const [userData, setUserData] = useState<Customer | undefined>();
 
-  console.log(editProfile);
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await user();
+
+        setUserData(response.body);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+
+    if (!userData) {
+      (async () => {
+        await fetchUserData();
+      })().catch((error) => console.error('Failed to fetch user data:', error));
+    }
+  }, [user, userData]);
+  console.log(userData);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 md:gap-5">
@@ -43,7 +64,7 @@ const Profile: FC = function () {
           Edit Password
         </button>
       </div>
-      <ProfileForm isEdit={editProfile} />
+      <ProfileForm isEdit={editProfile} userData={userData} />
     </div>
   );
 };

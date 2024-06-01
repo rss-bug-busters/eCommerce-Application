@@ -1,57 +1,35 @@
-import {
-  SignUpFormSchema,
-  SignUpFormType,
-} from '@components/Auth/SignUp/SignUpForm/SignUpForm.types';
 import { zodResolver } from '@hookform/resolvers/zod';
 // import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
 // import { useQueryClient } from '@tanstack/react-query';
 // import RoutePaths from '@utils/consts/RoutePaths';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 // import { toast } from 'react-toastify';
 // import Spinner from '@assets/svg/spinner.svg?react';
-import useUserQueries from '@services/api/hooks/useUserQueries';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
 import { Customer } from '@commercetools/platform-sdk';
 import ProfileAddress from '../ProfileAdress/ProfileAddresses';
+import { ProfileEditSchema, ProfileEditType } from './ProfileEdit.type';
 
 interface ProfileFormProperties {
   isEdit: boolean;
+  userData: Customer | undefined;
 }
 
-const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false }) {
+const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false, userData }) {
   const {
     register,
     handleSubmit,
     formState: { errors },
     // control,
-    // setValue,
-  } = useForm<SignUpFormType>({
-    resolver: zodResolver(SignUpFormSchema),
+    setValue,
+  } = useForm<ProfileEditType>({
+    resolver: zodResolver(ProfileEditSchema),
   });
-  const { user } = useUserQueries();
 
-  const [userData, setUserData] = useState<Customer | undefined>();
+  console.log('Validation errors:', errors);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const response = await user();
-
-        setUserData(response.body);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    if (!userData) {
-      (async () => {
-        await fetchUserData();
-      })().catch((error) => console.error('Failed to fetch user data:', error));
-    }
-  }, [user, userData]);
-  console.log(userData);
   // const client = useQueryClient();
   // const navigate = useNavigate();
   // const [useSameAddress, setUseSameAddress] = useState(true);
@@ -99,13 +77,15 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false }) {
   //     setValue('billingAddress', shipping);
   //   }
   // }, [setValue, shipping, useSameAddress]);
+  const onSubmit = (data: ProfileEditType) => {
+    console.log('Form data:', data);
+    // Place your form submission logic here
+  };
 
   return (
     <form
       noValidate
-      onSubmit={handleSubmit((data) => {
-        console.log(data);
-      })}
+      onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
     >
       <div className="flex items-center gap-x-2">
@@ -119,6 +99,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false }) {
           error={errors.name}
           isEdit={isEdit}
           defaultValue={userData?.firstName}
+          setValue={setValue}
         />
         <InputFieldProfile
           name="surname"
@@ -127,6 +108,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false }) {
           error={errors.surname}
           isEdit={isEdit}
           defaultValue={userData?.lastName}
+          setValue={setValue}
         />
         <InputFieldProfile
           name="dateOfBirth"
@@ -136,6 +118,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false }) {
           type="date"
           isEdit={isEdit}
           defaultValue={userData?.dateOfBirth}
+          setValue={setValue}
         />
         {/* <InputFieldProfile
           name="email"
@@ -173,6 +156,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false }) {
         errors={errors}
         register={register}
         isEdit={isEdit}
+        setValue={setValue}
       />
       {isEdit && (
         <button

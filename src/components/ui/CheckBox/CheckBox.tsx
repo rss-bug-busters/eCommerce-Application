@@ -1,21 +1,35 @@
-import { ChangeEventHandler, FC } from 'react';
+import { ProfileEditType } from '@components/Profile/ProfileForm/ProfileEdit.type';
+import { ChangeEventHandler, FC, useEffect } from 'react';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 
 interface CheckBoxProperties {
   checked: boolean;
   isEdit: boolean;
   label: string;
+  name: keyof ProfileEditType;
   onChange: ChangeEventHandler<HTMLInputElement>;
+  register: UseFormRegister<ProfileEditType>;
+  setValue: UseFormSetValue<ProfileEditType>;
   value: string | undefined;
 }
 
 const CheckBox: FC<CheckBoxProperties> = function ({
+  name,
   label,
   checked,
   isEdit = false,
-  value,
+  value = '',
   onChange,
+  register,
+  setValue,
 }) {
   const inputId = `checkbox-${Math.random().toString(36).slice(2, 9)}`;
+
+  useEffect(() => {
+    if (checked) {
+      setValue(name, value);
+    }
+  }, [checked, value, name, setValue]);
 
   return (
     <label
@@ -26,6 +40,7 @@ const CheckBox: FC<CheckBoxProperties> = function ({
         id={inputId}
         type="checkbox"
         value={value}
+        {...register}
         className="peer sr-only"
         {...(checked ? { checked } : {})}
         {...(isEdit ? {} : { disabled: true })}

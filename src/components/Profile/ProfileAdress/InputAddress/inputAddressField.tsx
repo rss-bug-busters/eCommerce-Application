@@ -1,16 +1,17 @@
 import React from 'react';
-import { UseFormRegister, FieldErrors } from 'react-hook-form';
-import { SignUpFormType } from '@components/Auth/SignUp/SignUpForm/SignUpForm.types';
+import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import SelectProfile from '@components/ui/Select/selectProfile';
 import { Address } from '@commercetools/platform-sdk';
+import { ProfileEditType } from '@components/Profile/ProfileForm/ProfileEdit.type';
 import InputFieldProfile from '../../../ui/InputField/InputFieldProfile';
 
 interface AddressFieldsProperties {
   address: Address;
-  errors: FieldErrors<SignUpFormType>;
+  errors: FieldErrors<ProfileEditType>;
+  index: number;
   isEdit: boolean;
-  prefix: 'billingAddress' | 'shippingAddress';
-  register: UseFormRegister<SignUpFormType>;
+  register: UseFormRegister<ProfileEditType>;
+  setValue: UseFormSetValue<ProfileEditType>;
 }
 
 const countryOptions = [
@@ -22,9 +23,10 @@ const countryOptions = [
 const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
   register,
   errors,
-  prefix,
   address,
   isEdit = false,
+  setValue,
+  index,
 }) {
   return (
     <div
@@ -32,41 +34,45 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
       // key={`${address.id}addressField`}
     >
       <SelectProfile
-        name={`${prefix}.country`}
+        name={`Address.${index}.country` as keyof ProfileEditType}
         options={countryOptions}
-        register={register(`${prefix}.country`)}
+        register={register(`Address.${index}.country`)}
         placeholder="Country"
-        error={errors[`${prefix}`]?.country}
+        error={errors.Address?.[index]?.country}
         defaultValue={address.country}
         isEdit={isEdit}
-
+        setValue={setValue}
         // key={`${address.id}${address.country}`}
       />
       <InputFieldProfile
-        name={`${prefix}.city`}
-        register={register(`${prefix}.city`)}
+        name={`Address.${index}.city` as keyof ProfileEditType}
+        register={register(`Address.${index}.city`)}
         placeholder="City"
-        error={errors[`${prefix}`]?.city}
+        error={errors.Address?.[index]?.city}
         defaultValue={address.city}
         isEdit={isEdit}
+        setValue={setValue}
         // key={`${address.id}${address.city}`}
       />
       <InputFieldProfile
-        name={`${prefix}.streetName`}
-        register={register(`${prefix}.streetName`)}
+        name={`Address.${index}.streetName` as keyof ProfileEditType}
+        register={register(`Address.${index}.streetName`)}
         placeholder="Street"
-        error={errors[`${prefix}`]?.streetName}
+        error={errors.Address?.[index]?.streetName}
         defaultValue={address.streetName}
         isEdit={isEdit}
+        setValue={setValue}
         // key={`${address.id}${address.streetName}`}
       />
       <InputFieldProfile
-        name={`${prefix}.postalCode`}
-        register={register(`${prefix}.postalCode`)}
+        name={`Address.${index}.postalCode` as keyof ProfileEditType}
+        register={register(`Address.${index}.postalCode`)}
         placeholder="Postal code"
-        error={errors[`${prefix}`]?.postalCode}
+        error={errors.Address?.[index]?.postalCode}
         defaultValue={address.postalCode}
         isEdit={isEdit}
+        setValue={setValue}
+
         // key={`${address.id}${address.postalCode}`}
       />
     </div>

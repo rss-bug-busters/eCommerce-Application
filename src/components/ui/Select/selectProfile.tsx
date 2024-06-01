@@ -1,14 +1,16 @@
-import { FC } from 'react';
-import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
+import { ProfileEditType } from '@components/Profile/ProfileForm/ProfileEdit.type';
+import { FC, useEffect } from 'react';
+import { FieldError, UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 
 interface SelectProfileProperties {
   defaultValue: string;
   error?: FieldError;
   isEdit: boolean;
-  name: string;
+  name: keyof ProfileEditType;
   options: { label: string; value: string }[];
   placeholder?: string;
   register: UseFormRegisterReturn;
+  setValue: UseFormSetValue<ProfileEditType>;
 }
 
 const SelectProfile: FC<SelectProfileProperties> = function ({
@@ -19,7 +21,14 @@ const SelectProfile: FC<SelectProfileProperties> = function ({
   placeholder,
   defaultValue,
   isEdit = false,
+  setValue,
 }) {
+  useEffect(() => {
+    if (defaultValue) {
+      setValue(name, defaultValue);
+    }
+  }, [defaultValue, name, setValue]);
+
   return (
     <div className="relative">
       <label htmlFor={name} className="flex items-center justify-start w-full ml-3">
