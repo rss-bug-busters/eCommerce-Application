@@ -13,8 +13,40 @@ import { useForm } from 'react-hook-form';
 // import Spinner from '@assets/svg/spinner.svg?react';
 import useUserQueries from '@services/api/hooks/useUserQueries';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
-import { Customer } from '@commercetools/platform-sdk';
+import { Customer, Address } from '@commercetools/platform-sdk';
 import AddressFieldsProfile from '@components/ui/InputField/InputAddress/inputAddressField';
+
+interface AddressPlusDefualt extends Address {
+  defaultBillingAddressId: string;
+  defaultShippingAddressId: string;
+}
+interface DefaultAddressParameters {
+  address: AddressPlusDefualt;
+  user: Customer;
+}
+const DefaultAddress: FC<DefaultAddressParameters> = function ({ address, user }) {
+  let isDefaultBilling = false;
+  let isDefaultShipping = false;
+
+  if (user.defaultShippingAddressId && address.id === user.defaultShippingAddressId) {
+    isDefaultShipping = true;
+  }
+
+  if (user.defaultBillingAddressId && address.id === user.defaultBillingAddressId) {
+    isDefaultBilling = true;
+  }
+
+  const whichAddress =
+    address.key === 'shipping-address' ? 'Shipping address' : 'Billing Address';
+
+  return (
+    <div>
+      <h3>{whichAddress}</h3>
+      {isDefaultBilling && <div>Default Billing</div>}
+      {isDefaultShipping && <div>Default Shipping</div>}
+    </div>
+  );
+};
 
 const ProfileForm: FC = function () {
   const {
@@ -127,15 +159,15 @@ const ProfileForm: FC = function () {
           readOnly
           value={userData?.dateOfBirth}
         />
-        {/* <InputFieldProfile
+        <InputFieldProfile
           name="email"
           register={register('email')}
           placeholder="Email"
           error={errors.email}
           type="text"
-          readonly
+          readOnly
           value={userData?.email}
-        /> */}
+        />
         {/* <InputFieldProfile
           name="password"
           register={register('password')}
@@ -156,21 +188,28 @@ const ProfileForm: FC = function () {
         /> */}
       </div>
       <div className="flex items-center gap-x-2">
-        <h2 className=" text-xl text-center dark:text-white">Addresses</h2>
+        <h2 className="text-xl text-center dark:text-white">Addresses</h2>
       </div>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col items-center gap-3">
         {userData?.addresses &&
           userData.addresses.length > 0 &&
-          userData.addresses.map((address, index) => (
-            <div key={address.id}>
-              <h3>Address {index + 1}</h3>
+          userData.addresses.map((address) => (
+            <div
+              key={address.id}
+              className="flex flex-col p-5 items-center md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
+            >
+              <DefaultAddress address={address as AddressPlusDefualt} user={userData} />
               <AddressFieldsProfile
                 errors={errors}
                 register={register}
-                prefix="shippingAddress"
+                prefix={
+                  address.key === 'shipping-address'
+                    ? 'shippingAddress'
+                    : 'billingAddress'
+                }
                 address={address}
                 readOnly
-                key={address.id}
+                key={`${address.id}addressFields`}
               />
             </div>
           ))}

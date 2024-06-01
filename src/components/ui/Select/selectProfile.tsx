@@ -28,7 +28,7 @@ const SelectProfile: FC<SelectProfileProperties> = function ({
       <select
         value={value}
         {...register}
-        className={`flex items-center justify-start w-64 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${readOnly ? 'bg-slate-300' : 'bg-slate-100'} `}
+        className={`flex items-center justify-start w-60 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${readOnly ? 'bg-slate-300' : 'bg-slate-100'} `}
         // defaultValue=""
         disabled={readOnly}
       >

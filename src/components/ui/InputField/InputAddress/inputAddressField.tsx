@@ -27,7 +27,10 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
   readOnly = true,
 }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8" key={address.id}>
+    <div
+      className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"
+      // key={`${address.id}addressField`}
+    >
       <SelectProfile
         name={`${prefix}.country`}
         options={countryOptions}
@@ -36,7 +39,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         error={errors[`${prefix}`]?.country}
         value={address.country}
         readOnly={readOnly}
-        key={`${address.id}${address.country}`}
+        // key={`${address.id}${address.country}`}
       />
       <InputFieldProfile
         name={`${prefix}.city`}
@@ -45,7 +48,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         error={errors[`${prefix}`]?.city}
         value={address.city}
         readOnly={readOnly}
-        key={`${address.id}${address.city}`}
+        // key={`${address.id}${address.city}`}
       />
       <InputFieldProfile
         name={`${prefix}.streetName`}
@@ -54,7 +57,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         error={errors[`${prefix}`]?.streetName}
         value={address.streetName}
         readOnly={readOnly}
-        key={`${address.id}${address.streetName}`}
+        // key={`${address.id}${address.streetName}`}
       />
       <InputFieldProfile
         name={`${prefix}.postalCode`}
@@ -63,7 +66,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         error={errors[`${prefix}`]?.postalCode}
         value={address.postalCode}
         readOnly={readOnly}
-        key={`${address.id}${address.postalCode}`}
+        // key={`${address.id}${address.postalCode}`}
       />
     </div>
   );

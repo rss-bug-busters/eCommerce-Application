@@ -40,7 +40,7 @@ const InputFieldProfile: FC<InputFieldProfileProperties> = function ({
         {...register}
         placeholder={placeholder + (isRequired ? '*' : '')}
         type={isPassword && showPassword ? 'text' : type}
-        className={`flex items-center justify-start w-64 h-12 p-3 pr-9 outline-none border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${readOnly ? 'bg-slate-300' : 'bg-slate-100'} `}
+        className={`flex items-center justify-start w-60 h-12 p-3 pr-9 outline-none border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${readOnly ? 'bg-slate-300' : 'bg-slate-100'} `}
         readOnly={readOnly}
         value={value}
       />
