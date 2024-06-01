@@ -2,13 +2,13 @@ import { FC } from 'react';
 import { FieldError, UseFormRegisterReturn } from 'react-hook-form';
 
 interface SelectProfileProperties {
+  defaultValue: string;
   error?: FieldError;
+  isEdit: boolean;
   name: string;
   options: { label: string; value: string }[];
   placeholder?: string;
-  readOnly: boolean;
   register: UseFormRegisterReturn;
-  value: string;
 }
 
 const SelectProfile: FC<SelectProfileProperties> = function ({
@@ -17,8 +17,8 @@ const SelectProfile: FC<SelectProfileProperties> = function ({
   register,
   error,
   placeholder,
-  value,
-  readOnly = true,
+  defaultValue,
+  isEdit = false,
 }) {
   return (
     <div className="relative">
@@ -26,11 +26,11 @@ const SelectProfile: FC<SelectProfileProperties> = function ({
         {placeholder}
       </label>
       <select
-        value={value}
+        defaultValue={defaultValue}
         {...register}
-        className={`flex items-center justify-start w-60 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${readOnly ? 'bg-slate-300' : 'bg-slate-100'} `}
+        className={`flex items-center justify-start w-60 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${isEdit ? 'bg-slate-100' : 'bg-slate-200'} `}
         // defaultValue=""
-        disabled={readOnly}
+        {...(isEdit ? {} : { disabled: true })}
       >
         {placeholder && (
           <option value="" disabled>

@@ -4,14 +4,14 @@ import Show from '@assets/svg/eye.svg?react';
 import Hide from '@assets/svg/eye-close.svg?react';
 
 interface InputFieldProfileProperties {
+  defaultValue?: string;
   error?: FieldError;
+  isEdit?: boolean;
   isRequired?: boolean;
   name: string;
   placeholder: string;
-  readOnly?: boolean;
   register: UseFormRegisterReturn;
   type?: string;
-  value?: string;
 }
 
 const InputFieldProfile: FC<InputFieldProfileProperties> = function ({
@@ -21,8 +21,8 @@ const InputFieldProfile: FC<InputFieldProfileProperties> = function ({
   error,
   type = 'text',
   isRequired = true,
-  readOnly = true,
-  value = '',
+  isEdit = false,
+  defaultValue = '',
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowPassword = () => {
@@ -37,12 +37,14 @@ const InputFieldProfile: FC<InputFieldProfileProperties> = function ({
         {placeholder}
       </label>
       <input
+        // value={defaultValue}
+        // {...(!isEdit ? { value = {defaultValue} } : {})}
         {...register}
         placeholder={placeholder + (isRequired ? '*' : '')}
         type={isPassword && showPassword ? 'text' : type}
-        className={`flex items-center justify-start w-60 h-12 p-3 pr-9 outline-none border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${readOnly ? 'bg-slate-300' : 'bg-slate-100'} `}
-        readOnly={readOnly}
-        value={value}
+        className={`flex items-center justify-start w-60 h-12 p-3 pr-9 outline-none border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${isEdit ? 'bg-slate-100' : 'bg-slate-200'} `}
+        {...(isEdit ? {} : { disabled: true })}
+        defaultValue={defaultValue}
       />
       {isPassword && (
         <button

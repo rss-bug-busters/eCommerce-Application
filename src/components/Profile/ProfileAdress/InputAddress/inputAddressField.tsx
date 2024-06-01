@@ -3,13 +3,13 @@ import { UseFormRegister, FieldErrors } from 'react-hook-form';
 import { SignUpFormType } from '@components/Auth/SignUp/SignUpForm/SignUpForm.types';
 import SelectProfile from '@components/ui/Select/selectProfile';
 import { Address } from '@commercetools/platform-sdk';
-import InputFieldProfile from '../InputFieldProfile';
+import InputFieldProfile from '../../../ui/InputField/InputFieldProfile';
 
 interface AddressFieldsProperties {
   address: Address;
   errors: FieldErrors<SignUpFormType>;
+  isEdit: boolean;
   prefix: 'billingAddress' | 'shippingAddress';
-  readOnly: boolean;
   register: UseFormRegister<SignUpFormType>;
 }
 
@@ -24,7 +24,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
   errors,
   prefix,
   address,
-  readOnly = true,
+  isEdit = false,
 }) {
   return (
     <div
@@ -37,8 +37,9 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         register={register(`${prefix}.country`)}
         placeholder="Country"
         error={errors[`${prefix}`]?.country}
-        value={address.country}
-        readOnly={readOnly}
+        defaultValue={address.country}
+        isEdit={isEdit}
+
         // key={`${address.id}${address.country}`}
       />
       <InputFieldProfile
@@ -46,8 +47,8 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         register={register(`${prefix}.city`)}
         placeholder="City"
         error={errors[`${prefix}`]?.city}
-        value={address.city}
-        readOnly={readOnly}
+        defaultValue={address.city}
+        isEdit={isEdit}
         // key={`${address.id}${address.city}`}
       />
       <InputFieldProfile
@@ -55,8 +56,8 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         register={register(`${prefix}.streetName`)}
         placeholder="Street"
         error={errors[`${prefix}`]?.streetName}
-        value={address.streetName}
-        readOnly={readOnly}
+        defaultValue={address.streetName}
+        isEdit={isEdit}
         // key={`${address.id}${address.streetName}`}
       />
       <InputFieldProfile
@@ -64,8 +65,8 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         register={register(`${prefix}.postalCode`)}
         placeholder="Postal code"
         error={errors[`${prefix}`]?.postalCode}
-        value={address.postalCode}
-        readOnly={readOnly}
+        defaultValue={address.postalCode}
+        isEdit={isEdit}
         // key={`${address.id}${address.postalCode}`}
       />
     </div>

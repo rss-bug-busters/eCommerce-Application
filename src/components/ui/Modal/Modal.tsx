@@ -9,7 +9,7 @@ interface ModalProperties {
 const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
   return active ? (
     <div
-      className="flex items-center justify-center bg-gray-800 bg-opacity-30 fixed top-0 left-0 w-screen h-screen"
+      className="flex items-center justify-center bg-gray-800 bg-opacity-30 fixed top-0 left-0 w-screen h-screen z-50 overflow-hidden"
       onClick={() => setActive(false)}
       onKeyDown={(event: React.KeyboardEvent) => {
         if (event.key === 'Escape') {
@@ -20,7 +20,7 @@ const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
       tabIndex={0}
     >
       <div
-        className=" max-w-md p-4 bg-slate-100 rounded-2xl absolute "
+        className="p-4 bg-slate-100 rounded-2xl absolute overflow-auto max-h-[90vh]"
         onClick={(event: React.MouseEvent) => event.stopPropagation()}
         onKeyDown={(event: React.KeyboardEvent) => event.stopPropagation()}
         role="button"
