@@ -9,8 +9,10 @@ import { useForm } from 'react-hook-form';
 // import Spinner from '@assets/svg/spinner.svg?react';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
 import { Customer } from '@commercetools/platform-sdk';
+// import useUserQueries from '@services/api/hooks/useUserQueries';
 import ProfileAddress from '../ProfileAdress/ProfileAddresses';
 import { ProfileEditSchema, ProfileEditType } from './ProfileEdit.type';
+import checkChangesProfile from '../ProfileCheckChanges/ProfileCheckChanges';
 
 interface ProfileFormProperties {
   isEdit: boolean;
@@ -28,7 +30,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false, userD
     resolver: zodResolver(ProfileEditSchema),
   });
 
-  console.log('Validation errors:', errors);
+  // console.log('Validation errors:', errors);
 
   // const client = useQueryClient();
   // const navigate = useNavigate();
@@ -77,8 +79,30 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false, userD
   //     setValue('billingAddress', shipping);
   //   }
   // }, [setValue, shipping, useSameAddress]);
+
+  // const { addActions } = useUserQueries();
+
   const onSubmit = (data: ProfileEditType) => {
     console.log('Form data:', data);
+
+    if (userData) {
+      console.log(checkChangesProfile(userData, data));
+    }
+    // const actions: MyCustomerUpdateAction[] = [{
+    //   action: 'setFirstName',
+    //   firstName: "John"
+
+    // },{
+    //   action: 'changeAddress',
+    //   addressId: 'asdaqdwdx'
+    //   address: 'asdasd'
+    // }]
+    // Actions.changeAddress={action firstName: 'Tod'}
+    // addActions(2,actions).then((response)=>{
+    //   console.log(response)
+    // }).catch((error)=> {
+    //   console.log(error)
+    // })
     // Place your form submission logic here
   };
 

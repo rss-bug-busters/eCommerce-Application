@@ -1,5 +1,9 @@
 import useApi from '@services/api/hooks/useApi';
-import { MyCustomerDraft } from '@commercetools/platform-sdk';
+import {
+  MyCustomerDraft,
+  // MyCustomerSetFirstNameAction,
+  MyCustomerUpdateAction,
+} from '@commercetools/platform-sdk';
 import { clearTokenCache, tokenCache } from '@services/api/utils/tokenCache';
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -82,6 +86,17 @@ const useUserQueries = () => {
       })
       .execute()
       .then(user);
+  const addActions = async (version: number, actions: MyCustomerUpdateAction[]) =>
+    api()
+      .me()
+      .post({
+        body: {
+          actions,
+          version,
+        },
+      })
+      .execute()
+      .then(user);
 
   return {
     user,
@@ -90,6 +105,7 @@ const useUserQueries = () => {
     logout,
     addShippingAddress,
     addBillingAddress,
+    addActions,
   };
 };
 
