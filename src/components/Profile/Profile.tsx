@@ -4,20 +4,22 @@ import { Customer } from '@commercetools/platform-sdk';
 import ProfileForm from './ProfileForm/ProfileForm';
 
 const Profile: FC = function () {
-  const [editProfile, setEditProfile] = useState(false);
-  const [editEmail, setEditEmail] = useState(false);
-  const [editPassword, setEditPassword] = useState(false);
+  const [useEditProfile, setEditProfile] = useState(false);
+  const [useEditEmail, setEditEmail] = useState(false);
+  const [useEditPassword, setEditPassword] = useState(false);
+  const [userData, setUserData] = useState<Customer | undefined>();
+  const { user } = useUserQueries();
+
   const onEditProfile = () => {
-    setEditProfile(!editProfile);
+    setEditProfile(!useEditProfile);
+    setUserData(undefined);
   };
   const onEditEmail = () => {
-    setEditEmail(!editEmail);
+    setEditEmail(!useEditEmail);
   };
   const onEditPassword = () => {
-    setEditPassword(!editPassword);
+    setEditPassword(!useEditPassword);
   };
-  const { user } = useUserQueries();
-  const [userData, setUserData] = useState<Customer | undefined>();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -36,7 +38,6 @@ const Profile: FC = function () {
       })().catch((error) => console.error('Failed to fetch user data:', error));
     }
   }, [user, userData]);
-  console.log(userData);
 
   return (
     <div className="flex flex-col items-center justify-center gap-2 md:gap-5">
@@ -64,7 +65,12 @@ const Profile: FC = function () {
           Edit Password
         </button>
       </div>
-      <ProfileForm isEdit={editProfile} userData={userData} />
+      <ProfileForm
+        isEdit={useEditProfile}
+        userData={userData}
+        setEditMode={setEditProfile}
+        setUserData={setUserData}
+      />
     </div>
   );
 };

@@ -10,16 +10,25 @@ import { useForm } from 'react-hook-form';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
 import { Customer } from '@commercetools/platform-sdk';
 // import useUserQueries from '@services/api/hooks/useUserQueries';
+import useUserQueries from '@services/api/hooks/useUserQueries';
+import { toast } from 'react-toastify';
 import ProfileAddress from '../ProfileAdress/ProfileAddresses';
 import { ProfileEditSchema, ProfileEditType } from './ProfileEdit.type';
 import checkChangesProfile from '../ProfileCheckChanges/ProfileCheckChanges';
 
 interface ProfileFormProperties {
   isEdit: boolean;
+  setEditMode: React.Dispatch<React.SetStateAction<boolean>>;
+  setUserData: React.Dispatch<React.SetStateAction<Customer | undefined>>;
   userData: Customer | undefined;
 }
 
-const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false, userData }) {
+const ProfileForm: FC<ProfileFormProperties> = function ({
+  isEdit = false,
+  userData,
+  setEditMode,
+  setUserData,
+}) {
   const {
     register,
     handleSubmit,
@@ -80,13 +89,25 @@ const ProfileForm: FC<ProfileFormProperties> = function ({ isEdit = false, userD
   //   }
   // }, [setValue, shipping, useSameAddress]);
 
-  // const { addActions } = useUserQueries();
+  const { addActions } = useUserQueries();
 
   const onSubmit = (data: ProfileEditType) => {
-    console.log('Form data:', data);
+    toast.dismiss();
 
     if (userData) {
-      console.log(checkChangesProfile(userData, data));
+      const actions = checkChangesProfile(userData, data);
+
+      addActions(userData.version, actions)
+        .then((response) => {
+          toast.success('Profile changes has been saved');
+          setEditMode(false);
+          setUserData(undefined);
+
+          return response;
+        })
+        .catch((error) => {
+          toast.error(`Failed: ${error}`);
+        });
     }
     // const actions: MyCustomerUpdateAction[] = [{
     //   action: 'setFirstName',
