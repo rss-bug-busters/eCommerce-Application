@@ -1,15 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-// import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
-// import { useQueryClient } from '@tanstack/react-query';
-// import RoutePaths from '@utils/consts/RoutePaths';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
-// import { useNavigate } from 'react-router-dom';
-// import { toast } from 'react-toastify';
-// import Spinner from '@assets/svg/spinner.svg?react';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
 import { Address, Customer } from '@commercetools/platform-sdk';
-// import useUserQueries from '@services/api/hooks/useUserQueries';
 import useUserQueries from '@services/api/hooks/useUserQueries';
 import { toast } from 'react-toastify';
 import ProfileAddress from '../ProfileAdress/ProfileAddresses';
@@ -33,61 +26,11 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     register,
     handleSubmit,
     formState: { errors },
-    // control,
     setValue,
   } = useForm<ProfileEditType>({
     resolver: zodResolver(ProfileEditSchema),
   });
 
-  // console.log('Validation errors:', errors);
-
-  // const client = useQueryClient();
-  // const navigate = useNavigate();
-  // const [useSameAddress, setUseSameAddress] = useState(true);
-  // const [useAsDefaultShipping, setUseAsDefaultShipping] = useState(true);
-  // const [useAsDefaultBilling, setUseAsDefaultBilling] = useState(true);
-  // const shipping = useWatch({
-  //   control,
-  //   name: 'shippingAddress',
-  // });
-
-  // const handleUseSameAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setUseSameAddress(event.target.checked);
-
-  //   if (event.target.checked) {
-  //     setValue('billingAddress', shipping);
-  //     setValue('isDefaultBilling', useAsDefaultShipping);
-  //   }
-  // };
-  // const handleSetDefault = () => {
-  //   if (useSameAddress) {
-  //     setUseAsDefaultBilling(!useAsDefaultShipping);
-  //   }
-
-  //   setUseAsDefaultShipping(!useAsDefaultShipping);
-  // };
-
-  // const { mutate: signUpMutation, isPending } = useSignUpMutation();
-
-  // const onSubmit:= async (data) => {
-  //   toast.dismiss();
-  //   signUpMutation(data, {
-  //     async onSuccess() {
-  //       toast.success('Account created successfully!');
-  //       await client.resetQueries();
-  //       navigate(RoutePaths.MAIN);
-  //     },
-  //     onError(error) {
-  //       toast.error(`Failed: ${error.message}`);
-  //     },
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   if (useSameAddress) {
-  //     setValue('billingAddress', shipping);
-  //   }
-  // }, [setValue, shipping, useSameAddress]);
   const emptyAddress: Address = {
     country: '',
     city: '',
@@ -103,8 +46,6 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     if (userData) {
       const actions = checkChangesProfile(userData, data);
 
-      console.log(actions);
-
       addActions(userData.version, actions)
         .then((response) => {
           toast.success('Profile changes has been saved');
@@ -117,22 +58,6 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
           toast.error(`Failed: ${error}`);
         });
     }
-    // const actions: MyCustomerUpdateAction[] = [{
-    //   action: 'setFirstName',
-    //   firstName: "John"
-
-    // },{
-    //   action: 'changeAddress',
-    //   addressId: 'asdaqdwdx'
-    //   address: 'asdasd'
-    // }]
-    // Actions.changeAddress={action firstName: 'Tod'}
-    // addActions(2,actions).then((response)=>{
-    //   console.log(response)
-    // }).catch((error)=> {
-    //   console.log(error)
-    // })
-    // Place your form submission logic here
   };
 
   return (
@@ -173,33 +98,16 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
           defaultValue={userData?.dateOfBirth}
           setValue={setValue}
         />
-        {/* <InputFieldProfile
+        <InputFieldProfile
           name="email"
           register={register('email')}
           placeholder="Email"
           error={errors.email}
+          isEdit={isEdit}
           type="text"
-          readOnly
-          value={userData?.email}
-        /> */}
-        {/* <InputFieldProfile
-          name="password"
-          register={register('password')}
-          placeholder="Password"
-          error={errors.password}
-          type="password"
-          readonly={true}
-          value={userData?.password}
+          defaultValue={userData?.email}
+          setValue={setValue}
         />
-        <InputFieldProfile
-          name="confirmPassword"
-          register={register('confirmPassword')}
-          placeholder="Confirm password"
-          error={errors.confirmPassword}
-          type="password"
-          readonly={true}
-          value={userData?.password}
-        /> */}
       </div>
       <div className="flex items-center gap-x-2">
         <h2 className="text-xl text-center dark:text-white">Addresses</h2>
@@ -223,7 +131,6 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
 
               if (updatedUserData.addresses) {
                 updatedUserData.addresses.push(emptyAddress);
-                console.log(updatedUserData);
               }
 
               setUserData(updatedUserData);
@@ -238,7 +145,6 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
           type="submit"
           className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
         >
-          {/* {isPending && <Spinner className="w-6 h-6 mr-4 animate-spin" />} */}
           Save Changes
         </button>
       )}

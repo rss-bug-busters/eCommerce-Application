@@ -35,6 +35,7 @@ const MAX_YEAR = new Date().getFullYear() - MIN_AGE;
 export const ProfileEditSchema = z.object({
   name: nameCheck('Name'),
   surname: nameCheck('Surname'),
+  email: z.string().email({ message: 'Invalid email' }),
   dateOfBirth: z
     .string()
     .refine((date) => diffInYears(new Date(), new Date(date)) >= MIN_AGE, {

@@ -97,6 +97,29 @@ const useUserQueries = () => {
       })
       .execute()
       .then(user);
+  const changePassword = async (
+    version: number,
+    currentPassword: string,
+    newPassword: string,
+    email: string
+  ) =>
+    api()
+      .me()
+      .password()
+      .post({
+        body: {
+          version,
+          currentPassword,
+          newPassword,
+        },
+      })
+      .execute()
+      .then(() =>
+        api({ user: { password: newPassword, username: email } })
+          .me()
+          .get()
+          .execute()
+      );
 
   return {
     user,
@@ -106,6 +129,7 @@ const useUserQueries = () => {
     addShippingAddress,
     addBillingAddress,
     addActions,
+    changePassword,
   };
 };
 

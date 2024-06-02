@@ -1,11 +1,12 @@
 import { FC, useEffect, useState } from 'react';
 import useUserQueries from '@services/api/hooks/useUserQueries';
 import { Customer } from '@commercetools/platform-sdk';
+import Modal from '@components/ui/Modal/Modal';
 import ProfileForm from './ProfileForm/ProfileForm';
+import ProfileFormPassword from './ProfileModalWindows/PassowordChangeModalWindow';
 
 const Profile: FC = function () {
   const [useEditProfile, setEditProfile] = useState(false);
-  const [useEditEmail, setEditEmail] = useState(false);
   const [useEditPassword, setEditPassword] = useState(false);
   const [userData, setUserData] = useState<Customer | undefined>();
   const { user } = useUserQueries();
@@ -13,9 +14,6 @@ const Profile: FC = function () {
   const onEditProfile = () => {
     setEditProfile(!useEditProfile);
     setUserData(undefined);
-  };
-  const onEditEmail = () => {
-    setEditEmail(!useEditEmail);
   };
   const onEditPassword = () => {
     setEditPassword(!useEditPassword);
@@ -52,13 +50,6 @@ const Profile: FC = function () {
         </button>
         <button
           type="button"
-          className="flex items-end bg-yellow-500 text-white px-4 py-2 rounded-md"
-          onClick={onEditEmail}
-        >
-          Edit Email
-        </button>
-        <button
-          type="button"
           className="flex items-end bg-red-500 text-white px-4 py-2 rounded-md"
           onClick={onEditPassword}
         >
@@ -71,6 +62,15 @@ const Profile: FC = function () {
         setEditMode={setEditProfile}
         setUserData={setUserData}
       />
+      <Modal active={useEditPassword} setActive={setEditPassword}>
+        {' '}
+        <ProfileFormPassword
+          isEdit={useEditPassword}
+          userData={userData}
+          setEditMode={setEditPassword}
+          setUserData={setUserData}
+        />
+      </Modal>
     </div>
   );
 };

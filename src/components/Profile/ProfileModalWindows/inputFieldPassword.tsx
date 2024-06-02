@@ -2,29 +2,29 @@ import { FC, useEffect, useState } from 'react';
 import { FieldError, UseFormRegisterReturn, UseFormSetValue } from 'react-hook-form';
 import Show from '@assets/svg/eye.svg?react';
 import Hide from '@assets/svg/eye-close.svg?react';
-import { ProfileEditType } from '@components/Profile/ProfileForm/ProfileEdit.type';
+import { PasswordFormType } from './Password.types';
 
 interface InputFieldProfileProperties {
   defaultValue?: string;
   error?: FieldError;
   isEdit?: boolean;
   isRequired?: boolean;
-  name: keyof ProfileEditType;
+  name: keyof PasswordFormType;
   placeholder: string;
   register: UseFormRegisterReturn;
-  setValue: UseFormSetValue<ProfileEditType>;
+  setValue: UseFormSetValue<PasswordFormType>;
   type?: string;
   value?: string;
 }
 
-const InputFieldProfile: FC<InputFieldProfileProperties> = function ({
+const InputFieldPassword: FC<InputFieldProfileProperties> = function ({
   name,
   register,
   placeholder,
   error,
   type = 'text',
   isRequired = true,
-  isEdit = false,
+  isEdit = true,
   defaultValue,
   setValue,
 }) {
@@ -79,4 +79,4 @@ const InputFieldProfile: FC<InputFieldProfileProperties> = function ({
   );
 };
 
-export default InputFieldProfile;
+export default InputFieldPassword;

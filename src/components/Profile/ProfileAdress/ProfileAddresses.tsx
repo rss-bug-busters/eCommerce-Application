@@ -74,8 +74,6 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   }, [selectedBillingCheckbox, setValue]);
 
   const handleDelete = (index: number) => {
-    console.log(useDeleteAddresses);
-
     if (!addresses) {
       return;
     }

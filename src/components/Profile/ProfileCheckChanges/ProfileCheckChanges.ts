@@ -78,6 +78,10 @@ const manageAddresses = (
 const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) => {
   const changes: MyCustomerUpdateAction[] = [];
 
+  if (userData.email !== submitData.email) {
+    changes.push({ action: 'changeEmail', email: submitData.email });
+  }
+
   if (userData.firstName !== submitData.name) {
     changes.push({ action: 'setFirstName', firstName: submitData.name });
   }

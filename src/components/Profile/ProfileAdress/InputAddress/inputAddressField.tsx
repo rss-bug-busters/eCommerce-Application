@@ -37,10 +37,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
   }, [index, address.id, setValue]);
 
   return (
-    <div
-      className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"
-      // key={`${address.id}addressField`}
-    >
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
       <SelectProfile
         name={`Address.${index}.country` as keyof ProfileEditType}
         options={countryOptions}
@@ -50,7 +47,6 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         defaultValue={address.country}
         isEdit={isEdit}
         setValue={setValue}
-        // key={`${address.id}${address.country}`}
       />
       <InputFieldProfile
         name={`Address.${index}.city` as keyof ProfileEditType}
@@ -60,7 +56,6 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         defaultValue={address.city}
         isEdit={isEdit}
         setValue={setValue}
-        // key={`${address.id}${address.city}`}
       />
       <InputFieldProfile
         name={`Address.${index}.streetName` as keyof ProfileEditType}
@@ -70,7 +65,6 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         defaultValue={address.streetName}
         isEdit={isEdit}
         setValue={setValue}
-        // key={`${address.id}${address.streetName}`}
       />
       <InputFieldProfile
         name={`Address.${index}.postalCode` as keyof ProfileEditType}
@@ -80,8 +74,6 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
         defaultValue={address.postalCode}
         isEdit={isEdit}
         setValue={setValue}
-
-        // key={`${address.id}${address.postalCode}`}
       />
     </div>
   );
