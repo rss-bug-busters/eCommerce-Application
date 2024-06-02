@@ -34,6 +34,12 @@ const Header: FC = function () {
           Home
         </Link>
         <Link
+          to={RoutePaths.BASKET}
+          className=" font-bold hover:underline cursor-pointer"
+        >
+          Basket
+        </Link>
+        <Link
           to={RoutePaths.PRODUCT}
           className="font-bold hover:underline cursor-pointer"
         >

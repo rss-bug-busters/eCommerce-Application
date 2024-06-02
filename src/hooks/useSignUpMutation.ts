@@ -1,7 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
 import { SignUpFormType } from '@components/Auth/SignUp/SignUpForm/SignUpForm.types';
 import { BaseAddress, MyCustomerDraft } from '@commercetools/platform-sdk';
-import useUserQueries from './useUserQueries';
+import useUserQueries from '@services/api/hooks/useUserQueries';
 
 const useSignUpMutation = () => {
   const { register, addShippingAddress, addBillingAddress } = useUserQueries();

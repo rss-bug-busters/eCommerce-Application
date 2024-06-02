@@ -6,7 +6,6 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './tailwindcss.css';
-
 import Loader from '@components/ui/Loader/Loader';
 
 const queryClient = new QueryClient();
@@ -23,7 +22,7 @@ ReactDOM.createRoot(document.querySelector('#root')!).render(
     <ToastContainer
       stacked
       position="top-center"
-      autoClose={5000}
+      autoClose={2000}
       limit={2}
       hideProgressBar
       newestOnTop={false}

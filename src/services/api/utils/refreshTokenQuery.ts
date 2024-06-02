@@ -1,10 +1,9 @@
-import { authUrl, clientId, clientSecret } from '@services/api/options/credential';
+import { authUrl, basicToken } from '@services/api/options/credential';
 
 const refreshTokenQuery = (refreshTokens: string) => {
   const headers = new Headers();
-  const token = btoa(`${clientId}:${clientSecret}`);
 
-  headers.set('Authorization', `Basic ${token}`);
+  headers.set('Authorization', basicToken);
   headers.set('Content-Type', 'application/x-www-form-urlencoded');
 
   const body = new URLSearchParams();
