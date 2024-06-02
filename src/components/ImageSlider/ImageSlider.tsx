@@ -1,12 +1,13 @@
 import { Image } from '@commercetools/platform-sdk';
 import Modal from '@components/ui/Modal/Modal';
-import React, { useState } from 'react';
+import { FC, useState } from 'react';
 
 interface SliderProperties {
+  className?: string;
   images: Image[] | undefined;
 }
 
-const ImageSlider: React.FC<SliderProperties> = function ({ images }) {
+const ImageSlider: FC<SliderProperties> = function ({ images, className }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -27,7 +28,7 @@ const ImageSlider: React.FC<SliderProperties> = function ({ images }) {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className={`${className ?? ''} flex items-center justify-center`}>
       {images && (
         <>
           <div className="flex flex-col max-h-full overflow-y-auto mr-5">
