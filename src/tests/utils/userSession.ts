@@ -30,8 +30,8 @@ const preparePasswordToken = async (username: string, password: string) => {
       .me()
       .get()
       .execute()
-      .catch((error) => {
-        console.log(error);
+      .catch(() => {
+
         throw new Error('User password session preparation failed');
       });
 
@@ -41,7 +41,7 @@ const preparePasswordToken = async (username: string, password: string) => {
 
 const prepareAnonymousToken = async () => {
   if (!sessions.anonymous) {
-    await api()
+    await api({ needAnonymousAuth: true })
       .me()
       .get()
       .execute()

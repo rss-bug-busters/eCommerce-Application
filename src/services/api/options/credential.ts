@@ -5,4 +5,16 @@ const projectKey = VITE_COMMERCETOOLS_PROJECT_KEY;
 const authUrl = VITE_COMMERCETOOLS_AUTH_URL;
 const apiUrl = VITE_COMMERCETOOLS_API_URL;
 
-export { clientId, clientSecret, scopes, projectKey, authUrl, apiUrl };
+const btoaToken = btoa(`${clientId}:${clientSecret}`);
+const basicToken = `Basic ${btoaToken}`;
+
+export {
+  clientId,
+  clientSecret,
+  scopes,
+  projectKey,
+  authUrl,
+  apiUrl,
+  btoaToken,
+  basicToken,
+};

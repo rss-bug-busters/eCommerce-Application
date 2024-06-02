@@ -23,15 +23,27 @@ const routes: RouteObject[] = [
     children: [
       {
         path: RoutePaths.MAIN,
-        element: <MainPage />,
+        element: (
+          <ProtectedRoute authorization="any">
+            <MainPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.ABOUT,
-        element: <AboutPage />,
+        element: (
+          <ProtectedRoute authorization="any">
+            <AboutPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.PRODUCT,
-        element: <ProductPage />,
+        element: (
+          <ProtectedRoute authorization="any">
+            <ProductPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.LOGIN,

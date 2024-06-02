@@ -34,16 +34,16 @@ describe('all routes rendered', async () => {
     route: RoutePaths.ABOUT,
     testId: PagesTestIds.ABOUT,
   });
-  // routeIsRenderedByTestId({
-  //   route: RoutePaths.PROFILE,
-  //   testId: PagesTestIds.PROFILE,
-  //   needAuth: true,
-  // });
-  // routeIsRenderedByTestId({
-  //   route: RoutePaths.BASKET,
-  //   testId: PagesTestIds.BASKET,
-  //   needAuth: true,
-  // });
+  routeIsRenderedByTestId({
+    route: RoutePaths.PROFILE,
+    testId: PagesTestIds.PROFILE,
+    needAuth: true,
+  });
+  routeIsRenderedByTestId({
+    route: RoutePaths.BASKET,
+    testId: PagesTestIds.BASKET,
+    needAuth: true,
+  });
   routeIsRenderedByTestId({
     route: `/${(Math.random() + 1).toString(36).slice(7)}`,
     testName: 'error page on random path',
@@ -51,28 +51,28 @@ describe('all routes rendered', async () => {
   });
 });
 
-// describe('redirects to login from password protected routes', async () => {
-//   routeIsRenderedByTestId({
-//     route: RoutePaths.PROFILE,
-//     testId: PagesTestIds.LOGIN,
-//     needAuth: false,
-//   });
-//   // routeIsRenderedByTestId({
-//   //   route: RoutePaths.BASKET,
-//   //   testId: PagesTestIds.LOGIN,
-//   //   needAuth: false,
-//   // });
-// });
+describe('redirects to login from password protected routes', async () => {
+  routeIsRenderedByTestId({
+    route: RoutePaths.PROFILE,
+    testId: PagesTestIds.LOGIN,
+    needAuth: false,
+  });
+  routeIsRenderedByTestId({
+    route: RoutePaths.BASKET,
+    testId: PagesTestIds.LOGIN,
+    needAuth: false,
+  });
+});
 
-// describe('redirects to main logined user from anonymous routes', async () => {
-//   routeIsRenderedByTestId({
-//     route: RoutePaths.LOGIN,
-//     testId: PagesTestIds.MAIN,
-//     needAuth: true,
-//   });
-//   routeIsRenderedByTestId({
-//     route: RoutePaths.REGISTRATION,
-//     testId: PagesTestIds.MAIN,
-//     needAuth: true,
-//   });
-// });
+describe('redirects to main logined user from anonymous routes', async () => {
+  routeIsRenderedByTestId({
+    route: RoutePaths.LOGIN,
+    testId: PagesTestIds.MAIN,
+    needAuth: true,
+  });
+  routeIsRenderedByTestId({
+    route: RoutePaths.REGISTRATION,
+    testId: PagesTestIds.MAIN,
+    needAuth: true,
+  });
+});
