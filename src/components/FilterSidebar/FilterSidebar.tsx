@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import useCategory from '@hooks/useCategory';
 import FilterSvg from '@assets/svg/filter.svg?react';
 import Sidebar from '@components/FilterSidebar/Sidebar';
+import clsx from 'clsx';
 
 function FilterSidebar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -29,7 +30,10 @@ function FilterSidebar() {
   return (
     <div>
       <button
-        className="flex w-fit max-w-sm items-center gap-1 rounded-lg p-2 dark:bg-zinc-800 hover:dark:bg-zinc-700"
+        className={clsx(
+          'flex w-fit max-w-sm items-center gap-1 rounded-lg p-2',
+          'dark:bg-zinc-800 hover:dark:bg-zinc-700'
+        )}
         type="button"
         onClick={handleOpen}
       >
