@@ -8,7 +8,7 @@ import { useForm } from 'react-hook-form';
 // import { toast } from 'react-toastify';
 // import Spinner from '@assets/svg/spinner.svg?react';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
-import { Customer } from '@commercetools/platform-sdk';
+import { Address, Customer } from '@commercetools/platform-sdk';
 // import useUserQueries from '@services/api/hooks/useUserQueries';
 import useUserQueries from '@services/api/hooks/useUserQueries';
 import { toast } from 'react-toastify';
@@ -88,6 +88,12 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
   //     setValue('billingAddress', shipping);
   //   }
   // }, [setValue, shipping, useSameAddress]);
+  const emptyAddress: Address = {
+    country: '',
+    city: '',
+    streetName: '',
+    postalCode: '',
+  };
 
   const { addActions } = useUserQueries();
 
@@ -203,6 +209,27 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
         isEdit={isEdit}
         setValue={setValue}
       />
+      {isEdit && (
+        <button
+          type="button"
+          className="flex items-end bg-gray-800 text-white px-4 py-2 rounded-md"
+          onClick={() => {
+            if (userData) {
+              const updatedUserData = {
+                ...userData,
+              };
+
+              if (updatedUserData.addresses) {
+                updatedUserData.addresses.push(emptyAddress);
+              }
+
+              setUserData(updatedUserData);
+            }
+          }}
+        >
+          Add Address
+        </button>
+      )}
       {isEdit && (
         <button
           type="submit"
