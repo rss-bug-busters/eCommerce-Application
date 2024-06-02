@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import routePaths from '@utils/consts/RoutePaths';
 import { useTranslation } from 'react-i18next';
 import ProgressiveImage from '@components/ui/ProgressiveImage/ProgressiveImage';
+import clsx from 'clsx';
 
 interface Properties {
   key?: string | number;
@@ -38,7 +39,11 @@ function ItemCard({ product }: Properties) {
   return (
     <Link to={productLink} preventScrollReset={false}>
       <div
-        className="grid h-full w-full max-w-sm grid-rows-[1fr_auto] gap-4 rounded-lg border border-gray-200 bg-white shadow dark:border-gray-700 dark:bg-zinc-800"
+        className={clsx(
+          'grid h-full w-full max-w-sm grid-rows-[1fr_auto] gap-4 rounded-lg border border-gray-200 bg-white shadow',
+          'hover:dark:bg-zinc-700',
+          'dark:border-gray-700 dark:bg-zinc-800'
+        )}
         key={key ?? id}
       >
         <div className="h-96 w-full overflow-hidden">
@@ -67,12 +72,15 @@ function ItemCard({ product }: Properties) {
           <div className="flex items-center justify-between">
             <div className="relative">
               <p
-                className={`font-bold text-gray-900 dark:text-white ${discountValue ? 'absolute -top-4 line-through' : 'text-2xl'}`}
+                className={clsx(
+                  'font-bold text-gray-900 dark:text-white',
+                  discountValue ? 'absolute -top-4 line-through' : 'text-2xl'
+                )}
               >
                 {priceValue ?? ''}
               </p>
               {discountValue && (
-                <span className=" text-2xl font-bold text-gray-900 dark:text-white">
+                <span className="text-2xl font-bold text-gray-900 dark:text-white">
                   {discountValue ?? ''}
                 </span>
               )}
@@ -83,7 +91,12 @@ function ItemCard({ product }: Properties) {
                 event.preventDefault();
                 console.log(`Add to cart ${id}`);
               }}
-              className="rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className={clsx(
+                'rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white',
+                'hover:bg-blue-800',
+                'focus:outline-none focus:ring-4 focus:ring-blue-300',
+                'dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              )}
             >
               {t('item_card.add_to_cart')}
             </button>
