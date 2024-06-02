@@ -103,6 +103,8 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     if (userData) {
       const actions = checkChangesProfile(userData, data);
 
+      console.log(actions);
+
       addActions(userData.version, actions)
         .then((response) => {
           toast.success('Profile changes has been saved');
@@ -221,6 +223,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
 
               if (updatedUserData.addresses) {
                 updatedUserData.addresses.push(emptyAddress);
+                console.log(updatedUserData);
               }
 
               setUserData(updatedUserData);

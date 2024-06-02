@@ -1,6 +1,24 @@
-import { AddressSchema } from '@components/AddressFields/AddressFields.types';
 import diffInYears from '@utils/dates';
+import { validatePostalCode } from '@utils/validation';
 import { z } from 'zod';
+
+export const AddressSchemaProfile = z
+  .object({
+    country: z.enum(['PL', 'BY', 'RU'], { message: 'Country is required' }),
+    city: z
+      .string()
+      .min(1, { message: 'City is required' })
+      .regex(/[A-zА-я]*$/, { message: 'City must contain only letters' }),
+    streetName: z.string().min(1, { message: 'Street is required' }),
+    postalCode: z.string().min(1, { message: 'Postal code is required' }),
+    id: z.string(),
+  })
+  .refine((data) => validatePostalCode(data.country, data.postalCode), {
+    message: 'Invalid postal code for selected country',
+    path: ['postalCode'],
+  });
+
+export type AddressProfileType = z.infer<typeof AddressSchemaProfile>;
 
 const nameCheck = (name: string) =>
   z
@@ -30,7 +48,7 @@ export const ProfileEditSchema = z.object({
         message: `Date of birth must be between ${MIN_YEAR} and ${MAX_YEAR}`,
       }
     ),
-  Address: z.array(AddressSchema),
+  Address: z.array(AddressSchemaProfile),
   isDefaultShipping: z.string(),
   isDefaultBilling: z.string(),
 });

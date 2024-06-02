@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { UseFormRegister, FieldErrors, UseFormSetValue } from 'react-hook-form';
 import SelectProfile from '@components/ui/Select/selectProfile';
 import { Address } from '@commercetools/platform-sdk';
@@ -28,6 +28,14 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
   setValue,
   index,
 }) {
+  useEffect(() => {
+    if (address.id) {
+      setValue(`Address.${index}.id`, address.id);
+    } else {
+      setValue(`Address.${index}.id`, `newAddress-${index}`);
+    }
+  }, [index, address.id, setValue]);
+
   return (
     <div
       className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8"

@@ -13,6 +13,14 @@ interface ProfileAddressProperties {
   userData: Customer | undefined;
 }
 
+interface ZodAddress {
+  city: string;
+  country: 'PL' | 'BY' | 'RU';
+  id: string;
+  postalCode: string;
+  streetName: string;
+}
+
 const ProfileAddress: FC<ProfileAddressProperties> = function ({
   userData,
   errors,
@@ -22,6 +30,19 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
 }) {
   const [selectedShippingCheckbox, setSelectedShippingCheckbox] = useState<string>('');
   const [selectedBillingCheckbox, setSelectedBillingCheckbox] = useState<string>('');
+  const [addresses, setAddresses] = useState(userData?.addresses);
+  const [useDeleteAddresses, setDeleteAddresses] = useState<number[]>([]);
+  const [useCountDeleted, setCountDeleted] = useState(0);
+
+  useEffect(() => {
+    setAddresses(
+      userData?.addresses.filter((_, index) => !useDeleteAddresses.includes(index))
+    );
+  }, [setAddresses, useDeleteAddresses, userData?.addresses, userData?.addresses.length]);
+
+  useEffect(() => {
+    setValue('Address', addresses as ZodAddress[]);
+  }, [addresses, setValue]);
 
   useEffect(() => {
     setSelectedShippingCheckbox(userData?.defaultShippingAddressId ?? '');
@@ -52,13 +73,28 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
     }
   }, [selectedBillingCheckbox, setValue]);
 
+  const handleDelete = (index: number) => {
+    console.log(useDeleteAddresses);
+
+    if (!addresses) {
+      return;
+    }
+
+    setDeleteAddresses([...useDeleteAddresses, index + useCountDeleted]);
+    setCountDeleted(useCountDeleted + 1);
+
+    const updatedAddresses = addresses.filter((_, index_) => index_ !== index);
+
+    setAddresses(updatedAddresses);
+  };
+
   return (
     <div className="flex flex-col items-center gap-3">
-      {userData?.addresses &&
-        userData.addresses.length > 0 &&
-        userData.addresses.map((address, index) => (
+      {addresses &&
+        addresses.length > 0 &&
+        addresses.map((address, index) => (
           <div
-            key={address.id}
+            key={`address-${Math.random().toString(36).slice(2, 9)}`}
             className="flex flex-col p-5 items-center md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
           >
             <div className="flex flex-row justify-start gap-0 w-full">
@@ -95,6 +131,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
               <button
                 type="button"
                 className="flex items-end bg-red-500 text-white px-4 py-2 rounded-md"
+                onClick={() => handleDelete(index)}
               >
                 Delete
               </button>

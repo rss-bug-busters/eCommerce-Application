@@ -45,6 +45,36 @@ const checkAddress = (
   return changeAddress;
 };
 
+const manageAddresses = (
+  userData: Customer,
+  submitData: ProfileEditType,
+  changes: MyCustomerUpdateAction[]
+) => {
+  for (const data of userData.addresses) {
+    const isAddressExist = submitData.Address.filter((address) => data.id === address.id);
+
+    if (isAddressExist.length > 0) {
+      const changedDataAddress = checkAddress(data, isAddressExist[0]);
+
+      if (changedDataAddress) {
+        changes.push(changedDataAddress);
+      }
+    } else if (data.id) {
+      changes.push({ action: 'removeAddress', addressId: data.id });
+    }
+  }
+
+  const newAddresses = submitData.Address.filter((address) =>
+    address.id.includes('newAddress')
+  );
+
+  if (newAddresses) {
+    for (const data of newAddresses) {
+      changes.push({ action: 'addAddress', address: data });
+    }
+  }
+};
+
 const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) => {
   const changes: MyCustomerUpdateAction[] = [];
 
@@ -60,15 +90,7 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
     changes.push({ action: 'setDateOfBirth', dateOfBirth: submitData.dateOfBirth });
   }
 
-  for (const [index, data] of userData.addresses.entries()) {
-    if (submitData.Address[index]) {
-      const changedDataAddress = checkAddress(data, submitData.Address[index]);
-
-      if (changedDataAddress) {
-        changes.push(changedDataAddress);
-      }
-    }
-  }
+  manageAddresses(userData, submitData, changes);
 
   if (userData.defaultBillingAddressId !== submitData.isDefaultBilling) {
     changes.push({
