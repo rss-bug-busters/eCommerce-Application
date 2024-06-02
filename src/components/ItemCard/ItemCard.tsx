@@ -46,7 +46,7 @@ function ItemCard({ product }: Properties) {
         )}
         key={key ?? id}
       >
-        <div className="h-96 w-full overflow-hidden">
+        <div className="h-96 w-full overflow-hidden rounded-t-lg">
           <ProgressiveImage
             placeholder={
               <div
