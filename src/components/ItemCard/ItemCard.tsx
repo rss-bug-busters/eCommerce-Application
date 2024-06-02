@@ -40,7 +40,7 @@ function ItemCard({ product }: Properties) {
     <Link to={productLink} preventScrollReset={false}>
       <div
         className={clsx(
-          'grid h-full w-full max-w-sm grid-rows-[1fr_auto] gap-4 rounded-lg border border-gray-200 bg-white shadow',
+          'group/card grid h-full w-full max-w-sm grid-rows-[1fr_auto] gap-4 rounded-lg border border-gray-200 bg-white shadow',
           'hover:dark:bg-zinc-700',
           'dark:border-gray-700 dark:bg-zinc-800'
         )}
@@ -54,7 +54,10 @@ function ItemCard({ product }: Properties) {
                 role="status"
               />
             }
-            className="h-full w-full rounded-t-lg object-fill"
+            className={clsx(
+              'h-full w-full rounded-t-lg object-fill transition-all duration-300',
+              'group-hover/card:scale-110 group-hover/card:shadow-lg group-hover/card:shadow-gray-400'
+            )}
             src={images?.[0]?.url ?? ''}
             alt={t('item_card.img_alt')}
           />
