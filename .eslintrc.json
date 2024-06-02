@@ -10,7 +10,7 @@
     ".pnp.cjs",
     ".pnp.loader.mjs"
   ],
-  "plugins": ["promise", "sonarjs", "unicorn", "import", "jsx-a11y"],
+  "plugins": ["promise", "sonarjs", "unicorn", "import", "jsx-a11y", "prettier"],
   "extends": [
     "eslint:recommended",
     "plugin:sonarjs/recommended",
@@ -21,6 +21,17 @@
     "prettier"
   ],
   "rules": {
+    "func-names": 0,
+    "prettier/prettier": "error",
+    "unicorn/filename-case": [
+      "error",
+      {
+        "cases": {
+          "camelCase": true,
+          "pascalCase": true
+        }
+      }
+    ],
     "curly": ["error", "all"],
     "padding-line-between-statements": [
       "error",
@@ -65,10 +76,10 @@
       },
       "plugins": ["react-refresh", "@typescript-eslint", "typescript-sort-keys"],
       "extends": [
-        "airbnb-typescript",
-        "airbnb/hooks",
+        "plugin:@typescript-eslint/recommended",
         "plugin:@typescript-eslint/recommended-type-checked",
-        "plugin:@typescript-eslint/stylistic-type-checked"
+        "plugin:@typescript-eslint/stylistic-type-checked",
+        "airbnb-typescript"
       ],
       "rules": {
         "react/react-in-jsx-scope": 0,
@@ -76,14 +87,41 @@
         "typescript-sort-keys/interface": "error",
         "typescript-sort-keys/string-enum": "error",
         "@typescript-eslint/indent": 0,
-        "react-refresh/only-export-components": ["warn", { "allowConstantExport": true }]
+        "@typescript-eslint/no-misused-promises": [
+          2,
+          {
+            "checksVoidReturn": {
+              "attributes": false
+            }
+          }
+        ],
+        "react-refresh/only-export-components": 0, /// not working https://github.com/ArnaudBarre/eslint-plugin-react-refresh/issues/25
+        "react/require-default-props": 0,
+        "react/jsx-props-no-spreading": [
+          "error",
+          {
+            "html": "enforce",
+            "custom": "enforce",
+            "explicitSpread": "enforce",
+            "exceptions": ["input", "select", "textarea"]
+          }
+        ]
       },
       "overrides": [
         {
           "files": ["**/*.d.ts", "**/*.d.tsx"],
           "rules": {
             "typescript-sort-keys/interface": 0,
-            "typescript-sort-keys/string-enum": 0
+            "typescript-sort-keys/string-enum": 0,
+            "unicorn/filename-case": [
+              "error",
+              {
+                "cases": {
+                  "camelCase": true,
+                  "kebabCase": true
+                }
+              }
+            ]
           }
         }
       ]

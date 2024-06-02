@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
-import App from './app';
+import { MemoryRouter } from 'react-router-dom';
+import MainPage from './MainPage';
 
 describe('A truthy statement', () => {
   it('should be equal to 2', () => {
@@ -9,8 +10,11 @@ describe('A truthy statement', () => {
 });
 
 describe('App', () => {
-  it('renders the App component', () => {
-    render(<App />);
+  it('renders the MainPage component', () => {
+    render(
+      <MemoryRouter>
+        <MainPage />
+      </MemoryRouter>
+    );
   });
 });
-

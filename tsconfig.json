@@ -3,7 +3,7 @@
     "baseUrl": "./",
     "target": "ES2020",
     "useDefineForClassFields": true,
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "lib": ["ES2020", "DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "skipLibCheck": true,
 
@@ -49,7 +49,23 @@
           "classnameTransform": "camelCaseOnly"
         }
       }
-    ]
+    ],
+
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@views/*": ["src/views/*"],
+      "@models/*": ["src/models/*"],
+      "@types/*": ["src/types/*"],
+      "@pages/*": ["src/pages/*"],
+
+      "@hoc/*": ["src/hoc/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@services/*": ["src/services/*"],
+      "@assets/*": ["src/assets/*"],
+      "@styles/*": ["src/styles/*"],
+      "@tests/*": ["src/tests/*"]
+    }
   },
   "include": ["./src"],
   "references": [{ "path": "./tsconfig.node.json" }]

@@ -19,5 +19,6 @@
       ],
       "customSyntax": "postcss-scss"
     }
-  ]
+  ],
+  "ignoreFiles": ["./src/tailwindcss.css"]
 }
