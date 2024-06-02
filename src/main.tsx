@@ -22,7 +22,7 @@ ReactDOM.createRoot(document.querySelector('#root')!).render(
     <ToastContainer
       stacked
       position="top-center"
-      autoClose={1000}
+      autoClose={2000}
       limit={2}
       hideProgressBar
       newestOnTop={false}
