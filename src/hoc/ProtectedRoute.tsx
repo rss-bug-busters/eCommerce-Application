@@ -4,7 +4,7 @@ import RoutePaths from '@utils/consts/RoutePaths';
 import useCurrentUser from '@hooks/useCurrentUser';
 
 interface NeedAuthProperties {
-  authorization?: 'password' | 'anonymous';
+  authorization?: 'password' | 'anonymous' | 'any';
   children: ReactNode;
 }
 
