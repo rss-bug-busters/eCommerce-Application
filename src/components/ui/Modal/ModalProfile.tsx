@@ -6,7 +6,7 @@ interface ModalProperties {
   setActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
+const ModalProfile: FC<ModalProperties> = function ({ active, setActive, children }) {
   return active ? (
     <div
       className="flex items-center justify-center bg-gray-800 bg-opacity-30 fixed top-0 left-0 w-screen h-screen"
@@ -20,7 +20,7 @@ const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
       tabIndex={0}
     >
       <div
-        className=" max-w-md p-4 bg-slate-100 rounded-2xl absolute "
+        className="p-4 bg-slate-100 rounded-2xl absolute "
         onClick={(event: React.MouseEvent) => event.stopPropagation()}
         onKeyDown={(event: React.KeyboardEvent) => event.stopPropagation()}
         role="button"
@@ -32,4 +32,4 @@ const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
   ) : undefined;
 };
 
-export default Modal;
+export default ModalProfile;

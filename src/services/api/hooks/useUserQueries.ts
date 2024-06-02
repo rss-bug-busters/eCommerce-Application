@@ -1,13 +1,9 @@
 import useApi from '@services/api/hooks/useApi';
-import {
-  MyCustomerDraft,
-  MyCustomerUpdateAction,
-} from '@commercetools/platform-sdk';
+import { MyCustomerDraft, MyCustomerUpdateAction } from '@commercetools/platform-sdk';
 import { clearTokenCache, tokenCache } from '@services/api/utils/tokenCache';
 import { useQueryClient } from '@tanstack/react-query';
 
 import revokeTokensQuery from '@services/api/utils/revokeTokensQuery';
-
 
 const useUserQueries = () => {
   const api = useApi();
@@ -21,7 +17,6 @@ const useUserQueries = () => {
 
   const login = async ({ email, password }: { email: string; password: string }) => {
     const oldToken = tokenCache.get();
-
 
     if (oldToken.token) {
       await api()
@@ -68,9 +63,7 @@ const useUserQueries = () => {
           .execute()
       );
 
-
   const user = async () => api({ needAnonymousAuth: true }).me().get().execute();
-
 
   const addShippingAddress = async (addressKey: string, version: number) =>
     api()
@@ -102,7 +95,7 @@ const useUserQueries = () => {
           version,
         },
       })
-      .execute()
+      .execute();
   const addActions = async (version: number, actions: MyCustomerUpdateAction[]) =>
     api()
       .me()

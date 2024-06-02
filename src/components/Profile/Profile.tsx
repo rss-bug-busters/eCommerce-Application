@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 import useUserQueries from '@services/api/hooks/useUserQueries';
 import { Customer } from '@commercetools/platform-sdk';
-import Modal from '@components/ui/Modal/Modal';
+import ModalProfile from '@components/ui/Modal/ModalProfile';
 import ProfileForm from './ProfileForm/ProfileForm';
 import ProfileFormPassword from './ProfileModalWindows/PassowordChangeModalWindow';
 
@@ -62,7 +62,7 @@ const Profile: FC = function () {
         setEditMode={setEditProfile}
         setUserData={setUserData}
       />
-      <Modal active={useEditPassword} setActive={setEditPassword}>
+      <ModalProfile active={useEditPassword} setActive={setEditPassword}>
         {' '}
         <ProfileFormPassword
           isEdit={useEditPassword}
@@ -70,7 +70,7 @@ const Profile: FC = function () {
           setEditMode={setEditPassword}
           setUserData={setUserData}
         />
-      </Modal>
+      </ModalProfile>
     </div>
   );
 };
