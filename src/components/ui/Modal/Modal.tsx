@@ -9,6 +9,7 @@ interface ModalProperties {
 const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
   return active ? (
     <div
+
       className="flex items-center justify-center bg-gray-800 bg-opacity-30 fixed top-0 left-0 w-screen h-screen"
       onClick={() => setActive(false)}
       onKeyDown={(event: React.KeyboardEvent) => {

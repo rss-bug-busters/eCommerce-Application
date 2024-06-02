@@ -31,6 +31,7 @@ const preparePasswordToken = async (username: string, password: string) => {
       .get()
       .execute()
       .catch(() => {
+
         throw new Error('User password session preparation failed');
       });
 

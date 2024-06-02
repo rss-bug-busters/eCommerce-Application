@@ -1,3 +1,4 @@
+
 import { ClientBuilder } from '@commercetools/sdk-client-v2';
 import { projectKey } from '@services/api/options/credential';
 import httpMiddlewareOptions from '@services/api/options/httpMiddlewareOptions';
@@ -47,6 +48,7 @@ const buildClient = (makeClientOptions?: BuildClientOptions) => {
   if (+VITE_COMMERCETOOLS_USE_LOGGER) {
     client = client.withLoggerMiddleware();
   }
+
 
   client = client.withMiddleware(refreshTokenMiddleware(queryClient));
 
