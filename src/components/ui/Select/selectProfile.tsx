@@ -40,7 +40,7 @@ const SelectProfile: FC<SelectProfileProperties> = function ({
       <select
         defaultValue={defaultValue}
         {...register}
-        className={`flex items-center justify-start w-60 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${isEdit ? 'bg-slate-100' : 'bg-slate-300'} ${useIsChanged ? 'border-orange-400' : 'border-gray-300'} `}
+        className={`flex items-center justify-start w-60 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'} ${isEdit ? 'bg-slate-100' : 'bg-slate-400'} ${useIsChanged ? 'border-orange-400' : 'border-gray-300'} `}
         onChange={(event) =>
           event.target.value === defaultValue ? setIsChanged(false) : setIsChanged(true)
         }

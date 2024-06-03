@@ -128,7 +128,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
             {isEdit && (
               <button
                 type="button"
-                className="flex items-end bg-red-500 text-white px-4 py-2 rounded-md"
+                className="flex items-end  px-4 py-2 rounded-md bg-red-800 hover:bg-red-600 font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-50"
                 onClick={() => handleDelete(index)}
               >
                 Delete

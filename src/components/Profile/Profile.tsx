@@ -43,7 +43,7 @@ const Profile: FC = function () {
       <div className="flex flex-row items-end justify-center max-w-xl gap-2 mt-5">
         <button
           type="button"
-          className="flex items-end bg-blue-500 text-white px-4 py-2 rounded-md"
+          className="flex items-end  px-4 py-2 rounded-md bg-gray-800 hover:bg-gray-600 font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-50"
           onClick={onEditProfile}
           data-testid="profile-page-edit-profile-button"
         >
@@ -51,7 +51,7 @@ const Profile: FC = function () {
         </button>
         <button
           type="button"
-          className="flex items-end bg-red-500 text-white px-4 py-2 rounded-md"
+          className="flex items-end  px-4 py-2 rounded-md bg-gray-800 hover:bg-gray-600 font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-50"
           onClick={onEditPassword}
         >
           Edit Password
