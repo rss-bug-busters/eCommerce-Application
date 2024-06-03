@@ -119,7 +119,7 @@ const ImageSlider: FC<SliderProperties> = function ({ images, className, directi
           navigation
           grabCursor
         >
-          {images.map((img, index) => (
+          {images?.map((img, index) => (
             <SwiperSlide key={img.url}>
               <img src={img.url} alt={`Slide ${index}`} className="w-full rounded-xl" />
             </SwiperSlide>
