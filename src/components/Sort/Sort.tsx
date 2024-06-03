@@ -24,7 +24,7 @@ function Sort() {
         aria-label="select sort type"
         id="countries"
         className=" cursor-pointer rounded-lg dark:bg-zinc-800"
-        defaultValue={sort ?? ''}
+        value={sort ?? ''}
       >
         <option value="">Choose a sort type</option>
         <option value="priceAsk">price: ascending </option>

@@ -26,7 +26,7 @@ function CatalogPage() {
         <Search className="mx-auto mb-2 sm:w-1/2" />
         <div className="mx-auto mb-5 flex flex-row items-center justify-between sm:w-1/2">
           <Sort />
-          <FilterSidebar />
+          <FilterSidebar productsResponse={data} />
         </div>
       </div>
 

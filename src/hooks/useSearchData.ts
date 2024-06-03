@@ -1,7 +1,18 @@
 import { useSearchParams } from 'react-router-dom';
 
 const useSearchData = () => {
-  const [searchParameters] = useSearchParams();
+  const [searchParameters, setSearchParameters] = useSearchParams();
+
+  const reset = () =>
+    setSearchParameters({
+      ...Object.fromEntries(searchParameters.entries()),
+      minPrice: '',
+      maxPrice: '',
+      search: '',
+      sort: '',
+      category: '',
+      onlyDiscounted: '',
+    });
 
   const minPrice = searchParameters.get('minPrice')
     ? Number.parseInt(searchParameters.get('minPrice')!, 10)
@@ -11,6 +22,7 @@ const useSearchData = () => {
     : undefined;
 
   return {
+    reset,
     minPrice,
     maxPrice,
     search: searchParameters.get('search') ?? undefined,

@@ -23,6 +23,10 @@ function CategoryDropdown({
     setParentsIdsList(getParentsIdsList(findNodeByIdInList(nodes, category ?? '')));
   }, [category, nodes]);
 
+  useEffect(() => {
+    setOpenNodeId(undefined);
+  }, [category]);
+
   const handleToggle = (id: string) => {
     setOpenNodeId(openNodeId === id ? undefined : id);
     setSearchParameters({

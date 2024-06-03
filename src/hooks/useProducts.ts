@@ -68,7 +68,9 @@ const useProducts = (options?: UseProductsOptions) => {
     ? `${sort.field}${sort.needLocal ? '.' : ''}${sort.needLocal ? language : ''} ${sort.order}`
     : undefined;
 
-  const filters: string[] = [
+  const filters: string[] = [].filter((item) => item !== undefined) as string[];
+
+  const filtersQuery: string[] = [
     'variants.prices:exists',
     `name.${language}:exists`,
     `description.${language}:exists`,
@@ -77,24 +79,28 @@ const useProducts = (options?: UseProductsOptions) => {
     price?.min
       ? `variants.scopedPrice.currentValue.centAmount: range(${price?.min} to *)`
       : undefined,
-    price?.min
+    price?.max
       ? `variants.scopedPrice.currentValue.centAmount: range(* to ${price?.max})`
       : undefined,
     price?.onlyDiscounted ? 'variants.scopedPrice.discounted:exists' : undefined,
   ].filter((item) => item !== undefined) as string[];
 
-  // const facets = [
-  //   'variants.price.centAmount:range (0 to *)',
-  //   `variants.attributes.${'color-filter'}.label.${i18n.language} as color-filter`,
-  //   `variants.attributes.finishlabel.${i18n.language} as finishlabel`,
-  //   `variants.attributes.colorlabel.${i18n.language} as colorlabel`,
-  //
-  //   // 'variants.attributes.colorlabel counting products',
-  //   // `variants.attributes.colorlabel.${i18n.language}`,
-  //   // 'variants.attributes.colorlabel.key counting products',
-  //   // 'variants.attributes.colorlabel.label counting products',
-  //   // `variants.attributes.colorlabel.label.${i18n.language} counting products`,
-  // ];
+  const facets = [
+    'variants.price.centAmount:range (0 to *) as price',
+    'categories.id as category',
+    `variants.attributes.finishes.label.${language} as finishes`,
+    'variants.attributes.size as size',
+    `variants.attributes.tags.label.${language} as tags`,
+    // `variants.attributes.${'color-filter'}.label.${i18n.language} as color-filter`,
+    // `variants.attributes.finishlabel.${i18n.language} as finishlabel`,
+    // `variants.attributes.colorlabel.${i18n.language} as colorlabel`,
+    //
+    // 'variants.attributes.colorlabel counting products',
+    // `variants.attributes.colorlabel.${i18n.language}`,
+    // 'variants.attributes.colorlabel.key counting products',
+    // 'variants.attributes.colorlabel.label counting products',
+    // `variants.attributes.colorlabel.label.${i18n.language} counting products`,
+  ];
 
   return useQuery({
     queryFn: () =>
@@ -103,10 +109,12 @@ const useProducts = (options?: UseProductsOptions) => {
         .search()
         .get({
           queryArgs: {
+            facet: facets,
             offset,
             limit,
             expand: 'productType',
-            'filter.query': filters,
+            filter: filters,
+            'filter.query': filtersQuery,
             sort: sortQuery,
             [`text.${language}`]: search,
             fuzzy: true,
