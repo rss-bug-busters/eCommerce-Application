@@ -103,14 +103,20 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
 
   manageAddresses(userData, submitData, changes);
 
-  if (userData.defaultBillingAddressId !== submitData.isDefaultBilling) {
+  if (
+    userData.defaultBillingAddressId !== submitData.isDefaultBilling &&
+    submitData.isDefaultBilling
+  ) {
     changes.push({
       action: 'setDefaultBillingAddress',
       addressId: submitData.isDefaultBilling,
     });
   }
 
-  if (userData.defaultShippingAddressId !== submitData.isDefaultShipping) {
+  if (
+    userData.defaultShippingAddressId !== submitData.isDefaultShipping &&
+    submitData.isDefaultShipping
+  ) {
     changes.push({
       action: 'setDefaultShippingAddress',
       addressId: submitData.isDefaultShipping,

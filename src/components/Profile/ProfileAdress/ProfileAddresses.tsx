@@ -1,4 +1,4 @@
-import { Customer } from '@commercetools/platform-sdk';
+import { Address, Customer } from '@commercetools/platform-sdk';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import CheckBox from '@components/ui/CheckBox/CheckBox';
@@ -6,9 +6,11 @@ import AddressFieldsProfile from './InputAddress/inputAddressField';
 import { ProfileEditType } from '../ProfileForm/ProfileEdit.type';
 
 interface ProfileAddressProperties {
+  addresses: Address[];
   errors: FieldErrors;
   isEdit: boolean;
   register: UseFormRegister<ProfileEditType>;
+  setAddresses: React.Dispatch<React.SetStateAction<Address[]>>;
   setValue: UseFormSetValue<ProfileEditType>;
   userData: Customer | undefined;
 }
@@ -27,18 +29,20 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   register,
   isEdit = false,
   setValue,
+  addresses,
+  setAddresses,
 }) {
   const [selectedShippingCheckbox, setSelectedShippingCheckbox] = useState<string>('');
   const [selectedBillingCheckbox, setSelectedBillingCheckbox] = useState<string>('');
-  const [addresses, setAddresses] = useState(userData?.addresses);
+  // const [addresses, setAddresses] = useState(userData?.addresses);
   const [useDeleteAddresses, setDeleteAddresses] = useState<number[]>([]);
   const [useCountDeleted, setCountDeleted] = useState(0);
 
-  useEffect(() => {
-    setAddresses(
-      userData?.addresses.filter((_, index) => !useDeleteAddresses.includes(index))
-    );
-  }, [setAddresses, useDeleteAddresses, userData?.addresses, userData?.addresses.length]);
+  // useEffect(() => {
+  //   setAddresses(
+  //     userData?.addresses.filter((_, index) => !useDeleteAddresses.includes(index))
+  //   );
+  // }, [setAddresses, useDeleteAddresses, userData?.addresses, userData?.addresses.length]);
 
   useEffect(() => {
     setValue('Address', addresses as ZodAddress[]);
@@ -85,6 +89,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
 
     setAddresses(updatedAddresses);
   };
+  // console.log(addresses)
 
   return (
     <div className="flex flex-col items-center gap-3">

@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { FC } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
 import { Address, Customer } from '@commercetools/platform-sdk';
@@ -36,9 +36,15 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     city: '',
     streetName: '',
     postalCode: '',
+    key: '',
   };
 
   const { addActions } = useUserQueries();
+  const [useAddresses, setAddresses] = useState(userData?.addresses ?? []);
+
+  useEffect(() => {
+    setAddresses(userData?.addresses ?? []);
+  }, [userData?.addresses]);
 
   const onSubmit = (data: ProfileEditType) => {
     toast.dismiss();
@@ -118,22 +124,16 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
         register={register}
         isEdit={isEdit}
         setValue={setValue}
+        addresses={useAddresses}
+        setAddresses={setAddresses}
       />
       {isEdit && (
         <button
           type="button"
           className="flex items-end bg-gray-800 text-white px-4 py-2 rounded-md"
           onClick={() => {
-            if (userData) {
-              const updatedUserData = {
-                ...userData,
-              };
-
-              if (updatedUserData.addresses) {
-                updatedUserData.addresses.push(emptyAddress);
-              }
-
-              setUserData(updatedUserData);
+            if (useAddresses) {
+              setAddresses([...useAddresses, emptyAddress]);
             }
           }}
         >
