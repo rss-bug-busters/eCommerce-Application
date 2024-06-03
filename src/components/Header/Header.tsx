@@ -23,38 +23,38 @@ const Header: FC = function () {
   }, [data, error, isError, isSuccess]);
 
   return (
-    <header className="sticky text-zinc-900/75 dark:text-white/75 flex flex-wrap justify-between items-center bg-zinc-50 z-50 top-0 p-2 border-b dark:border-none shadow-xl dark:shadow-zinc-700/90 dark:bg-zinc-800">
+    <header className="sticky top-0 z-10 flex flex-wrap items-center justify-between border-b bg-zinc-50 p-2 text-zinc-900/75 shadow-xl dark:border-none dark:bg-zinc-800 dark:text-white/75 dark:shadow-zinc-700/90">
       <Link to={RoutePaths.MAIN}>
-        <h1 className="text-3xl px-2 dark:text-zinc-200 hover:text-zinc-500 font-semibold">
+        <h1 className="px-2 text-3xl font-semibold hover:text-zinc-500 dark:text-zinc-200">
           eCommerce
         </h1>
       </Link>
       <div className="flex items-center justify-center gap-4">
-        <Link to={RoutePaths.MAIN} className=" font-bold hover:underline cursor-pointer">
+        <Link to={RoutePaths.MAIN} className=" cursor-pointer font-bold hover:underline">
           Home
         </Link>
         <Link
-          to={RoutePaths.PRODUCT}
-          className="font-bold hover:underline cursor-pointer"
+          to={RoutePaths.CATALOG}
+          className="cursor-pointer font-bold hover:underline"
         >
-          Products
+          Catalog
         </Link>
-        <Link to={RoutePaths.ABOUT} className="font-bold hover:underline cursor-pointer">
+        <Link to={RoutePaths.ABOUT} className="cursor-pointer font-bold hover:underline">
           About us
         </Link>
       </div>
       {isLogin ? (
         <div className="flex items-center justify-end gap-4">
           <Link className="flex gap-2" to={RoutePaths.PROFILE}>
-            <span className="font-bold hover:underline cursor-pointer">{userName}</span>
+            <span className="cursor-pointer font-bold hover:underline">{userName}</span>
             <span>
-              <Profile className="w-6 h-6" />
+              <Profile className="h-6 w-6" />
             </span>
           </Link>
 
           <button
             type="button"
-            className="font-bold hover:underline cursor-pointer"
+            className="cursor-pointer font-bold hover:underline"
             onClick={() => logout().then(() => setIsLogin(false))}
           >
             Logout
@@ -64,13 +64,13 @@ const Header: FC = function () {
         <div className="flex  items-center justify-end gap-4">
           <Link
             to={RoutePaths.LOGIN}
-            className="font-bold hover:underline cursor-pointer"
+            className="cursor-pointer font-bold hover:underline"
           >
             Log in
           </Link>
           <Link
             to={RoutePaths.REGISTRATION}
-            className="font-bold hover:underline cursor-pointer"
+            className="cursor-pointer font-bold hover:underline"
           >
             Sign up
           </Link>

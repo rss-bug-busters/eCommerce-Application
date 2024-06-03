@@ -12,6 +12,7 @@ const AboutPage = lazy(() => import('@pages/AboutPage/AboutPage'));
 const LoginPage = lazy(() => import('@pages/LoginPage/LoginPage'));
 const ProductPage = lazy(() => import('@pages/ProductPage/ProductPage'));
 const ProfilePage = lazy(() => import('@pages/ProfilePage/ProfilePage'));
+const CatalogPage = lazy(() => import('@pages/CatalogPage/CatalogPage'));
 const RegistrationPage = lazy(() => import('@pages/RegistrationPage/RegistrationPage'));
 const ErrorPage = lazy(() => import('@pages/ErrorPage/ErrorPage'));
 
@@ -23,15 +24,27 @@ const routes: RouteObject[] = [
     children: [
       {
         path: RoutePaths.MAIN,
-        element: <MainPage />,
+        element: (
+          <ProtectedRoute authorization="any">
+            <MainPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.ABOUT,
-        element: <AboutPage />,
+        element: (
+          <ProtectedRoute authorization="any">
+            <AboutPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.PRODUCT,
-        element: <ProductPage />,
+        element: (
+          <ProtectedRoute authorization="any">
+            <ProductPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: RoutePaths.LOGIN,
@@ -46,6 +59,14 @@ const routes: RouteObject[] = [
         element: (
           <ProtectedRoute authorization="anonymous">
             <RegistrationPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: RoutePaths.CATALOG,
+        element: (
+          <ProtectedRoute authorization="anonymous">
+            <CatalogPage />
           </ProtectedRoute>
         ),
       },
