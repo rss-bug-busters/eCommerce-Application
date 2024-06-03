@@ -39,6 +39,14 @@ const routes: RouteObject[] = [
         ),
       },
       {
+        path: RoutePaths.CATALOG,
+        element: (
+          <ProtectedRoute authorization="any">
+            <CatalogPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: RoutePaths.PRODUCT,
         element: (
           <ProtectedRoute authorization="any">
@@ -59,14 +67,6 @@ const routes: RouteObject[] = [
         element: (
           <ProtectedRoute authorization="anonymous">
             <RegistrationPage />
-          </ProtectedRoute>
-        ),
-      },
-      {
-        path: RoutePaths.CATALOG,
-        element: (
-          <ProtectedRoute authorization="anonymous">
-            <CatalogPage />
           </ProtectedRoute>
         ),
       },
