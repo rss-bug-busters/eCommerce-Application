@@ -100,7 +100,9 @@ const useProducts = (options?: UseProductsOptions) => {
 
   return useQuery({
     queryFn: () =>
-      api()
+      api({
+        needAnonymousAuth: true,
+      })
         .productProjections()
         .search()
         .get({
