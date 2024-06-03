@@ -17,7 +17,7 @@ const ProductInfo: FC<Properties> = function ({ product, className }) {
 
   if (!chosenPrice) {
     return (
-      <div className={`${className ?? ''} flex flex-col gap-4 justify-center`}>
+      <div className={`${className ?? ''} flex flex-col justify-center gap-4`}>
         <h1 className="text-3xl font-bold">{name[lang]}</h1>
         <span className="text-xl text-red-600">No price found for specified country</span>
         <p className="text-xl">{description?.[lang] ?? 'No description available'}</p>
@@ -48,14 +48,14 @@ const ProductInfo: FC<Properties> = function ({ product, className }) {
   }
 
   return (
-    <div className={`${className ?? ''} flex flex-col gap-4 justify-center`}>
+    <div className={`${className ?? ''} flex flex-col justify-center gap-4`}>
       <h1 className="text-3xl font-bold">{name[lang]}</h1>
       <div className="flex items-center gap-2">
         {isDiscounted && (
           <span className="text-2xl font-bold dark:text-white">{discount.formatted}</span>
         )}
         <span
-          className={`font-bold text-xl ${isDiscounted ? 'line-through text-zinc-400' : 'text-2xl dark:text-white'}`}
+          className={`text-xl font-bold ${isDiscounted ? 'text-zinc-400 line-through' : 'text-2xl dark:text-white'}`}
         >
           {priceFormatted}
         </span>

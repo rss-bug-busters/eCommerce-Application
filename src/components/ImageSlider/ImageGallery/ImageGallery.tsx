@@ -14,12 +14,12 @@ const ImageGallery: FC<ImageGalleryProperties> = function ({
   onClose,
 }) {
   return (
-    <div className="flex items-center justify-center bg-gray-800 bg-opacity-70 fixed top-0 left-0 w-screen h-screen z-50">
-      <div className="relative w-full h-full">
+    <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-gray-800 bg-opacity-70">
+      <div className="relative h-full w-full">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 bg-zinc-800 text-white text-3xl btn-icon z-50"
+          className="btn-icon absolute right-4 top-4 z-50 bg-zinc-800 text-3xl text-white"
         >
           X
         </button>

@@ -67,7 +67,7 @@ const HorizontalSlider: FC<SliderProperties> = function ({
   return images.length > 1 ? (
     <div className={`${className ?? ''} relative w-full overflow-hidden`}>
       <div
-        className="absolute top-0 left-0 flex h-full transition-transform duration-500 ease-in-out"
+        className="absolute left-0 top-0 flex h-full transition-transform duration-500 ease-in-out"
         ref={sliderReference}
         onTouchStart={handleTouchStart}
         onTouchMove={handleTouchMove}
@@ -77,7 +77,7 @@ const HorizontalSlider: FC<SliderProperties> = function ({
           images.map((image, index) => (
             <div
               key={image.url}
-              className="my-1 cursor-pointer min-w-full flex items-center justify-center"
+              className="my-1 flex min-w-full cursor-pointer items-center justify-center"
               onClick={clickHandler}
               role="button"
               tabIndex={0}
@@ -86,7 +86,7 @@ const HorizontalSlider: FC<SliderProperties> = function ({
               <img
                 src={image.url}
                 alt={`Slide ${index}`}
-                className={`${isFullScreen ? 'lg:w-auto lg:h-full w-full h-auto' : ' h-full w-auto'}`}
+                className={`${isFullScreen ? 'h-auto w-full lg:h-full lg:w-auto' : ' h-full w-auto'}`}
               />
             </div>
           ))}
@@ -94,23 +94,23 @@ const HorizontalSlider: FC<SliderProperties> = function ({
       <button
         type="button"
         onClick={previousSlide}
-        className="btn-icon absolute left-4 top-1/2 transform -translate-y-1/2 bg-zinc-800 text-white text-4xl"
+        className="btn-icon absolute left-4 top-1/2 -translate-y-1/2 transform bg-zinc-800 text-4xl text-white"
       >
         ←
       </button>
       <button
         type="button"
         onClick={nextSlide}
-        className="btn-icon absolute right-4 top-1/2 transform -translate-y-1/2 bg-zinc-800 text-white text-4xl"
+        className="btn-icon absolute right-4 top-1/2 -translate-y-1/2 transform bg-zinc-800 text-4xl text-white"
       >
         →
       </button>
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex gap-2 p-1 bg-zinc-800/70 rounded-full">
+      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 transform gap-2 rounded-full bg-zinc-800/70 p-1">
         {images.map((img, index) => (
           <button
             type="button"
             key={img.url}
-            className={`w-4 h-4 rounded-full ${index === currentIndex ? 'bg-cyan-700' : 'bg-zinc-400'}`}
+            className={`h-4 w-4 rounded-full ${index === currentIndex ? 'bg-cyan-700' : 'bg-zinc-400'}`}
             onClick={() => goToSlide(index)}
           >
             {' '}
@@ -120,7 +120,7 @@ const HorizontalSlider: FC<SliderProperties> = function ({
     </div>
   ) : (
     <div
-      className="mb-5 cursor-pointer rounded-xl overflow-hidden max-h-[600px]"
+      className="mb-5 max-h-[600px] cursor-pointer overflow-hidden rounded-xl"
       onClick={clickHandler}
       role="button"
       tabIndex={0}

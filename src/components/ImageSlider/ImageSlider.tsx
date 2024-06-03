@@ -40,11 +40,11 @@ const ImageSlider: FC<SliderProperties> = function ({ images, className, directi
         {direction === 'vertical' ? (
           <div className={`${className ?? ''} flex items-center justify-center`}>
             {images.length > 1 && (
-              <div className="flex flex-col max-h-full overflow-y-auto mr-5">
+              <div className="mr-5 flex max-h-full flex-col overflow-y-auto">
                 {images.map((image, index) => (
                   <div
                     key={image.url}
-                    className="my-1 cursor-pointer relative"
+                    className="relative my-1 cursor-pointer"
                     onClick={() => setCurrentIndex(index)}
                     role="button"
                     tabIndex={0}
@@ -57,17 +57,17 @@ const ImageSlider: FC<SliderProperties> = function ({ images, className, directi
                     <img
                       src={image.url}
                       alt={`Slide ${index}`}
-                      className="w-28 h-auto rounded-xl"
+                      className="h-auto w-28 rounded-xl"
                     />
                     <div
-                      className={`absolute top-0 left-0 w-full h-full rounded-xl ${index === currentIndex ? 'bg-zinc-900/15 dark:bg-zinc-800/30' : ''}`}
+                      className={`absolute left-0 top-0 h-full w-full rounded-xl ${index === currentIndex ? 'bg-zinc-900/15 dark:bg-zinc-800/30' : ''}`}
                     />
                   </div>
                 ))}
               </div>
             )}
             <div
-              className="relative min-h-90 max-h-[36rem] aspect-square"
+              className="min-h-90 relative aspect-square max-h-[36rem]"
               onClick={() => openGallery(currentIndex)}
               role="button"
               tabIndex={0}
@@ -80,19 +80,19 @@ const ImageSlider: FC<SliderProperties> = function ({ images, className, directi
               <img
                 src={images[currentIndex]?.url}
                 alt={`Slide ${currentIndex}`}
-                className="w-full h-full  rounded-xl"
+                className="h-full w-full  rounded-xl"
               />
               {images.length > 1 && (
                 <div className="absolute bottom-4 right-3 flex items-center justify-center gap-4">
                   <button
-                    className=" bg-zinc-700/40 text-zinc-100 z-10 text-3xl btn-icon"
+                    className=" btn-icon z-10 bg-zinc-700/40 text-3xl text-zinc-100"
                     onClick={previousSlide}
                     type="button"
                   >
                     ←
                   </button>
                   <button
-                    className=" bg-zinc-700/40 text-zinc-100 z-10 text-3xl btn-icon"
+                    className=" btn-icon z-10 bg-zinc-700/40 text-3xl text-zinc-100"
                     onClick={nextSlide}
                     type="button"
                   >
@@ -106,7 +106,7 @@ const ImageSlider: FC<SliderProperties> = function ({ images, className, directi
           <section className="flex justify-center">
             <HorizontalSlider
               images={images}
-              className="h-[500px] mb-10"
+              className="mb-10 h-[500px]"
               galleryHandler={openGallery}
             />
           </section>
