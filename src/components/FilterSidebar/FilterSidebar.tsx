@@ -48,13 +48,15 @@ function FilterSidebar({
         <FilterSvg className="h-5 w-5" />
         Filters
       </button>
-      <div ref={sidebarReference}>
-        <Sidebar
-          hide={!isSidebarOpen}
-          productsResponse={productsResponse}
-          category={data?.body.results ?? []}
-        />
-      </div>
+      {isSidebarOpen && (
+        <div ref={sidebarReference}>
+          <Sidebar
+            hide={!isSidebarOpen}
+            productsResponse={productsResponse}
+            category={data?.body.results ?? []}
+          />
+        </div>
+      )}
     </div>
   );
 }

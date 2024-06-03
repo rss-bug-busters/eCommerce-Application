@@ -2,7 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import QueryKeys from '@utils/consts/QueryKeys';
 import useApi from '@services/api/hooks/useApi';
 import { useTranslation } from 'react-i18next';
-import usePriceInfo from '@hooks/usePriceInfo.ts';
+import usePriceInfo from '@hooks/usePriceInfo';
+import makeFilterFacets from '@utils/makeFilterFacets';
+import filterAttributes from '@utils/consts/filterAtributes';
+import makeFilterFilters from '@utils/makeFilterFilters';
 
 interface Sort {
   field: string;
@@ -41,6 +44,7 @@ interface Price {
 }
 
 export interface UseProductsOptions {
+  attributes?: Record<string, string[]>;
   category?: string;
   limit?: number;
   offset?: number;
@@ -61,6 +65,7 @@ const useProducts = (options?: UseProductsOptions) => {
     offset = 0,
     limit = 12,
     price,
+    attributes,
   } = options ?? {};
 
   const sort = sortName && SortType[sortName] ? SortType[sortName] : undefined;
@@ -68,7 +73,13 @@ const useProducts = (options?: UseProductsOptions) => {
     ? `${sort.field}${sort.needLocal ? '.' : ''}${sort.needLocal ? language : ''} ${sort.order}`
     : undefined;
 
-  const filters: string[] = [].filter((item) => item !== undefined) as string[];
+  const filters: string[] = [
+    ...makeFilterFilters({
+      attributes: filterAttributes,
+      language,
+      attributesValue: attributes ?? {},
+    }),
+  ].filter((item) => item !== undefined);
 
   const filtersQuery: string[] = [
     'variants.prices:exists',
@@ -85,22 +96,7 @@ const useProducts = (options?: UseProductsOptions) => {
     price?.onlyDiscounted ? 'variants.scopedPrice.discounted:exists' : undefined,
   ].filter((item) => item !== undefined) as string[];
 
-  const facets = [
-    'variants.price.centAmount:range (0 to *) as price',
-    'categories.id as category',
-    `variants.attributes.finishes.label.${language} as finishes`,
-    'variants.attributes.size as size',
-    `variants.attributes.tags.label.${language} as tags`,
-    // `variants.attributes.${'color-filter'}.label.${i18n.language} as color-filter`,
-    // `variants.attributes.finishlabel.${i18n.language} as finishlabel`,
-    // `variants.attributes.colorlabel.${i18n.language} as colorlabel`,
-    //
-    // 'variants.attributes.colorlabel counting products',
-    // `variants.attributes.colorlabel.${i18n.language}`,
-    // 'variants.attributes.colorlabel.key counting products',
-    // 'variants.attributes.colorlabel.label counting products',
-    // `variants.attributes.colorlabel.label.${i18n.language} counting products`,
-  ];
+  const facets = [...makeFilterFacets(filterAttributes, language)];
 
   return useQuery({
     queryFn: () =>
@@ -133,6 +129,7 @@ const useProducts = (options?: UseProductsOptions) => {
       `minPrice:${price?.min}`,
       `maxPrice:${price?.max}`,
       `onlyDiscounted:${price?.onlyDiscounted}`,
+      `attributes:${JSON.stringify(attributes)}`,
     ],
     retry: false,
   });
