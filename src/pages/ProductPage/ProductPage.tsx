@@ -31,7 +31,7 @@ const ProductPage: FC = function () {
   return (
     <div
       data-testid="product-page"
-      className="lg:grid grid-cols-12 items-start gap-10 p-10"
+      className="lg:grid grid-cols-12 items-start gap-10 px-4 md:px-10"
     >
       {isSuccess && (
         <>
@@ -40,7 +40,7 @@ const ProductPage: FC = function () {
             className="lg:sticky top-20 col-span-7 my-5"
             direction={direction}
           />
-          <Details product={data.body} className="col-span-5" />
+          <Details product={data.body} className="col-span-5 md:mx-10 lg:mx-1" />
         </>
       )}
     </div>
