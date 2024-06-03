@@ -36,7 +36,7 @@ const ErrorPage: FC = function () {
       <div
         id="error-page"
         data-testid="error-page"
-        className="h-screen flex flex-col gap-5 items-center justify-center text-center"
+        className="h-full flex flex-col gap-5 items-center justify-center text-center"
       >
         <h1 className="text-4xl font-bold text-red-500 uppercase">
           Oops! Something went wrong 😢
