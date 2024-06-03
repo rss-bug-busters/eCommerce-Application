@@ -45,6 +45,7 @@ const Profile: FC = function () {
           type="button"
           className="flex items-end bg-blue-500 text-white px-4 py-2 rounded-md"
           onClick={onEditProfile}
+          data-testid="profile-page-edit-profile-button"
         >
           Edit Profile
         </button>

@@ -70,7 +70,14 @@ const manageAddresses = (
 
   if (newAddresses) {
     for (const data of newAddresses) {
-      changes.push({ action: 'addAddress', address: data });
+      const addressToAdd = {
+        country: data.country,
+        city: data.city,
+        streetName: data.streetName,
+        postalCode: data.postalCode,
+      };
+
+      changes.push({ action: 'addAddress', address: addressToAdd });
     }
   }
 };

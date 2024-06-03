@@ -144,6 +144,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
         <button
           type="submit"
           className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
+          data-testid="profile-page-edit-profile-submit-button"
         >
           Save Changes
         </button>
