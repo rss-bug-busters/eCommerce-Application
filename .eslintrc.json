@@ -8,7 +8,8 @@
     "node_modules",
     ".yarn",
     ".pnp.cjs",
-    ".pnp.loader.mjs"
+    ".pnp.loader.mjs",
+    "prettier.config.js"
   ],
   "plugins": ["promise", "sonarjs", "unicorn", "import", "jsx-a11y", "prettier"],
   "extends": [
@@ -23,7 +24,6 @@
 
   "rules": {
     "no-restricted-syntax": 0,
-
     "func-names": 0,
     "prettier/prettier": "error",
     "unicorn/filename-case": [
@@ -106,7 +106,7 @@
             "html": "enforce",
             "custom": "enforce",
             "explicitSpread": "enforce",
-            "exceptions": ["input", "select", "textarea"]
+            "exceptions": ["input", "select", "textarea", "img"]
           }
         ]
       },

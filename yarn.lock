@@ -224,6 +224,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/runtime@npm:^7.23.9":
+  version: 7.24.6
+  resolution: "@babel/runtime@npm:7.24.6"
+  dependencies:
+    regenerator-runtime: "npm:^0.14.0"
+  checksum: 10c0/224ad205de33ea28979baaec89eea4c4d4e9482000dd87d15b97859365511cdd4d06517712504024f5d33a5fb9412f9b91c96f1d923974adf9359e1575cde049
+  languageName: node
+  linkType: hard
+
 "@babel/template@npm:^7.22.15, @babel/template@npm:^7.24.0":
   version: 7.24.0
   resolution: "@babel/template@npm:7.24.0"
@@ -1352,21 +1361,40 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tanstack/query-core@npm:5.36.1":
-  version: 5.36.1
-  resolution: "@tanstack/query-core@npm:5.36.1"
-  checksum: 10c0/53ba44c9934c99035122e586ae21bdc10a9978054d555f9608241c20b931c357eb60364e9d17adb1f30501494427bd63c00684923c8d08f41d41c5f346922d47
+"@tanstack/query-core@npm:5.38.0":
+  version: 5.38.0
+  resolution: "@tanstack/query-core@npm:5.38.0"
+  checksum: 10c0/d617cb5a571f0ff147b07717ae71764fb5a4cca9765f5a642d2deff80d08c4fafb497a63824c8f84eec5ea4177fe79d5ef2f6f9381bcee4ebb8a22a033e8d5fc
   languageName: node
   linkType: hard
 
-"@tanstack/react-query@npm:^5.36.2":
+"@tanstack/query-devtools@npm:5.37.1":
   version: 5.37.1
-  resolution: "@tanstack/react-query@npm:5.37.1"
+  resolution: "@tanstack/query-devtools@npm:5.37.1"
+  checksum: 10c0/c52c320972e2b430da69f18295ddb2c62ea5c3c1b83481b225be799f7e955e32782d68871bddc141acc468cf4d7ad5dcdd2c88ff3edc90021d28e57252dfab8b
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query-devtools@npm:^5.39.0":
+  version: 5.39.0
+  resolution: "@tanstack/react-query-devtools@npm:5.39.0"
   dependencies:
-    "@tanstack/query-core": "npm:5.36.1"
+    "@tanstack/query-devtools": "npm:5.37.1"
+  peerDependencies:
+    "@tanstack/react-query": ^5.39.0
+    react: ^18 || ^19
+  checksum: 10c0/7f383293ad8cdbe0b0368e27bcbb753e091714e576a965411e78af6acce9672a981c3e9169eee4a886ab1851434588f80264ba0455bb3e8fbfa578929c93841d
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.39.0":
+  version: 5.39.0
+  resolution: "@tanstack/react-query@npm:5.39.0"
+  dependencies:
+    "@tanstack/query-core": "npm:5.38.0"
   peerDependencies:
     react: ^18.0.0
-  checksum: 10c0/f0b33ec31c68bdc10f4aea9c3288ca969d77c57c87da7c77d0965fb9f82b5cb9d658868769fdaa3d4dc3deffd12b80c7debaa99cb702c52f41040fb7091162f7
+  checksum: 10c0/b43271d60eb1a28b91f81d60ad2421ef863e6e5ab22b2601f5593321357e6f0e6c2fa535038b2fd04f5ca429695501be35917e147cb59d90d86c56235b0fdb07
   languageName: node
   linkType: hard
 
@@ -2734,7 +2762,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^2.1.0":
+"clsx@npm:^2.1.0, clsx@npm:^2.1.1":
   version: 2.1.1
   resolution: "clsx@npm:2.1.1"
   checksum: 10c0/c4c8eb865f8c82baab07e71bfa8897c73454881c4f99d6bc81585aecd7c441746c1399d08363dc096c550cceaf97bd4ce1e8854e1771e9998d9f94c4fe075839
@@ -3017,7 +3045,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cross-fetch@npm:^4.0.0":
+"cross-fetch@npm:4.0.0, cross-fetch@npm:^4.0.0":
   version: 4.0.0
   resolution: "cross-fetch@npm:4.0.0"
   dependencies:
@@ -3401,7 +3429,8 @@ __metadata:
     "@hookform/resolvers": "npm:^3.4.0"
     "@svgr/core": "npm:^8.1.0"
     "@svgr/plugin-jsx": "npm:^8.1.0"
-    "@tanstack/react-query": "npm:^5.36.2"
+    "@tanstack/react-query": "npm:^5.39.0"
+    "@tanstack/react-query-devtools": "npm:^5.39.0"
     "@testing-library/dom": "npm:^10.1.0"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/react": "npm:^15.0.5"
@@ -3415,6 +3444,7 @@ __metadata:
     "@vitejs/plugin-react-swc": "npm:^3.6.0"
     "@vitest/coverage-v8": "npm:^1.6.0"
     autoprefixer: "npm:^10.4.19"
+    clsx: "npm:^2.1.1"
     cross-fetch: "npm:^4.0.0"
     encoding: "npm:^0.1.13"
     eslint: "npm:8.57.0"
@@ -3433,6 +3463,9 @@ __metadata:
     eslint-plugin-typescript-sort-keys: "npm:^3.2.0"
     eslint-plugin-unicorn: "npm:^52.0.0"
     husky: "npm:^9.0.11"
+    i18next: "npm:^23.11.5"
+    i18next-browser-languagedetector: "npm:^8.0.0"
+    i18next-http-backend: "npm:^2.5.2"
     jsdom: "npm:^24.0.0"
     lint-staged: "npm:^15.2.2"
     localforage: "npm:^1.10.0"
@@ -3442,9 +3475,11 @@ __metadata:
     postcss: "npm:^8.4.38"
     postcss-scss: "npm:^4.0.9"
     prettier: "npm:^3.2.5"
+    prettier-plugin-tailwindcss: "npm:^0.5.14"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
     react-hook-form: "npm:^7.51.4"
+    react-i18next: "npm:^14.1.2"
     react-router-dom: "npm:^6.23.1"
     react-toastify: "npm:^10.0.5"
     rollup-plugin-visualizer: "npm:^5.12.0"
@@ -3461,6 +3496,7 @@ __metadata:
     tailwindcss: "npm:^3.4.3"
     typescript: "npm:5.1.3"
     typescript-plugin-css-modules: "npm:^5.1.0"
+    use-debounce: "npm:^10.0.1"
     vite: "npm:^5.2.0"
     vite-plugin-checker: "npm:^0.6.4"
     vite-plugin-node-polyfills: "npm:^0.21.0"
@@ -4918,6 +4954,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"html-parse-stringify@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "html-parse-stringify@npm:3.0.1"
+  dependencies:
+    void-elements: "npm:3.1.0"
+  checksum: 10c0/159292753d48b84d216d61121054ae5a33466b3db5b446e2ffc093ac077a411a99ce6cbe0d18e55b87cf25fa3c5a86c4d8b130b9719ec9b66623259000c72c15
+  languageName: node
+  linkType: hard
+
 "html-tags@npm:^3.3.1":
   version: 3.3.1
   resolution: "html-tags@npm:3.3.1"
@@ -4972,6 +5017,33 @@ __metadata:
   bin:
     husky: bin.mjs
   checksum: 10c0/2c787dcf74a837fc9a4fea7da907509d4bd9a289f4ea10ecc9d86279e4d4542b0f5f6443a619bccae19e265f2677172cc2b86aae5c932a35a330cc227d914605
+  languageName: node
+  linkType: hard
+
+"i18next-browser-languagedetector@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "i18next-browser-languagedetector@npm:8.0.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.2"
+  checksum: 10c0/08a7c747ec18a0743b54390a0b42836d814b15fb49c92b90c259298e6a6e7e001ff9df99d0fd308283a34fceea53b4d9053aa1695a37f696bc04160017bbb524
+  languageName: node
+  linkType: hard
+
+"i18next-http-backend@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "i18next-http-backend@npm:2.5.2"
+  dependencies:
+    cross-fetch: "npm:4.0.0"
+  checksum: 10c0/57cfbeeea40a751134e1521fac89b14b780c9ad87b74a4f7d7168a88a8b603efed9f5df455dddbb408f7e268eae5aa0a6888e47b9f10cb9482d812d4d6997ffa
+  languageName: node
+  linkType: hard
+
+"i18next@npm:^23.11.5":
+  version: 23.11.5
+  resolution: "i18next@npm:23.11.5"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.2"
+  checksum: 10c0/b0bec64250a3e529d4c51e2fc511406a85c5dde3d005d3aabe919551ca31dfc0a8f5490bf6e44649822e895a1fa91a58092d112367669cd11b2eb89e6ba90d1a
   languageName: node
   linkType: hard
 
@@ -7418,6 +7490,61 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prettier-plugin-tailwindcss@npm:^0.5.14":
+  version: 0.5.14
+  resolution: "prettier-plugin-tailwindcss@npm:0.5.14"
+  peerDependencies:
+    "@ianvs/prettier-plugin-sort-imports": "*"
+    "@prettier/plugin-pug": "*"
+    "@shopify/prettier-plugin-liquid": "*"
+    "@trivago/prettier-plugin-sort-imports": "*"
+    "@zackad/prettier-plugin-twig-melody": "*"
+    prettier: ^3.0
+    prettier-plugin-astro: "*"
+    prettier-plugin-css-order: "*"
+    prettier-plugin-import-sort: "*"
+    prettier-plugin-jsdoc: "*"
+    prettier-plugin-marko: "*"
+    prettier-plugin-organize-attributes: "*"
+    prettier-plugin-organize-imports: "*"
+    prettier-plugin-sort-imports: "*"
+    prettier-plugin-style-order: "*"
+    prettier-plugin-svelte: "*"
+  peerDependenciesMeta:
+    "@ianvs/prettier-plugin-sort-imports":
+      optional: true
+    "@prettier/plugin-pug":
+      optional: true
+    "@shopify/prettier-plugin-liquid":
+      optional: true
+    "@trivago/prettier-plugin-sort-imports":
+      optional: true
+    "@zackad/prettier-plugin-twig-melody":
+      optional: true
+    prettier-plugin-astro:
+      optional: true
+    prettier-plugin-css-order:
+      optional: true
+    prettier-plugin-import-sort:
+      optional: true
+    prettier-plugin-jsdoc:
+      optional: true
+    prettier-plugin-marko:
+      optional: true
+    prettier-plugin-organize-attributes:
+      optional: true
+    prettier-plugin-organize-imports:
+      optional: true
+    prettier-plugin-sort-imports:
+      optional: true
+    prettier-plugin-style-order:
+      optional: true
+    prettier-plugin-svelte:
+      optional: true
+  checksum: 10c0/9857873cb8cb0d9b7b895806e7f6265617a08805691125d282767dffb1cb3d2c4c662f2b9168ef391edc40dff1b81beb99eee488f96544e01b8924db694f2299
+  languageName: node
+  linkType: hard
+
 "prettier@npm:^3.2.5":
   version: 3.2.5
   resolution: "prettier@npm:3.2.5"
@@ -7614,6 +7741,24 @@ __metadata:
   peerDependencies:
     react: ^16.8.0 || ^17 || ^18
   checksum: 10c0/73b585adb80bd99ae1fc21208e389fd9830f82c8c8bab4b6c4d5853f858a3259b8dc8fd4aa4608a0bd95bc69883c9332f2fa5e8c80dc17dbb2866de9744dbdb6
+  languageName: node
+  linkType: hard
+
+"react-i18next@npm:^14.1.2":
+  version: 14.1.2
+  resolution: "react-i18next@npm:14.1.2"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.9"
+    html-parse-stringify: "npm:^3.0.1"
+  peerDependencies:
+    i18next: ">= 23.2.3"
+    react: ">= 16.8.0"
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+    react-native:
+      optional: true
+  checksum: 10c0/cb8a83b3696639f083dc9f770d9d9e0681c0fe56f6b5fe24cd6facce08d363c37bd3440078e9d63abacabd7037b783e6b4e4d0c935de9c8dda7820bd4ef7e329
   languageName: node
   linkType: hard
 
@@ -9453,6 +9598,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"use-debounce@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "use-debounce@npm:10.0.1"
+  peerDependencies:
+    react: ">=16.8.0"
+  checksum: 10c0/377a11814a708f5c392f465cbbe2d119a8a2635c8226cc5e30eba397c4436f8e8234385d069467b369d105ed0d3be733c6a08d8ae1004017c6d6f58f4d4c24d8
+  languageName: node
+  linkType: hard
+
 "util-deprecate@npm:^1.0.1, util-deprecate@npm:^1.0.2, util-deprecate@npm:~1.0.1":
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
@@ -9706,6 +9860,13 @@ __metadata:
   version: 1.1.2
   resolution: "vm-browserify@npm:1.1.2"
   checksum: 10c0/0cc1af6e0d880deb58bc974921320c187f9e0a94f25570fca6b1bd64e798ce454ab87dfd797551b1b0cc1849307421aae0193cedf5f06bdb5680476780ee344b
+  languageName: node
+  linkType: hard
+
+"void-elements@npm:3.1.0":
+  version: 3.1.0
+  resolution: "void-elements@npm:3.1.0"
+  checksum: 10c0/0b8686f9f9aa44012e9bd5eabf287ae0cde409b9a2854c5a2335cb83920c957668ac5876e3f0d158dd424744ac411a7270e64128556b451ed3bec875ef18534d
   languageName: node
   linkType: hard
 

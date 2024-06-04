@@ -41,7 +41,7 @@ const LoginForm: FC = function () {
         toast.dismiss();
         loginMutation.mutate(data);
       })}
-      className="flex flex-col items-center gap-8 p-5 dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto "
+      className="m-auto flex flex-col items-center gap-8 rounded-xl border border-gray-200 p-5 dark:bg-zinc-800 "
     >
       <div className="grid grid-cols-1 gap-5 md:gap-8">
         <InputField
@@ -62,9 +62,9 @@ const LoginForm: FC = function () {
       <button
         data-testid="login-page-submit-button"
         type="submit"
-        className="flex items-center justify-center min-w-72 px-6 py-4 bg-gray-800 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
+        className="flex min-w-72 items-center justify-center rounded-full bg-gray-800 px-6 py-4 text-center font-semibold text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
       >
-        {loginMutation.isPending && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
+        {loginMutation.isPending && <Spinner className="mr-4 h-6 w-6 animate-spin" />}
         Sign In
       </button>
     </form>
