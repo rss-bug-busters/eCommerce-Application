@@ -37,7 +37,7 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
   }, [index, address.id, setValue]);
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+    <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8">
       <SelectProfile
         name={`Address.${index}.country` as keyof ProfileEditType}
         options={countryOptions}

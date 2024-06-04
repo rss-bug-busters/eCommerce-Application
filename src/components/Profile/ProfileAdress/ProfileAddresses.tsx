@@ -98,9 +98,9 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
         addresses.map((address, index) => (
           <div
             key={`address-${Math.random().toString(36).slice(2, 9)}`}
-            className="flex flex-col p-5 items-center md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
+            className="m-auto flex max-w-xl flex-col items-center rounded-xl border border-gray-200 p-5 md:gap-6 dark:bg-zinc-800"
           >
-            <div className="flex flex-row justify-start gap-0 w-full">
+            <div className="flex w-full flex-row justify-start gap-0">
               <CheckBox
                 value={address.id ?? ''}
                 label="Default Shipping"
@@ -133,7 +133,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
             {isEdit && (
               <button
                 type="button"
-                className="flex items-end  px-4 py-2 rounded-md bg-red-800 hover:bg-red-600 font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-50"
+                className="flex items-end  rounded-md bg-red-800 px-4 py-2 text-center font-semibold text-white hover:bg-red-600 dark:bg-zinc-600 dark:hover:bg-zinc-50"
                 onClick={() => handleDelete(index)}
               >
                 Delete

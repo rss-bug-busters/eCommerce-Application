@@ -70,12 +70,12 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
+      className="m-auto flex max-w-xl flex-col items-center gap-3 rounded-xl border border-gray-200 p-5 md:gap-6 dark:bg-zinc-800"
     >
       <div className="flex items-center gap-x-2">
-        <h2 className="text-xl text-center dark:text-white">Profile Information</h2>
+        <h2 className="text-center text-xl dark:text-white">Profile Information</h2>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8">
         <InputFieldProfile
           name="name"
           register={register('name')}
@@ -116,7 +116,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
         />
       </div>
       <div className="flex items-center gap-x-2">
-        <h2 className="text-xl text-center dark:text-white">Addresses</h2>
+        <h2 className="text-center text-xl dark:text-white">Addresses</h2>
       </div>
       <ProfileAddress
         userData={userData}
@@ -130,7 +130,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
       {isEdit && (
         <button
           type="button"
-          className="flex items-end bg-gray-800 text-white px-4 py-2 rounded-md"
+          className="flex items-end rounded-md bg-gray-800 px-4 py-2 text-white"
           onClick={() => {
             if (useAddresses) {
               setAddresses([...useAddresses, emptyAddress]);
@@ -143,7 +143,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
       {isEdit && (
         <button
           type="submit"
-          className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
+          className="mt-4 flex min-w-72 items-center justify-center rounded-full bg-gray-800 px-6 py-4 text-center font-semibold text-white hover:bg-gray-600 dark:bg-zinc-600 dark:hover:bg-zinc-500"
           data-testid="profile-page-edit-profile-submit-button"
         >
           Save Changes
