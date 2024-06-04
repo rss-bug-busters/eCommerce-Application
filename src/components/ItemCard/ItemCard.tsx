@@ -4,6 +4,7 @@ import routePaths from '@utils/consts/RoutePaths';
 import { useTranslation } from 'react-i18next';
 import ProgressiveImage from '@components/ui/ProgressiveImage/ProgressiveImage';
 import clsx from 'clsx';
+import usePriceInfo from '@hooks/usePriceInfo.ts';
 
 interface Properties {
   key?: string | number;
@@ -14,10 +15,11 @@ function ItemCard({ product }: Properties) {
   const { name, description, masterVariant, id, key } = product;
   const { price, images } = masterVariant;
   const { i18n, t } = useTranslation();
+  const { priceInfo } = usePriceInfo();
 
   const priceFormatter = new Intl.NumberFormat(i18n.language, {
     style: 'currency',
-    currency: price?.value.currencyCode,
+    currency: price?.value.currencyCode ?? priceInfo.priceCurrency,
   });
 
   const priceValue: undefined | string =

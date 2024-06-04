@@ -6,13 +6,15 @@ import FilterSidebar from '@components/FilterSidebar/FilterSidebar';
 import useSearchData from '@hooks/useSearchData';
 
 function CatalogPage() {
-  const { search, sort, category, onlyDiscounted, maxPrice, minPrice } = useSearchData();
+  const { attributes, search, sort, category, onlyDiscounted, maxPrice, minPrice } =
+    useSearchData();
 
   const { data } = useProducts({
     search,
     sort,
     category,
     limit: 12,
+    attributes,
     price: {
       min: minPrice,
       max: maxPrice,
@@ -26,7 +28,7 @@ function CatalogPage() {
         <Search className="mx-auto mb-2 sm:w-1/2" />
         <div className="mx-auto mb-5 flex flex-row items-center justify-between sm:w-1/2">
           <Sort />
-          <FilterSidebar />
+          <FilterSidebar productsResponse={data} />
         </div>
       </div>
 

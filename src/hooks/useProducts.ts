@@ -2,7 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import QueryKeys from '@utils/consts/QueryKeys';
 import useApi from '@services/api/hooks/useApi';
 import { useTranslation } from 'react-i18next';
-import usePriceInfo from '@hooks/usePriceInfo.ts';
+import usePriceInfo from '@hooks/usePriceInfo';
+import makeFilterFacets from '@utils/makeFilterFacets';
+import filterAttributes from '@utils/consts/filterAtributes';
+import makeFilterFilters from '@utils/makeFilterFilters';
 
 interface Sort {
   field: string;
@@ -41,6 +44,7 @@ interface Price {
 }
 
 export interface UseProductsOptions {
+  attributes?: Record<string, string[]>;
   category?: string;
   limit?: number;
   offset?: number;
@@ -61,6 +65,7 @@ const useProducts = (options?: UseProductsOptions) => {
     offset = 0,
     limit = 12,
     price,
+    attributes,
   } = options ?? {};
 
   const sort = sortName && SortType[sortName] ? SortType[sortName] : undefined;
@@ -69,6 +74,14 @@ const useProducts = (options?: UseProductsOptions) => {
     : undefined;
 
   const filters: string[] = [
+    ...makeFilterFilters({
+      attributes: filterAttributes,
+      language,
+      attributesValue: attributes ?? {},
+    }),
+  ].filter((item) => item !== undefined);
+
+  const filtersQuery: string[] = [
     'variants.prices:exists',
     `name.${language}:exists`,
     `description.${language}:exists`,
@@ -77,36 +90,29 @@ const useProducts = (options?: UseProductsOptions) => {
     price?.min
       ? `variants.scopedPrice.currentValue.centAmount: range(${price?.min} to *)`
       : undefined,
-    price?.min
+    price?.max
       ? `variants.scopedPrice.currentValue.centAmount: range(* to ${price?.max})`
       : undefined,
     price?.onlyDiscounted ? 'variants.scopedPrice.discounted:exists' : undefined,
   ].filter((item) => item !== undefined) as string[];
 
-  // const facets = [
-  //   'variants.price.centAmount:range (0 to *)',
-  //   `variants.attributes.${'color-filter'}.label.${i18n.language} as color-filter`,
-  //   `variants.attributes.finishlabel.${i18n.language} as finishlabel`,
-  //   `variants.attributes.colorlabel.${i18n.language} as colorlabel`,
-  //
-  //   // 'variants.attributes.colorlabel counting products',
-  //   // `variants.attributes.colorlabel.${i18n.language}`,
-  //   // 'variants.attributes.colorlabel.key counting products',
-  //   // 'variants.attributes.colorlabel.label counting products',
-  //   // `variants.attributes.colorlabel.label.${i18n.language} counting products`,
-  // ];
+  const facets = [...makeFilterFacets(filterAttributes, language)];
 
   return useQuery({
     queryFn: () =>
-      api()
+      api({
+        needAnonymousAuth: true,
+      })
         .productProjections()
         .search()
         .get({
           queryArgs: {
+            facet: facets,
             offset,
             limit,
             expand: 'productType',
-            'filter.query': filters,
+            filter: filters,
+            'filter.query': filtersQuery,
             sort: sortQuery,
             [`text.${language}`]: search,
             fuzzy: true,
@@ -125,6 +131,7 @@ const useProducts = (options?: UseProductsOptions) => {
       `minPrice:${price?.min}`,
       `maxPrice:${price?.max}`,
       `onlyDiscounted:${price?.onlyDiscounted}`,
+      `attributes:${JSON.stringify(attributes)}`,
     ],
     retry: false,
   });
