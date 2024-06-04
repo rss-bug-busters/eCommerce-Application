@@ -79,10 +79,9 @@ const Sidebar = ({
                     Choose a sort type
                   </option>
                   {(value as TermFacetResult).terms.map(
-                    ({ term, count }: { count: number; term: string }) => (
+                    ({ term }: { count: number; term: string }) => (
                       <option className="bg-zinc-800" key={term} value={term}>
                         {term}
-                        {` (${count})`}
                       </option>
                     )
                   )}
