@@ -5,3 +5,7 @@
 :root {
   --toastify-toast-min-height: 32px;
 }
+
+.btn-icon {
+  @apply cursor-pointer rounded-full w-10 h-10 flex justify-center items-center;
+}

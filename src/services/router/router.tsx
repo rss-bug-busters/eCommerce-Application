@@ -71,6 +71,14 @@ const routes: RouteObject[] = [
         ),
       },
       {
+        path: RoutePaths.CATALOG,
+        element: (
+          <ProtectedRoute authorization="anonymous">
+            <CatalogPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: RoutePaths.BASKET,
         element: (
           <ProtectedRoute authorization="password">
