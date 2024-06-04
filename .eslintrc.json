@@ -21,6 +21,7 @@
     "airbnb/hooks",
     "prettier"
   ],
+
   "rules": {
     "no-restricted-syntax": 0,
     "func-names": 0,
