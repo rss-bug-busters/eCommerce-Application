@@ -20,7 +20,7 @@ const Select: FC<SelectProperties> = function ({
     <div className="relative">
       <select
         {...register}
-        className={`flex items-center justify-start w-64 h-12 px-4 py-3 border bg-transparent rounded-full ${error ? 'border-red-600' : 'border-gray-300'}`}
+        className={`flex h-12 w-64 items-center justify-start rounded-full border bg-transparent px-4 py-3 ${error ? 'border-red-600' : 'border-gray-300'}`}
         defaultValue=""
       >
         {placeholder && (
@@ -37,7 +37,7 @@ const Select: FC<SelectProperties> = function ({
       {error && (
         <div
           data-testid={`error-${name}`}
-          className="text-red-600 text-xs absolute top-12 ml-2"
+          className="absolute top-12 ml-2 text-xs text-red-600"
         >
           {error.message}
         </div>

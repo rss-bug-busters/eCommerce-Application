@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import Spinner from '@assets/svg/spinner.svg?react';
 import { toast } from 'react-toastify';
-import useSignUpMutation from '@hooks/useSignUpMutation';
+import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
 import { useQueryClient } from '@tanstack/react-query';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
 
@@ -73,9 +73,9 @@ const SignUpForm: FC = function () {
     <form
       noValidate
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col p-5 items-center gap-3 md:gap-6 max-w-xl dark:bg-zinc-800 border border-gray-200 rounded-xl m-auto"
+      className="m-auto flex max-w-xl flex-col items-center gap-3 rounded-xl border border-gray-200 p-5 md:gap-6 dark:bg-zinc-800"
     >
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5 md:gap-8">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8">
         <InputField
           name="name"
           register={register('name')}
@@ -118,18 +118,18 @@ const SignUpForm: FC = function () {
         />
       </div>
       <div className="flex items-center gap-x-2">
-        <h2 className=" text-xl text-center dark:text-white">Shipping Address</h2>
-        <label htmlFor="isDefaultShipping" className="flex items-center cursor-pointer">
+        <h2 className=" text-center text-xl dark:text-white">Shipping Address</h2>
+        <label htmlFor="isDefaultShipping" className="flex cursor-pointer items-center">
           (
           <input
             {...register('isDefaultShipping')}
-            className="w-3 h-3 accent-orange-400"
+            className="h-3 w-3 accent-orange-400"
             id="isDefaultShipping"
             type="checkbox"
             checked={useAsDefaultShipping}
             onChange={handleSetDefault}
           />
-          <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-xs">
+          <span className="ml-2 text-xs text-orange-900 dark:text-amber-500/80">
             Set as default address
           </span>
           )
@@ -137,16 +137,16 @@ const SignUpForm: FC = function () {
       </div>
       <div className="flex flex-col items-center">
         <AddressFields errors={errors} register={register} prefix="shippingAddress" />
-        <label htmlFor="useSameAddress" className="flex items-center mt-4 cursor-pointer">
+        <label htmlFor="useSameAddress" className="mt-4 flex cursor-pointer items-center">
           <input
             {...register('useSameAddress')}
-            className="w-4 h-4 accent-green-700"
+            className="h-4 w-4 accent-green-700"
             id="useSameAddress"
             type="checkbox"
             checked={useSameAddress}
             onChange={handleUseSameAddressChange}
           />
-          <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-lg font-semibold">
+          <span className="ml-2 text-lg font-semibold text-orange-900 dark:text-amber-500/80">
             Use same address for billing
           </span>
         </label>
@@ -154,21 +154,21 @@ const SignUpForm: FC = function () {
       {!useSameAddress && (
         <>
           <div className="flex items-center gap-x-2">
-            <h2 className=" text-xl text-center dark:text-white">Billing Address</h2>
+            <h2 className=" text-center text-xl dark:text-white">Billing Address</h2>
             <label
               htmlFor="isDefaultBilling"
-              className="flex items-center cursor-pointer"
+              className="flex cursor-pointer items-center"
             >
               (
               <input
                 {...register('isDefaultBilling')}
-                className="w-3 h-3 accent-orange-400"
+                className="h-3 w-3 accent-orange-400"
                 id="isDefaultBilling"
                 type="checkbox"
                 checked={useAsDefaultBilling}
                 onChange={() => setUseAsDefaultBilling(!useAsDefaultBilling)}
               />
-              <span className="ml-2 text-orange-900 dark:text-amber-500/80 text-xs">
+              <span className="ml-2 text-xs text-orange-900 dark:text-amber-500/80">
                 Set as default address
               </span>
               )
@@ -179,9 +179,9 @@ const SignUpForm: FC = function () {
       )}
       <button
         type="submit"
-        className="flex items-center justify-center min-w-72 mt-4 px-6 py-4 bg-gray-800 hover:bg-gray-600 rounded-full font-semibold text-center text-white dark:bg-zinc-600 dark:hover:bg-zinc-500"
+        className="mt-4 flex min-w-72 items-center justify-center rounded-full bg-gray-800 px-6 py-4 text-center font-semibold text-white hover:bg-gray-600 dark:bg-zinc-600 dark:hover:bg-zinc-500"
       >
-        {isPending && <Spinner className="w-6 h-6 mr-4 animate-spin" />}
+        {isPending && <Spinner className="mr-4 h-6 w-6 animate-spin" />}
         Sign Up
       </button>
     </form>

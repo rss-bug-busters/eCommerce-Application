@@ -1,7 +1,7 @@
 function FooterText() {
   return (
     <div className="text">
-      <h6 className="font-semibold uppercase md:justify-start mb-4 flex items-center justify-center ">
+      <h6 className="mb-4 flex items-center justify-center font-semibold uppercase md:justify-start ">
         🏪 eCommerce-Application
       </h6>
       <p>

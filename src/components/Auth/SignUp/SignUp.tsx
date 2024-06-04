@@ -13,7 +13,7 @@ const SignUp: FC = function () {
         </span>
         <Link
           to={RoutePaths.LOGIN}
-          className="font-bold text-zinc-600 ml-2 cursor-pointer hover:text-zinc-400 hover:scale-110 dark:text-white "
+          className="ml-2 cursor-pointer font-bold text-zinc-600 hover:scale-110 hover:text-zinc-400 dark:text-white "
         >
           Log in
         </Link>
