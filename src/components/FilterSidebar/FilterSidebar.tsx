@@ -51,7 +51,7 @@ function FilterSidebar({
       {isSidebarOpen && (
         <div ref={sidebarReference}>
           <Sidebar
-            hide={!isSidebarOpen}
+            close={() => setIsSidebarOpen(false)}
             productsResponse={productsResponse}
             category={data?.body.results ?? []}
           />
