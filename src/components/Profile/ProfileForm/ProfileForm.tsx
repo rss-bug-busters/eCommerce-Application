@@ -72,18 +72,16 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
           });
       }
 
-      if (defualtChanges) {
-        await addActions(userData.version + profileChangesLength, defualtChanges)
-          .then((response) => {
+      if (defualtChanges && defualtChanges.length > 0) {
+        await addActions(userData.version + profileChangesLength, defualtChanges).then(
+          (response) => {
             // toast.success('Profile changes has been saved');
             setEditMode(false);
             setUserData(undefined);
 
             return response;
-          })
-          .catch((error) => {
-            toast.error(`Failed: ${error}`);
-          });
+          }
+        );
       }
     }
   };
