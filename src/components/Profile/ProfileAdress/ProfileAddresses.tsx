@@ -19,6 +19,7 @@ interface ZodAddress {
   city: string;
   country: 'PL' | 'BY' | 'RU';
   id: string;
+  key: string;
   postalCode: string;
   streetName: string;
 }
@@ -56,7 +57,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   const handleShippingCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    setSelectedShippingCheckbox(selectedShippingCheckbox === value ? '' : value);
+    setSelectedShippingCheckbox(value);
   };
 
   useEffect(() => {
@@ -68,7 +69,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   const handleBillingCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    setSelectedBillingCheckbox(selectedBillingCheckbox === value ? '' : value);
+    setSelectedBillingCheckbox(value);
   };
 
   useEffect(() => {
@@ -102,9 +103,9 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
           >
             <div className="flex w-full flex-row justify-start gap-0">
               <CheckBox
-                value={address.id ?? ''}
+                value={address.id ?? address.key ?? ''}
                 label="Default Shipping"
-                checked={selectedShippingCheckbox === address.id}
+                checked={selectedShippingCheckbox === (address.id ?? address.key)}
                 isEdit={isEdit}
                 onChange={handleShippingCheckboxChange}
                 name="isDefaultShipping"
@@ -112,9 +113,9 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
                 register={register}
               />
               <CheckBox
-                value={address.id ?? ''}
+                value={address.id ?? address.key ?? ''}
                 label="Default Billing"
-                checked={selectedBillingCheckbox === address.id}
+                checked={selectedBillingCheckbox === (address.id ?? address.key)}
                 isEdit={isEdit}
                 onChange={handleBillingCheckboxChange}
                 name="isDefaultBilling"
