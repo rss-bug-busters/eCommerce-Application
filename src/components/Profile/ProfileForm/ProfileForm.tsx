@@ -54,9 +54,15 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
       const actions = checkChangesProfile(userData, data);
       const profileChanges = actions[0];
       const defualtChanges = actions[1];
-      const profileChangesLength = profileChanges?.length ?? 0;
+      const addifDeleteDefualt =
+        profileChanges?.reduce((acum, value) => {
+          if (value.action === 'removeAddress') {
+            return acum + 2;
+          }
 
-      // console.log(actions);
+          return acum;
+        }, 0) ?? 0;
+      const profileChangesLength = (profileChanges?.length ?? 0) + addifDeleteDefualt;
 
       if (profileChanges) {
         await addActions(userData.version, profileChanges)
@@ -73,15 +79,17 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
       }
 
       if (defualtChanges && defualtChanges.length > 0) {
-        await addActions(userData.version + profileChangesLength, defualtChanges).then(
-          (response) => {
+        await addActions(userData.version + profileChangesLength, defualtChanges)
+          .then((response) => {
             // toast.success('Profile changes has been saved');
             setEditMode(false);
             setUserData(undefined);
 
             return response;
-          }
-        );
+          })
+          .catch((error) => {
+            toast.error(`Failed: ${error}`);
+          });
       }
     }
   };

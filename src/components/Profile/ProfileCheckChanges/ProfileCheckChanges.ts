@@ -128,7 +128,7 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
     userData.defaultShippingAddressId !== submitData.isDefaultShipping &&
     submitData.isDefaultShipping
   ) {
-    if (submitData.isDefaultBilling.includes('newAddress')) {
+    if (submitData.isDefaultShipping.includes('newAddress')) {
       defualtChanges.push({
         action: 'setDefaultShippingAddress',
         addressKey: submitData.isDefaultShipping,
