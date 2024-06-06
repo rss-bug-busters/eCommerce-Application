@@ -37,7 +37,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     streetName: '',
     postalCode: '',
     key: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
-    id: '',
+    id: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
   };
 
   const { addActions } = useUserQueries();
@@ -55,6 +55,8 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
       const profileChanges = actions[0];
       const defualtChanges = actions[1];
       const profileChangesLength = profileChanges?.length ?? 0;
+
+      // console.log(actions);
 
       if (profileChanges) {
         await addActions(userData.version, profileChanges)
