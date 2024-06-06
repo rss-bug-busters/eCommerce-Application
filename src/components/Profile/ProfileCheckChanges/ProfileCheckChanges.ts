@@ -75,6 +75,7 @@ const manageAddresses = (
         city: data.city,
         streetName: data.streetName,
         postalCode: data.postalCode,
+        key: data.id,
       };
 
       changes.push({ action: 'addAddress', address: addressToAdd });
@@ -84,6 +85,7 @@ const manageAddresses = (
 
 const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) => {
   const changes: MyCustomerUpdateAction[] = [];
+  const defualtChanges: MyCustomerUpdateAction[] = [];
 
   if (userData.email !== submitData.email) {
     changes.push({ action: 'changeEmail', email: submitData.email });
@@ -107,23 +109,34 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
     userData.defaultBillingAddressId !== submitData.isDefaultBilling &&
     submitData.isDefaultBilling
   ) {
-    changes.push({
-      action: 'setDefaultBillingAddress',
-      addressId: submitData.isDefaultBilling,
-    });
+    if (submitData.isDefaultBilling.includes('newAddress')) {
+      defualtChanges.push({
+        action: 'setDefaultBillingAddress',
+        addressKey: submitData.isDefaultBilling,
+      });
+    } else {
+      defualtChanges.push({
+        action: 'setDefaultBillingAddress',
+        addressId: submitData.isDefaultBilling,
+      });
+    }
   }
 
-  if (
-    userData.defaultShippingAddressId !== submitData.isDefaultShipping &&
-    submitData.isDefaultShipping
-  ) {
-    changes.push({
-      action: 'setDefaultShippingAddress',
-      addressId: submitData.isDefaultShipping,
-    });
+  if (userData.defaultShippingAddressId !== submitData.isDefaultShipping) {
+    if (submitData.isDefaultBilling.includes('newAddress')) {
+      defualtChanges.push({
+        action: 'setDefaultShippingAddress',
+        addressKey: submitData.isDefaultShipping,
+      });
+    } else {
+      defualtChanges.push({
+        action: 'setDefaultShippingAddress',
+        addressId: submitData.isDefaultShipping,
+      });
+    }
   }
 
-  return changes;
+  return [changes, defualtChanges];
 };
 
 export default checkChangesProfile;
