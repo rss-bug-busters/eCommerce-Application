@@ -38,6 +38,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     postalCode: '',
     key: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
     id: '',
+
   };
 
   const { addActions } = useUserQueries();
@@ -47,7 +48,9 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     setAddresses(userData?.addresses ?? []);
   }, [userData?.addresses]);
 
+
   const onSubmit = async (data: ProfileEditType) => {
+
     toast.dismiss();
 
     if (userData) {

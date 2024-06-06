@@ -19,7 +19,10 @@ interface ZodAddress {
   city: string;
   country: 'PL' | 'BY' | 'RU';
   id: string;
+<<<<<<< test/profile-page
   key: string;
+=======
+>>>>>>> release/catalog-product-profile
   postalCode: string;
   streetName: string;
 }
@@ -57,7 +60,11 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   const handleShippingCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
+<<<<<<< test/profile-page
     setSelectedShippingCheckbox(value);
+=======
+    setSelectedShippingCheckbox(selectedShippingCheckbox === value ? '' : value);
+>>>>>>> release/catalog-product-profile
   };
 
   useEffect(() => {
@@ -69,7 +76,11 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   const handleBillingCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
+<<<<<<< test/profile-page
     setSelectedBillingCheckbox(value);
+=======
+    setSelectedBillingCheckbox(selectedBillingCheckbox === value ? '' : value);
+>>>>>>> release/catalog-product-profile
   };
 
   useEffect(() => {
@@ -103,9 +114,15 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
           >
             <div className="flex w-full flex-row justify-start gap-0">
               <CheckBox
+<<<<<<< test/profile-page
                 value={address.id ?? address.key ?? ''}
                 label="Default Shipping"
                 checked={selectedShippingCheckbox === (address.id ?? address.key)}
+=======
+                value={address.id ?? ''}
+                label="Default Shipping"
+                checked={selectedShippingCheckbox === address.id}
+>>>>>>> release/catalog-product-profile
                 isEdit={isEdit}
                 onChange={handleShippingCheckboxChange}
                 name="isDefaultShipping"
@@ -113,9 +130,15 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
                 register={register}
               />
               <CheckBox
+<<<<<<< test/profile-page
                 value={address.id ?? address.key ?? ''}
                 label="Default Billing"
                 checked={selectedBillingCheckbox === (address.id ?? address.key)}
+=======
+                value={address.id ?? ''}
+                label="Default Billing"
+                checked={selectedBillingCheckbox === address.id}
+>>>>>>> release/catalog-product-profile
                 isEdit={isEdit}
                 onChange={handleBillingCheckboxChange}
                 name="isDefaultBilling"

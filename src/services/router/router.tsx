@@ -39,6 +39,14 @@ const routes: RouteObject[] = [
         ),
       },
       {
+        path: RoutePaths.CATALOG,
+        element: (
+          <ProtectedRoute authorization="any">
+            <CatalogPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
         path: RoutePaths.PRODUCT,
         element: (
           <ProtectedRoute authorization="any">

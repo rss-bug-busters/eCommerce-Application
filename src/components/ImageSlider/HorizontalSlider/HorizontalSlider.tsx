@@ -120,7 +120,7 @@ const HorizontalSlider: FC<SliderProperties> = function ({
     </div>
   ) : (
     <div
-      className="mb-5 max-h-[600px] cursor-pointer overflow-hidden rounded-xl"
+      className={`${className ?? ''} cursor-pointer overflow-hidden rounded-xl`}
       onClick={clickHandler}
       role="button"
       tabIndex={0}

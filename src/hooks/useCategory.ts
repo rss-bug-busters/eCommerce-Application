@@ -7,7 +7,9 @@ const useCategory = () => {
 
   return useQuery({
     queryFn: () =>
-      api()
+      api({
+        needAnonymousAuth: true,
+      })
         .categories()
         .get({
           queryArgs: {

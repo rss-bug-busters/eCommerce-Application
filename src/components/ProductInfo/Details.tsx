@@ -10,7 +10,7 @@ const ProductInfo: FC<Properties> = function ({ product, className }) {
   const { name, description, masterVariant } = product;
   const { prices } = masterVariant;
   const { i18n } = useTranslation();
-  const lang = i18n.languages[1] ?? 'en-US';
+  const lang = i18n.language;
   const country = 'US';
 
   const chosenPrice = prices?.find((price) => price.country === country) ?? prices?.[0];

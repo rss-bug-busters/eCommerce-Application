@@ -32,9 +32,15 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
     if (address.id) {
       setValue(`Address.${index}.id`, address.id);
     } else {
+<<<<<<< test/profile-page
       setValue(`Address.${index}.id`, address.key ?? `newAddress-${index}`);
     }
   }, [index, address.id, setValue, address.key]);
+=======
+      setValue(`Address.${index}.id`, `newAddress-${index}`);
+    }
+  }, [index, address.id, setValue]);
+>>>>>>> release/catalog-product-profile
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8">

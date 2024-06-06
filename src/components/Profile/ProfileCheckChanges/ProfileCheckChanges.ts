@@ -75,7 +75,10 @@ const manageAddresses = (
         city: data.city,
         streetName: data.streetName,
         postalCode: data.postalCode,
+<<<<<<< test/profile-page
         key: data.id,
+=======
+>>>>>>> release/catalog-product-profile
       };
 
       changes.push({ action: 'addAddress', address: addressToAdd });
@@ -85,7 +88,10 @@ const manageAddresses = (
 
 const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) => {
   const changes: MyCustomerUpdateAction[] = [];
+<<<<<<< test/profile-page
   const defualtChanges: MyCustomerUpdateAction[] = [];
+=======
+>>>>>>> release/catalog-product-profile
 
   if (userData.email !== submitData.email) {
     changes.push({ action: 'changeEmail', email: submitData.email });
@@ -109,6 +115,7 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
     userData.defaultBillingAddressId !== submitData.isDefaultBilling &&
     submitData.isDefaultBilling
   ) {
+<<<<<<< test/profile-page
     if (submitData.isDefaultBilling.includes('newAddress')) {
       defualtChanges.push({
         action: 'setDefaultBillingAddress',
@@ -137,6 +144,25 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
   }
 
   return [changes, defualtChanges];
+=======
+    changes.push({
+      action: 'setDefaultBillingAddress',
+      addressId: submitData.isDefaultBilling,
+    });
+  }
+
+  if (
+    userData.defaultShippingAddressId !== submitData.isDefaultShipping &&
+    submitData.isDefaultShipping
+  ) {
+    changes.push({
+      action: 'setDefaultShippingAddress',
+      addressId: submitData.isDefaultShipping,
+    });
+  }
+
+  return changes;
+>>>>>>> release/catalog-product-profile
 };
 
 export default checkChangesProfile;

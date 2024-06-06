@@ -3,8 +3,16 @@ import useCategory from '@hooks/useCategory';
 import FilterSvg from '@assets/svg/filter.svg?react';
 import Sidebar from '@components/FilterSidebar/Sidebar';
 import clsx from 'clsx';
+import {
+  ClientResponse,
+  ProductProjectionPagedSearchResponse,
+} from '@commercetools/platform-sdk';
 
-function FilterSidebar() {
+function FilterSidebar({
+  productsResponse,
+}: {
+  productsResponse: ClientResponse<ProductProjectionPagedSearchResponse> | undefined;
+}) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarReference = useRef(null);
   const { data } = useCategory();
@@ -40,9 +48,15 @@ function FilterSidebar() {
         <FilterSvg className="h-5 w-5" />
         Filters
       </button>
-      <div ref={sidebarReference}>
-        <Sidebar hide={!isSidebarOpen} data={data?.body.results ?? []} />
-      </div>
+      {isSidebarOpen && (
+        <div ref={sidebarReference}>
+          <Sidebar
+            hide={!isSidebarOpen}
+            productsResponse={productsResponse}
+            category={data?.body.results ?? []}
+          />
+        </div>
+      )}
     </div>
   );
 }

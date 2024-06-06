@@ -11,9 +11,16 @@ function ProgressiveImage({ src, alt, placeholder, ...properties }: ImagePropert
     const img = new Image();
 
     img.src = src ?? '';
-    img.addEventListener('load', () => {
+
+    const onLoadHandler = () => {
       setIsLoading(false);
-    });
+    };
+
+    img.addEventListener('load', onLoadHandler);
+
+    return () => {
+      document.removeEventListener('load', onLoadHandler);
+    };
   }, [src]);
 
   if (isLoading) {
