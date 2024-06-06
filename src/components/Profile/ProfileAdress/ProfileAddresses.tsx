@@ -33,8 +33,12 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   addresses,
   setAddresses,
 }) {
-  const [selectedShippingCheckbox, setSelectedShippingCheckbox] = useState<string>('');
-  const [selectedBillingCheckbox, setSelectedBillingCheckbox] = useState<string>('');
+  const [selectedShippingCheckbox, setSelectedShippingCheckbox] = useState<
+    string | undefined
+  >('');
+  const [selectedBillingCheckbox, setSelectedBillingCheckbox] = useState<
+    string | undefined
+  >('');
   // const [addresses, setAddresses] = useState(userData?.addresses);
   const [useDeleteAddresses, setDeleteAddresses] = useState<number[]>([]);
   const [useCountDeleted, setCountDeleted] = useState(0);
@@ -50,14 +54,14 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   }, [addresses, setValue]);
 
   useEffect(() => {
-    setSelectedShippingCheckbox(userData?.defaultShippingAddressId ?? '');
-    setSelectedBillingCheckbox(userData?.defaultBillingAddressId ?? '');
+    setSelectedShippingCheckbox(userData?.defaultShippingAddressId);
+    setSelectedBillingCheckbox(userData?.defaultBillingAddressId);
   }, [userData?.defaultShippingAddressId, userData?.defaultBillingAddressId]);
 
   const handleShippingCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    setSelectedShippingCheckbox(value);
+    setSelectedShippingCheckbox(selectedShippingCheckbox === value ? undefined : value);
   };
 
   useEffect(() => {
@@ -69,7 +73,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
   const handleBillingCheckboxChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    setSelectedBillingCheckbox(value);
+    setSelectedBillingCheckbox(selectedBillingCheckbox === value ? undefined : value);
   };
 
   useEffect(() => {
@@ -90,7 +94,8 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
 
     setAddresses(updatedAddresses);
   };
-  // console.log(addresses)
+
+  // console.log(addresses);
 
   return (
     <div className="flex flex-col items-center gap-3">
@@ -103,7 +108,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
           >
             <div className="flex w-full flex-row justify-start gap-0">
               <CheckBox
-                value={address.id ?? address.key ?? ''}
+                value={address.id}
                 label="Default Shipping"
                 checked={selectedShippingCheckbox === (address.id ?? address.key)}
                 isEdit={isEdit}
@@ -113,7 +118,7 @@ const ProfileAddress: FC<ProfileAddressProperties> = function ({
                 register={register}
               />
               <CheckBox
-                value={address.id ?? address.key ?? ''}
+                value={address.id}
                 label="Default Billing"
                 checked={selectedBillingCheckbox === (address.id ?? address.key)}
                 isEdit={isEdit}

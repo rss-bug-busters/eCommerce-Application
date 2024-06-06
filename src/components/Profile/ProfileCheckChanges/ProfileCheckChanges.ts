@@ -109,6 +109,8 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
     userData.defaultBillingAddressId !== submitData.isDefaultBilling &&
     submitData.isDefaultBilling
   ) {
+    // console.log(submitData.isDefaultBilling);
+
     if (submitData.isDefaultBilling.includes('newAddress')) {
       defualtChanges.push({
         action: 'setDefaultBillingAddress',
@@ -122,8 +124,11 @@ const checkChangesProfile = (userData: Customer, submitData: ProfileEditType) =>
     }
   }
 
-  if (userData.defaultShippingAddressId !== submitData.isDefaultShipping) {
-    if (submitData.isDefaultBilling.includes('newAddress')) {
+  if (
+    userData.defaultShippingAddressId !== submitData.isDefaultShipping &&
+    submitData.isDefaultShipping
+  ) {
+    if (submitData.isDefaultShipping.includes('newAddress')) {
       defualtChanges.push({
         action: 'setDefaultShippingAddress',
         addressKey: submitData.isDefaultShipping,

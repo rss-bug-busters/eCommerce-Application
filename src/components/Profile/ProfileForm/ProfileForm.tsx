@@ -37,7 +37,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     streetName: '',
     postalCode: '',
     key: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
-    id: '',
+    id: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
   };
 
   const { addActions } = useUserQueries();
@@ -54,7 +54,15 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
       const actions = checkChangesProfile(userData, data);
       const profileChanges = actions[0];
       const defualtChanges = actions[1];
-      const profileChangesLength = profileChanges?.length ?? 0;
+      const addifDeleteDefualt =
+        profileChanges?.reduce((acum, value) => {
+          if (value.action === 'removeAddress') {
+            return acum + 2;
+          }
+
+          return acum;
+        }, 0) ?? 0;
+      const profileChangesLength = (profileChanges?.length ?? 0) + addifDeleteDefualt;
 
       if (profileChanges) {
         await addActions(userData.version, profileChanges)
@@ -70,7 +78,7 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
           });
       }
 
-      if (defualtChanges) {
+      if (defualtChanges && defualtChanges.length > 0) {
         await addActions(userData.version + profileChangesLength, defualtChanges)
           .then((response) => {
             // toast.success('Profile changes has been saved');
