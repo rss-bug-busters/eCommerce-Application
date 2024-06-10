@@ -6,7 +6,10 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ToastContainer, Slide } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './tailwindcss.css';
+import './i18n';
+
 import Loader from '@components/ui/Loader/Loader';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const queryClient = new QueryClient();
 
@@ -18,6 +21,7 @@ ReactDOM.createRoot(document.querySelector('#root')!).render(
         router={router}
         future={{ v7_startTransition: true }}
       />
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
     <ToastContainer
       stacked

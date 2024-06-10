@@ -1,3 +1,4 @@
+// import 'dotenv/config';
 import { configDefaults, defineConfig } from 'vitest/config';
 import react from '@vitejs/plugin-react-swc';
 import tsconfigPaths from 'vite-tsconfig-paths';
@@ -48,7 +49,7 @@ export default defineConfig({
     }),
     sassDts({
       enabledMode: ['development', 'production'],
-      prettierFilePath: path.resolve(root, '.prettierrc.json.'),
+      prettierFilePath: path.resolve(root, 'prettier.config.js'),
     }),
     process.env.VITEST
       ? undefined

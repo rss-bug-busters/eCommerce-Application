@@ -13,9 +13,9 @@ const ErrorPage: FC = function () {
         <div
           id="error-page"
           data-testid="error-page"
-          className="h-full flex flex-col gap-5 items-center justify-center text-center"
+          className="flex h-full flex-col items-center justify-center gap-5 text-center"
         >
-          <h1 className="text-4xl font-bold text-red-500 uppercase">
+          <h1 className="text-4xl font-bold uppercase text-red-500">
             {error.status} <br />
             {error.statusText}
           </h1>
@@ -36,9 +36,9 @@ const ErrorPage: FC = function () {
       <div
         id="error-page"
         data-testid="error-page"
-        className="h-screen flex flex-col gap-5 items-center justify-center text-center"
+        className="flex h-screen flex-col items-center justify-center gap-5 text-center"
       >
-        <h1 className="text-4xl font-bold text-red-500 uppercase">
+        <h1 className="text-4xl font-bold uppercase text-red-500">
           Oops! Something went wrong 😢
         </h1>
         <Link to={RoutePaths.MAIN} className="text-xl font-semibold hover:underline">

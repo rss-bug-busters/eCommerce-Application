@@ -14,7 +14,7 @@ interface LinkListProperties {
 function LinkList({ title, links }: LinkListProperties) {
   return (
     <div>
-      <h6 className="mb-4 flex font-semibold uppercase justify-center md:justify-start">
+      <h6 className="mb-4 flex justify-center font-semibold uppercase md:justify-start">
         {title}
       </h6>
       {links.map((link) => (
@@ -24,7 +24,7 @@ function LinkList({ title, links }: LinkListProperties) {
           key={link.name}
           target={link.target ?? '_self'}
         >
-          <p className="mb-4 items-center justify-center flex md:justify-start hover:underline">
+          <p className="mb-4 flex items-center justify-center hover:underline md:justify-start">
             {link.svg && <span className="me-3 [&>svg]:h-5 [&>svg]:w-5">{link.svg}</span>}
             {link.name}
           </p>
