@@ -36,8 +36,8 @@ const Member: FC<MemberProperties> = function ({ person }) {
 
 const TeamMembers: FC = function () {
   return (
-    <>
-      <h2>Team Members</h2>
+    <div className="flex flex-col items-center justify-center gap-5">
+      <h2 className="text-3xl font-bold text-gray-700 dark:text-white">Team Members</h2>
       <div className=" flex flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6  shadow-inner  ">
         {persons.map((person) => (
           <div key={`person-${Math.random().toString(36).slice(2, 9)}`}>
@@ -45,7 +45,7 @@ const TeamMembers: FC = function () {
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 };
 
