@@ -19,6 +19,7 @@ export default i18n
     fallbackLng: 'en-US',
     debug: true,
     supportedLngs: ['en-US'],
+    load: 'currentOnly',
 
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
