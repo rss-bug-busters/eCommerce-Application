@@ -32,9 +32,9 @@ const AddressFieldsProfile: React.FC<AddressFieldsProperties> = function ({
     if (address.id) {
       setValue(`Address.${index}.id`, address.id);
     } else {
-      setValue(`Address.${index}.id`, `newAddress-${index}`);
+      setValue(`Address.${index}.id`, address.key ?? `newAddress-${index}`);
     }
-  }, [index, address.id, setValue]);
+  }, [index, address.id, setValue, address.key]);
 
   return (
     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 md:gap-8">

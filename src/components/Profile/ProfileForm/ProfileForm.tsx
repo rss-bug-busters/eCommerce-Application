@@ -36,7 +36,8 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     city: '',
     streetName: '',
     postalCode: '',
-    key: '',
+    key: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
+    id: `newAddress-${Math.random().toString(36).slice(2, 9)}`,
   };
 
   const { addActions } = useUserQueries();
@@ -46,23 +47,50 @@ const ProfileForm: FC<ProfileFormProperties> = function ({
     setAddresses(userData?.addresses ?? []);
   }, [userData?.addresses]);
 
-  const onSubmit = (data: ProfileEditType) => {
+  const onSubmit = async (data: ProfileEditType) => {
     toast.dismiss();
 
     if (userData) {
       const actions = checkChangesProfile(userData, data);
+      const profileChanges = actions[0];
+      const defualtChanges = actions[1];
+      const addifDeleteDefualt =
+        profileChanges?.reduce((acum, value) => {
+          if (value.action === 'removeAddress') {
+            return acum + 2;
+          }
 
-      addActions(userData.version, actions)
-        .then((response) => {
-          toast.success('Profile changes has been saved');
-          setEditMode(false);
-          setUserData(undefined);
+          return acum;
+        }, 0) ?? 0;
+      const profileChangesLength = (profileChanges?.length ?? 0) + addifDeleteDefualt;
 
-          return response;
-        })
-        .catch((error) => {
-          toast.error(`Failed: ${error}`);
-        });
+      if (profileChanges) {
+        await addActions(userData.version, profileChanges)
+          .then((response) => {
+            toast.success('Profile changes has been saved');
+            setEditMode(false);
+            setUserData(undefined);
+
+            return response;
+          })
+          .catch((error) => {
+            toast.error(`Failed: ${error}`);
+          });
+      }
+
+      if (defualtChanges && defualtChanges.length > 0) {
+        await addActions(userData.version + profileChangesLength, defualtChanges)
+          .then((response) => {
+            // toast.success('Profile changes has been saved');
+            setEditMode(false);
+            setUserData(undefined);
+
+            return response;
+          })
+          .catch((error) => {
+            toast.error(`Failed: ${error}`);
+          });
+      }
     }
   };
 
