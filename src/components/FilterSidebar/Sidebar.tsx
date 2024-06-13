@@ -17,23 +17,21 @@ import { ReactElement, SyntheticEvent } from 'react';
 
 const Sidebar = ({
   category,
-  hide,
   productsResponse,
+  close,
 }: {
   category: Category[];
-  hide: boolean;
+  close?: () => void;
   productsResponse?: ClientResponse<ProductProjectionPagedSearchResponse>;
 }) => {
-  const { reset, attributes } = useSearchData();
+  const { resetFilters, attributes } = useSearchData();
   const [searchParameters, setSearchParameters] = useSearchParams();
 
   const facets = productsResponse?.body.facets;
 
   return ReactDOM.createPortal(
     <div
-      className={clsx('fixed top-0 z-10 flex  h-full min-w-full justify-end', {
-        hidden: hide,
-      })}
+      className={clsx('fixed top-0 z-10 flex  h-full min-w-full justify-end')}
       id="category-sidebar"
     >
       <div
@@ -42,9 +40,18 @@ const Sidebar = ({
           'dark:border-none dark:border-gray-700 dark:bg-zinc-800 dark:text-white'
         )}
       >
-        <div className="flex flex-row justify-between">
-          <h2 className="mb-6 mt-4 text-2xl">Filters:</h2>
-          <button onClick={reset} type="button">
+        <div className="flex justify-end">
+          <button
+            className="flex w-fit max-w-sm items-center gap-1 rounded-lg p-2"
+            type="button"
+            onClick={close}
+          >
+            close
+          </button>
+        </div>
+        <div className="mb-6 flex flex-row items-center justify-between">
+          <h2 className=" text-2xl">Filters:</h2>
+          <button onClick={resetFilters} type="button">
             Reset
           </button>
         </div>

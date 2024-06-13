@@ -12,10 +12,20 @@ function PriceBlock() {
   const onInput = (key: string) => (event: FormEvent<HTMLInputElement>) => {
     const target = event.target as HTMLInputElement;
 
-    if (target && target.value === '') {
+    if (
+      key === 'minPrice' &&
+      target &&
+      maxPrice &&
+      +target.value * 10 ** priceInfo.fractionDigits >= maxPrice
+    ) {
+      target.value = String(maxPrice ? maxPrice / 10 ** priceInfo.fractionDigits : '');
+    }
+
+    if (target && (target.value === '' || +target.value < 0)) {
+      target.value = '';
       setSearchParameters({
         ...Object.fromEntries(searchParameters.entries()),
-        [key]: '',
+        [key]: [],
       });
     } else {
       setSearchParameters({

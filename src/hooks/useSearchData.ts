@@ -9,12 +9,11 @@ const useSearchData = () => {
     searchParameters.get('category') ?? undefined
   );
 
-  const reset = () =>
+  const resetFilters = () =>
     setSearchParameters({
       ...Object.fromEntries(searchParameters.entries()),
       minPrice: [],
       maxPrice: [],
-      search: [],
       sort: [],
       category: [],
       onlyDiscounted: [],
@@ -47,7 +46,7 @@ const useSearchData = () => {
   }, [category, searchParameters, setSearchParameters]);
 
   return {
-    reset,
+    resetFilters,
     attributes,
     minPrice,
     maxPrice,
