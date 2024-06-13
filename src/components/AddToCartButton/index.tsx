@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { ProductProjection } from '@commercetools/platform-sdk';
+import Spinner from '@assets/svg/spinner.svg?react';
 
 interface AddToCartButtonProperties {
   product: ProductProjection;
@@ -60,12 +61,12 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
   };
 
   useEffect(() => {
-    if (isSuccess) {
-      setDisabled(false);
-    } else {
+    if (!isSuccess || addItemMutation.isPending || removeItemMutation.isPending) {
       setDisabled(true);
+    } else {
+      setDisabled(false);
     }
-  }, [isSuccess]);
+  }, [isSuccess, addItemMutation.isPending, removeItemMutation.isPending]);
 
   useEffect(() => {
     const item = data?.body.lineItems.find(
@@ -98,7 +99,12 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
       )}
       disabled={disabled}
     >
-      {isAddingToCart ? t('item_card.add_to_cart') : t('item_card.remove_from_cart')}
+      <div className="flex items-center">
+        {(addItemMutation.isPending || removeItemMutation.isPending) && (
+          <Spinner className="mr-4 h-3 w-3 animate-spin" />
+        )}
+        {isAddingToCart ? t('item_card.add_to_cart') : t('item_card.remove_from_cart')}
+      </div>
     </button>
   );
 }
