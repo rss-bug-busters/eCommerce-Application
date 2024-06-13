@@ -2,6 +2,7 @@ import { FC, useState } from 'react';
 import TeamMembers from './TeamMembers/TeamMembers';
 import Contribution from './Contribution/Contribution';
 import Collaboration from './Collaboration/Collaboration';
+import RsLogo from './RsLogo/RsLogo';
 
 const About: FC = function () {
   const [isSelected, setSelected] = useState(true);
@@ -32,6 +33,7 @@ const About: FC = function () {
         </div>
         {/* ===================================== */}
         <TeamMembers />
+        <RsLogo />
       </div>
     </div>
   );
