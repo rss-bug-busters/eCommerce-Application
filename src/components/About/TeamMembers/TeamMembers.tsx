@@ -8,7 +8,7 @@ interface MemberProperties {
 
 const Member: FC<MemberProperties> = function ({ person }) {
   return (
-    <div className="w max-w-lg flex-col rounded-lg border-slate-500 bg-white p-6 shadow-lg">
+    <div className="flex max-w-lg flex-col rounded-lg border-slate-500 bg-white p-6 shadow-lg">
       <img
         className=" square-full absolute h-20 w-20 rounded-lg ring-2 ring-white"
         src={person.photo}

@@ -7,9 +7,9 @@ const About: FC = function () {
   const [isSelected, setSelected] = useState(true);
 
   return (
-    <div className="mx-5 flex flex-col items-center justify-center">
+    <div className="mx-5 flex flex-col items-center justify-center gap-5">
       <h1 className="text-4xl font-bold text-gray-700 dark:text-white">About Us</h1>
-      <div className="flex flex-col gap-5">
+      <div className="flex max-w-screen-2xl flex-col gap-5">
         {/* ---------------- */}
         <div>
           <div className="flex flex-wrap gap-3">
