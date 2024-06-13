@@ -1,7 +1,7 @@
 import Catalog from '@components/Catalog/Catalog';
 import { Link } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
-import useProducts from '@hooks/useProducts.ts';
+import { useProducts } from '@hooks/product';
 
 function MainPage() {
   const { data } = useProducts({

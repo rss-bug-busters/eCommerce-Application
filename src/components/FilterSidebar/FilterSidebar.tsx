@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import useCategory from '@hooks/useCategory';
+import useCategory from '@hooks/category/useCategory';
 import FilterSvg from '@assets/svg/filter.svg?react';
 import Sidebar from '@components/FilterSidebar/Sidebar';
 import clsx from 'clsx';

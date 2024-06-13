@@ -1,5 +1,5 @@
-import useCurrentUser from '@hooks/useCurrentUser';
-import useUserQueries from '@services/api/hooks/useUserQueries';
+import { useCurrentUser } from '@hooks/user';
+import { useUserQueries } from '@services/api/commercetools/hooks';
 import RoutePaths from '@utils/consts/RoutePaths';
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
