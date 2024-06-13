@@ -7,8 +7,9 @@ import { useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import Spinner from '@assets/svg/spinner.svg?react';
 import { toast } from 'react-toastify';
-import useSignUpMutation from '@services/api/hooks/useSignUpMutation';
+
 import { useQueryClient } from '@tanstack/react-query';
+import useSignUpMutation from '@hooks/user/useSignUpMutation';
 import { SignUpFormSchema, SignUpFormType } from './SignUpForm.types';
 
 const SignUpForm: FC = function () {

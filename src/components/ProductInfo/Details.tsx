@@ -1,6 +1,7 @@
 import { ProductProjection } from '@commercetools/platform-sdk';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
+import AddToCartButton from '@components/AddToCartButton';
 
 interface Properties {
   className?: string;
@@ -64,6 +65,7 @@ const ProductInfo: FC<Properties> = function ({ product, className }) {
         )}
       </div>
       <p className="text-xl">{description?.[lang] ?? 'No description available'}</p>
+      <AddToCartButton product={product} />
     </div>
   );
 };

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { FC } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from '@components/ui/InputField/InputField';
-import useUserQueries from '@services/api/hooks/useUserQueries';
+import useUserQueries from '@services/api/commercetools/hooks/useUserQueries';
 import RoutePaths from '@utils/consts/RoutePaths';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import Spinner from '@assets/svg/spinner.svg?react';

@@ -1,7 +1,7 @@
 import Catalog from '@components/Catalog/Catalog';
 import Search from '@components/Search/Search';
 import Sort from '@components/Sort/Sort';
-import useProducts from '@hooks/useProducts';
+import { useProducts } from '@hooks/product';
 import FilterSidebar from '@components/FilterSidebar/FilterSidebar';
 import useSearchData from '@hooks/useSearchData';
 

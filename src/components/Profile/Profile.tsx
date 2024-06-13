@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import useUserQueries from '@services/api/hooks/useUserQueries';
+import useUserQueries from '@services/api/commercetools/hooks/useUserQueries';
 import { Customer } from '@commercetools/platform-sdk';
 import ModalProfile from '@components/ui/Modal/ModalProfile';
 import ProfileForm from './ProfileForm/ProfileForm';
