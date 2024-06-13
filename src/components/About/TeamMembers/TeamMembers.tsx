@@ -18,16 +18,14 @@ const Member: FC<MemberProperties> = function ({ person }) {
       <p className="start flex pl-28 text-center text-gray-600">{person.role}</p>
       <Link
         to={person.gitHubLink}
-        className="start group mb-4 flex max-w-fit  gap-2 pl-28 transition duration-300"
+        className="start relative mb-4 ml-28  flex max-w-fit gap-2 transition duration-300 before:absolute before:bottom-0 before:right-0 before:h-0.5 before:w-0 before:bg-[#000000] before:transition-[width] before:duration-[0.6s] before:ease-[cubic-bezier(0.25,1,0.5,1)] before:content-[''] hover:before:left-0 hover:before:right-auto hover:before:w-full"
       >
         <img
           className="h-5 w-5"
           src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Octicons-mark-github.svg/600px-Octicons-mark-github.svg.png?20180806170715"
           alt="git-icon"
         />{' '}
-        <span className="block h-0.5 max-w-0 bg-black transition-all duration-500 group-hover:max-w-full">
-          {person.gitHubName}
-        </span>
+        {person.gitHubName}
       </Link>
       <p className="mt-4 text-center">{person.bio}</p>
     </div>
@@ -38,7 +36,7 @@ const TeamMembers: FC = function () {
   return (
     <div className="flex flex-col items-center justify-center gap-5">
       <h2 className="text-3xl font-bold text-gray-700 dark:text-white">Team Members</h2>
-      <div className=" flex flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6  shadow-inner  ">
+      <div className=" flex flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6 shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)]">
         {persons.map((person) => (
           <div key={`person-${Math.random().toString(36).slice(2, 9)}`}>
             <Member person={person} />

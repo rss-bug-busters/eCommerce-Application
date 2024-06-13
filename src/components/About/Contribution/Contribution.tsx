@@ -5,7 +5,7 @@ const Contribution: FC = function () {
   return (
     <div className="flex flex-col items-center justify-center gap-5">
       <h3 className="text-2xl font-bold text-gray-700 dark:text-white">Contributions</h3>
-      <div className="flex flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6  shadow-inner ">
+      <div className="flex w-full flex-wrap place-content-around gap-5 rounded-lg bg-slate-100  p-6 shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)]">
         {persons.map((person) => (
           <div
             key={`person-contribution-${Math.random().toString(36).slice(2, 9)}`}
