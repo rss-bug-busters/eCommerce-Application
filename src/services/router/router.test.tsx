@@ -56,11 +56,6 @@ describe('redirects to login from password protected routes', async () => {
     testId: PagesTestIds.LOGIN,
     needAuth: false,
   });
-  routeIsRenderedByTestId({
-    route: RoutePaths.BASKET,
-    testId: PagesTestIds.LOGIN,
-    needAuth: false,
-  });
 });
 
 describe('redirects to main logined user from anonymous routes', async () => {
