@@ -1,53 +1,36 @@
 import { FC } from 'react';
+import { useCart } from '@hooks/cart';
 import CartItem from './CartItem/CartItem';
 
 const CartList: FC = function () {
-  const items = [
-    {
-      id: 1,
-      name: 'Product 1',
-      image: 'https://via.placeholder.com/150',
-      price: 100,
-      quantity: 2,
-    },
-    {
-      id: 2,
-      name: 'Product 2',
-      image: 'https://via.placeholder.com/150',
-      price: 200,
-      quantity: 1,
-    },
-  ];
+  const cart = useCart();
+  const items = cart.data?.body.lineItems ?? [];
 
-  const CartItems = () =>
-    items.map((item) => (
-      <CartItem
-        key={item.id}
-        item={{
-          id: item.id,
-          name: item.name,
-          image: item.image,
-          price: item.price,
-          quantity: item.quantity,
-        }}
-      />
-    ));
+  // useEffect(() => {
+  //   console.log(cart.data?.body);
+  // }, [cart, cart.data]);
 
   return (
-    <div className="rounded-lg p-4 shadow-md ">
+    <div className="component-box">
       <table className="w-full">
         <thead>
           <tr>
-            <th className="text-left">#</th>
-            <th className="text-left">Image</th>
-            <th className="text-left">Product</th>
-            <th className="text-right">Price</th>
-            <th className="text-right">Quantity</th>
-            <th className="text-right">Total</th>
+            <th className="">
+              <span className="sr-only">Remove</span>
+            </th>
+            <th className="">
+              <span className="sr-only">Image</span>
+            </th>
+            <th className="cell">Product</th>
+            <th className="cell">Price</th>
+            <th className="cell">Quantity</th>
+            <th className="cell">Total</th>
           </tr>
         </thead>
         <tbody>
-          <CartItems />
+          {items.map((item) => (
+            <CartItem key={item.id} item={item} />
+          ))}
         </tbody>
       </table>
     </div>

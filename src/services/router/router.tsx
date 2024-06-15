@@ -81,7 +81,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePaths.BASKET,
         element: (
-          <ProtectedRoute authorization="password">
+          <ProtectedRoute authorization="any">
             <BasketPage />
           </ProtectedRoute>
         ),

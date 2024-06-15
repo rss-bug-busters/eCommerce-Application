@@ -9,3 +9,11 @@
 .btn-icon {
   @apply cursor-pointer rounded-full w-10 h-10 flex justify-center items-center;
 }
+
+.component-box {
+  @apply p-4 rounded-lg bg-zinc-100 dark:bg-zinc-800 shadow-lg shadow-zinc-300 dark:shadow-zinc-600;
+}
+
+.cell {
+  @apply p-2 text-left;
+}

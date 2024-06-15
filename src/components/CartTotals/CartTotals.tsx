@@ -1,25 +1,29 @@
 import { FC } from 'react';
+import { useCart } from '@hooks/cart';
 
 const CartTotals: FC = function () {
-  // const { data: cartTotals, isLoading } = useQuery('cartTotals', getCartTotals);
-
-  // if (isLoading) return <p>Loading...</p>;
-
+  const cart = useCart();
+  const discount =
+    (cart.data?.body.discountOnTotalPrice?.discountedAmount.centAmount ?? 0) / 100;
+  const total = (cart.data?.body.totalPrice.centAmount ?? 0) / 100;
   const cartTotals = {
-    subtotal: 0,
-    tax: 0,
-    total: 0,
+    subtotal: (cart.data?.body.totalPrice.centAmount ?? 0) / 100 + discount,
+    discount,
+    total,
   };
 
   return (
-    <div className="  mt-4 rounded-lg p-4 shadow-md">
+    <div className="component-box">
+      <div className="flex justify-between p-2">
+        <h2 className="text-lg font-bold">Cart Totals</h2>
+      </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Subtotal</span>
         <span className="text-lg font-semibold">${cartTotals.subtotal}</span>
       </div>
       <div className="flex justify-between p-2">
-        <span className="text-lg">Tax</span>
-        <span className="text-lg font-semibold">${cartTotals.tax}</span>
+        <span className="text-lg">Total Discount</span>
+        <span className="text-lg font-semibold">${cartTotals.discount}</span>
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Total</span>
