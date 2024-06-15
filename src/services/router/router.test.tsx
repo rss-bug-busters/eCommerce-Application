@@ -42,7 +42,6 @@ describe('all routes rendered', async () => {
   routeIsRenderedByTestId({
     route: RoutePaths.BASKET,
     testId: PagesTestIds.BASKET,
-    needAuth: true,
   });
   routeIsRenderedByTestId({
     route: `/${(Math.random() + 1).toString(36).slice(7)}`,
