@@ -25,8 +25,8 @@ const Header: FC = function () {
   return (
     <header className="sticky top-0 z-10 flex flex-wrap items-center justify-between border-b bg-zinc-50 p-2 text-zinc-900/75 shadow-xl dark:border-none dark:bg-zinc-800 dark:text-white/75 dark:shadow-zinc-700/90">
       <Link to={RoutePaths.MAIN}>
-        <h1 className="px-2 text-3xl font-semibold hover:text-zinc-500 dark:text-zinc-200">
-          eCommerce
+        <h1 className="px-2 text-3xl font-bold text-green-900 hover:text-zinc-500 dark:text-zinc-200">
+          Blachowo
         </h1>
       </Link>
       <div className="flex items-center justify-center gap-4">
