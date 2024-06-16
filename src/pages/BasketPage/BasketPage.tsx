@@ -1,7 +1,7 @@
 import CartList from '@components/CartList/CartList';
 import CartTotals from '@components/CartTotals/CartTotals';
-import PromoCodeInputBox from '@components/PromoCode/InputBox/PromoCodeInputBox';
 import { FC } from 'react';
+import PromoCodeInputBox from '@components/PromoCode/PromoCodesBox/PromoCodeInputBox';
 
 const BasketPage: FC = function () {
   return (
