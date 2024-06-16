@@ -1,5 +1,6 @@
 import CartList from '@components/CartList/CartList';
 import CartTotals from '@components/CartTotals/CartTotals';
+import PromoCodeInputBox from '@components/PromoCode/InputBox/PromoCodeInputBox';
 import { FC } from 'react';
 
 const BasketPage: FC = function () {
@@ -13,6 +14,7 @@ const BasketPage: FC = function () {
         <div className="mb-4 md:col-span-4">
           <CartTotals />
         </div>
+        <PromoCodeInputBox />
       </div>
     </div>
   );
