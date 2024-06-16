@@ -1,7 +1,7 @@
 import CartList from '@components/CartList/CartList';
 import CartTotals from '@components/CartTotals/CartTotals';
+import PromoCodeBox from '@components/PromoCode/PromoCodesBox/PromoCodeBox';
 import { FC } from 'react';
-import PromoCodeInputBox from '@components/PromoCode/PromoCodesBox/PromoCodeInputBox';
 
 const BasketPage: FC = function () {
   return (
@@ -14,7 +14,7 @@ const BasketPage: FC = function () {
         <div className="mb-4 md:col-span-4">
           <CartTotals />
         </div>
-        <PromoCodeInputBox />
+        <PromoCodeBox />
       </div>
     </div>
   );
