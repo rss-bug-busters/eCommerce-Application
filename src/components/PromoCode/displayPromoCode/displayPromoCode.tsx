@@ -77,8 +77,8 @@ const MarqueeElements: FC<MarqueeElementsProperties> = function ({
 
 const PromoCodesBox: FC = function () {
   const promoCodes = usePromoCodes();
-  const promoCodesRepeats = 5;
   const Codes = promoCodes.data?.body.results;
+  const promoCodesRepeats = 6 / (Codes?.length ?? 1);
 
   return (
     <div className="relative flex overflow-x-hidden">
