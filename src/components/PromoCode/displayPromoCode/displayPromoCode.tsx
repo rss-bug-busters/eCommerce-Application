@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import usePromoCodes from '../../../hooks/promoCodes/getPromoCodes';
+import usePromoCodes from '@hooks/promoCodes/usePromoCodes';
 import MarqueeElements from './MarqueeElements/MarqueeElements';
 
 const PromoCodesBox: FC = function () {
