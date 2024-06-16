@@ -25,6 +25,7 @@ function useApplyPromoCode() {
         .execute(),
     onSuccess: (data) => {
       client.setQueryData([QueryKeys.CART], () => data);
+      toast.success('PromoCode Applied');
     },
     onError: (error) => {
       toast.error(error.message);

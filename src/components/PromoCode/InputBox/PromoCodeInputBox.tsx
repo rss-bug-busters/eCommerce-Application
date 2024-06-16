@@ -31,7 +31,6 @@ const PromoCodeInputBox: FC = function () {
         cartVersion,
         code: inputData.promoCode,
       });
-      console.log(data);
     }
   };
 
