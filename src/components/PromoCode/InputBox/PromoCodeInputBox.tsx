@@ -1,10 +1,11 @@
+import { useCart } from '@hooks/cart';
+import { useApplyPromoCode } from '@hooks/cart/useApplyPromoCode';
 import { FC } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 
 interface Inputs {
   promoCode: string;
 }
-const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
 
 const PromoCodeInputBox: FC = function () {
   const {
@@ -13,9 +14,30 @@ const PromoCodeInputBox: FC = function () {
     formState: { errors },
   } = useForm<Inputs>();
 
+  const { data } = useCart();
+  const applyPromoCode = useApplyPromoCode();
+
+  const applyPromoCodeHandler = (inputData: Inputs) => {
+    const cart = data?.body;
+
+    if (cart) {
+      const cartId = cart.id;
+      const cartVersion = cart.version;
+      const action = 'addDiscountCode';
+
+      applyPromoCode.mutate({
+        action,
+        cartId,
+        cartVersion,
+        code: inputData.promoCode,
+      });
+      console.log(data);
+    }
+  };
+
   return (
     <div>
-      <form onSubmit={handleSubmit(onSubmit)} className="flex ">
+      <form onSubmit={handleSubmit(applyPromoCodeHandler)} className="flex ">
         <div className="relative">
           <input
             {...register('promoCode', { required: 'PromoCode is required' })}
