@@ -1,5 +1,6 @@
 import useApi from '@services/api/commercetools/hooks/useApi';
 import { useQuery } from '@tanstack/react-query';
+import QueryKeys from '@utils/consts/QueryKeys';
 
 function usePromoCodes() {
   const api = useApi();
@@ -11,7 +12,7 @@ function usePromoCodes() {
         .get()
         .execute()
         .then((codes) => codes),
-    queryKey: ['discount-codes'],
+    queryKey: [QueryKeys.DISCOUNT_CODES],
   });
 }
 
