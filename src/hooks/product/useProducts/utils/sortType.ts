@@ -1,6 +1,11 @@
 import Sort from '@hooks/product/useProducts/types/Sort';
 
 const sortType: Record<string, Sort> = {
+  idAsk: {
+    field: 'id',
+    needLocal: false,
+    order: 'asc',
+  },
   priceAsk: {
     field: 'price',
     needLocal: false,

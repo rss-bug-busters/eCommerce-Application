@@ -19,6 +19,7 @@ const useCategory = () => {
         .execute(),
     queryKey: [queryKeys.CATEGORY, 'all'],
     retry: false,
+    refetchOnMount: false,
   });
 };
 

@@ -45,7 +45,10 @@ const useSearchData = () => {
     }
   }, [category, searchParameters, setSearchParameters]);
 
+  const page = Number.parseInt(searchParameters.get('page') ?? '0', 10);
+
   return {
+    page: Number.isNaN(page) ? 0 : page,
     resetFilters,
     attributes,
     minPrice,
