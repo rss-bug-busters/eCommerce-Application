@@ -11,7 +11,7 @@ import {
 function FilterSidebar({
   productsResponse,
 }: {
-  productsResponse: ClientResponse<ProductProjectionPagedSearchResponse> | undefined;
+  productsResponse?: ClientResponse<ProductProjectionPagedSearchResponse>;
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarReference = useRef(null);
