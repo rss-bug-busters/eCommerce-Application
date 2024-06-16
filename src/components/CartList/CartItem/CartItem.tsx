@@ -1,30 +1,58 @@
 import { FC, useState } from 'react';
-import { LineItem } from '@commercetools/platform-sdk';
+import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { useTranslation } from 'react-i18next';
 import Trash from '@assets/svg/trash.svg?react';
 import { useRemoveItemHandler } from '@hooks/cart/useRemoveItemHandler';
 import Spinner from '@assets/svg/spinner.svg?react';
+import { useUpdateItemMutation } from '@hooks/cart';
 import styles from './cartItem.module.css';
 
 interface CartItemProperties {
+  cart: Cart;
   item: LineItem;
 }
 
-const CartItem: FC<CartItemProperties> = function ({ item }) {
+const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
   const { i18n } = useTranslation();
   const { removeItemHandler, isPending } = useRemoveItemHandler();
+  const updateItemMutation = useUpdateItemMutation();
   const [quantity, setQuantity] = useState<number>(item.quantity);
+  const updateItemQuantity = (value: number) => {
+    setQuantity(value);
+    updateItemMutation.mutate({
+      action: 'changeLineItemQuantity',
+      cartId: cart.id,
+      cartVersion: cart.version,
+      lineItemId: item.id,
+      quantity: value,
+      variantId: item.variant.id,
+    });
+  };
   const decreaseQuantityHandler = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      updateItemQuantity(quantity - 1);
     }
   };
   const increaseQuantityHandler = () => {
-    setQuantity(quantity + 1);
+    updateItemQuantity(quantity + 1);
+  };
+
+  const changeQuantityHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const quantityValue = Number.parseInt(event.target.value, 10);
+
+    console.log('quantityValue', quantityValue);
+
+    if (
+      !Number.isNaN(quantityValue) &&
+      quantityValue !== quantity &&
+      quantityValue >= 1
+    ) {
+      updateItemQuantity(quantityValue);
+    }
   };
 
   return (
-    <tr className="border-b">
+    <tr className="border-b border-zinc-300 dark:border-zinc-600">
       <td className="cell">
         <button
           type="button"
@@ -39,11 +67,11 @@ const CartItem: FC<CartItemProperties> = function ({ item }) {
           )}
         </button>
       </td>
-      <td className="cell">
+      <td className="cell h-20 w-20">
         <img
           src={item.variant.images?.[0]?.url}
           alt={item.name[i18n.language] ?? ''}
-          className="h-16 w-16 object-cover"
+          className=" h-full w-full rounded-md object-cover"
         />
       </td>
       <td className="cell">
@@ -56,10 +84,16 @@ const CartItem: FC<CartItemProperties> = function ({ item }) {
       </td>
       <td className="cell">
         <div className="relative h-12 w-20 rounded-full border-2">
+          {updateItemMutation.isPending && (
+            <span className="absolute -left-2 -top-2">
+              <Spinner className="h-4 w-4 animate-spin" />
+            </span>
+          )}
           <button
             type="button"
             className="absolute -top-1 h-12 px-2 text-2xl font-semibold"
             onClick={() => decreaseQuantityHandler()}
+            disabled={updateItemMutation.isPending}
           >
             <span className="">-</span>
           </button>
@@ -67,22 +101,25 @@ const CartItem: FC<CartItemProperties> = function ({ item }) {
             type="button"
             className="absolute -top-1 right-0 h-12 px-2 text-lg font-semibold"
             onClick={() => increaseQuantityHandler()}
+            disabled={updateItemMutation.isPending}
           >
             <span className="">+</span>
           </button>
           <input
-            // name="quantity"
+            name="quantity"
             type="number"
-            className={`h-full w-20 bg-transparent text-center outline-none ${styles.withoutArrows}`}
+            className={`h-full w-20 bg-transparent text-center text-xl outline-none ${styles.withoutArrows}`}
             min={1}
             value={quantity}
-            onChange={(event) => setQuantity(Number(event.target.value))}
-            onBlur={(event) => setQuantity(Number(event.target.value))}
+            onChange={changeQuantityHandler}
+            disabled={updateItemMutation.isPending}
           />
         </div>
       </td>
       <td className="cell">
-        <span className="">{(item.price.value.centAmount / 100) * item.quantity}$</span>
+        <span className="text-lg font-semibold">
+          {((item.price.value.centAmount / 100) * item.quantity).toFixed(2)}$
+        </span>
       </td>
     </tr>
   );

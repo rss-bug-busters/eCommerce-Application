@@ -2,20 +2,22 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useApi } from '@services/api/commercetools/hooks';
 import QueryKeys from '@utils/consts/QueryKeys';
 import { toast } from 'react-toastify';
-import AddItemMutationArguments from './types/AddItemMutationArguments';
+import UpdateItemMutationArguments from './types/UpdateItemMutationArguments';
 
-function useAddItemMutation() {
+function useUpdateItemMutation() {
   const api = useApi();
   const client = useQueryClient();
 
   return useMutation({
     mutationFn: ({
+      action,
       cartId,
       variantId,
       productId,
+      lineItemId,
       quantity,
       cartVersion,
-    }: AddItemMutationArguments) =>
+    }: UpdateItemMutationArguments) =>
       api({ needAnonymousAuth: true })
         .me()
         .carts()
@@ -25,7 +27,7 @@ function useAddItemMutation() {
         .post({
           body: {
             version: cartVersion,
-            actions: [{ action: 'addLineItem', productId, quantity, variantId }],
+            actions: [{ action, productId, quantity, variantId, lineItemId }],
           },
         })
         .execute(),
@@ -38,4 +40,4 @@ function useAddItemMutation() {
   });
 }
 
-export default useAddItemMutation;
+export default useUpdateItemMutation;

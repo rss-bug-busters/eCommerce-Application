@@ -14,20 +14,22 @@ const CartTotals: FC = function () {
 
   return (
     <div className="component-box">
-      <div className="flex justify-between p-2">
+      <div className="flex justify-between border-b border-zinc-300 p-2 dark:border-zinc-600">
         <h2 className="text-lg font-bold">Cart Totals</h2>
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Subtotal</span>
-        <span className="text-lg font-semibold">${cartTotals.subtotal}</span>
+        <span className="text-lg font-semibold">{cartTotals.subtotal.toFixed(2)}$</span>
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Total Discount</span>
-        <span className="text-lg font-semibold">${cartTotals.discount}</span>
+        <span className="text-lg font-semibold">
+          {cartTotals.discount > 0 ? `-${cartTotals.discount.toFixed(2)}$` : '—'}
+        </span>
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Total</span>
-        <span className="text-lg font-semibold">${cartTotals.total}</span>
+        <span className="text-lg font-semibold">{cartTotals.total.toFixed(2)}$</span>
       </div>
       <button
         type="button"

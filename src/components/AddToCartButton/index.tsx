@@ -1,4 +1,4 @@
-import { useAddItemMutation, useCart, useRemoveItemMutation } from '@hooks/cart';
+import { useCart, useRemoveItemMutation, useUpdateItemMutation } from '@hooks/cart';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
@@ -12,7 +12,7 @@ interface AddToCartButtonProperties {
 function AddToCartButton({ product }: AddToCartButtonProperties) {
   const { t } = useTranslation();
   const { data, isSuccess } = useCart();
-  const addItemMutation = useAddItemMutation();
+  const addItemMutation = useUpdateItemMutation();
   const removeItemMutation = useRemoveItemMutation();
   const [disabled, setDisabled] = useState(true);
   const [isAddingToCart, setIsAddingToCart] = useState(true);
@@ -22,6 +22,7 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
 
     if (cart) {
       addItemMutation.mutate({
+        action: 'addLineItem',
         cartId: cart.id,
         cartVersion: cart.version,
         productId: product.id,

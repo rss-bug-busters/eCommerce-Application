@@ -15,5 +15,5 @@
 }
 
 .cell {
-  @apply p-2 text-left;
+  @apply p-1 py-4 lg:p-2 text-left;
 }
