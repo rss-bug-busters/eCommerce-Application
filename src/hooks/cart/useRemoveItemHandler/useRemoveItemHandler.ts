@@ -4,20 +4,20 @@ import RemoveItemArguments from '@hooks/cart/useRemoveItemHandler/types/RemoveIt
 const useRemoveItemHandler = () => {
   const { data } = useCart();
   const cart = data?.body;
-  const { mutate: removeItemMutation, isPending } = useRemoveItemMutation();
+  const { mutateAsync: removeItemMutation, isPending } = useRemoveItemMutation();
 
-  const removeItemHandler = ({ callback, id }: RemoveItemArguments) => {
+  const removeCartItemHandler = async ({
+    callback,
+    item,
+    cartVersion,
+  }: RemoveItemArguments) => {
     if (cart) {
-      const item = cart.lineItems.find((lineItem) => lineItem.productId === id);
-
-      if (item) {
-        removeItemMutation({
-          cartId: cart.id,
-          cartVersion: cart.version,
-          quantity: item.quantity,
-          lineItemId: item.id,
-        });
-      }
+      await removeItemMutation({
+        cartId: cart.id,
+        cartVersion: cartVersion ?? cart.version,
+        quantity: item.quantity,
+        lineItemId: item.id,
+      });
 
       if (callback) {
         callback();
@@ -30,7 +30,7 @@ const useRemoveItemHandler = () => {
   };
 
   return {
-    removeItemHandler,
+    removeCartItemHandler,
     isPending,
   };
 };

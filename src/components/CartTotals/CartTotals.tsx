@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import { useCart } from '@hooks/cart';
+import clsx from 'clsx';
 
 const CartTotals: FC = function () {
   const cart = useCart();
@@ -33,7 +34,12 @@ const CartTotals: FC = function () {
       </div>
       <button
         type="button"
-        className="mt-4 w-full rounded-lg bg-zinc-900 p-2 text-white hover:bg-zinc-600 dark:bg-zinc-200 dark:text-zinc-900 dark:hover:bg-zinc-300"
+        className={clsx(
+          'mt-4 w-full rounded-lg bg-zinc-800 p-2 text-xl font-bold text-white',
+          'shadow-md shadow-zinc-600',
+          'hover:bg-zinc-700',
+          'dark:bg-zinc-200 dark:text-zinc-900 dark:shadow-zinc-400 dark:hover:bg-zinc-300'
+        )}
       >
         Checkout
       </button>

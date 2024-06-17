@@ -1,6 +1,9 @@
+import { LineItem } from '@commercetools/platform-sdk';
+
 interface RemoveItemMutationArguments {
   callback?: () => void;
-  id: string;
+  cartVersion?: number;
+  item: LineItem;
 }
 
 export default RemoveItemMutationArguments;

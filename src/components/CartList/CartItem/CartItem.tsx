@@ -14,7 +14,7 @@ interface CartItemProperties {
 
 const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
   const { i18n } = useTranslation();
-  const { removeItemHandler, isPending } = useRemoveItemHandler();
+  const { removeCartItemHandler, isPending } = useRemoveItemHandler();
   const updateItemMutation = useUpdateItemMutation();
   const [quantity, setQuantity] = useState<number>(item.quantity);
   const updateItemQuantity = (value: number) => {
@@ -40,8 +40,6 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
   const changeQuantityHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const quantityValue = Number.parseInt(event.target.value, 10);
 
-    console.log('quantityValue', quantityValue);
-
     if (
       !Number.isNaN(quantityValue) &&
       quantityValue !== quantity &&
@@ -57,7 +55,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
         <button
           type="button"
           className=""
-          onClick={() => removeItemHandler({ id: item.productId })}
+          onClick={() => removeCartItemHandler({ item })}
         >
           <span className="sr-only">Remove</span>
           {isPending ? (
