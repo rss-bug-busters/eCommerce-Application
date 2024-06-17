@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { toast } from 'react-toastify';
-import { PromoCodeProperties } from '../PromoCodeInterfaces/PromoCodeInterfaces';
+import { PromoCodeProperties } from '../PromoCodes/PromoCodes';
 
 const repeatCodes = (
   codesToRepeat: PromoCodeProperties[],

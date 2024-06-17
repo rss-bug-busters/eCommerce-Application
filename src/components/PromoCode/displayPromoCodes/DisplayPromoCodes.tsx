@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import MarqueeElements from './MarqueeElements/MarqueeElements';
-import { PromoCodeProperties } from './PromoCodeInterfaces/PromoCodeInterfaces';
-import promoCodes from './PromoCodes/PromoCodes';
+import promoCodes, { PromoCodeProperties } from './PromoCodes/PromoCodes';
 
 const DisplayPromoCodes: FC = function () {
   const dataCodes: PromoCodeProperties[] = promoCodes;
