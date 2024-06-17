@@ -1,9 +1,12 @@
-import { DiscountCode } from '@commercetools/platform-sdk';
 import { FC } from 'react';
 import { toast } from 'react-toastify';
+import { PromoCodeProperties } from '../PromoCodeInterfaces/PromoCodeInterfaces';
 
-const repeatCodes = (codesToRepeat: DiscountCode[], times: number): DiscountCode[] => {
-  let repeatedCodes: DiscountCode[] = [];
+const repeatCodes = (
+  codesToRepeat: PromoCodeProperties[],
+  times: number
+): PromoCodeProperties[] => {
+  let repeatedCodes: PromoCodeProperties[] = [];
 
   for (let index = 0; index < times; index += 1) {
     repeatedCodes = [...repeatedCodes, ...codesToRepeat];
@@ -13,7 +16,7 @@ const repeatCodes = (codesToRepeat: DiscountCode[], times: number): DiscountCode
 };
 
 interface MarqueeElementsProperties {
-  codes: DiscountCode[];
+  codes: PromoCodeProperties[];
   marqueeAnimation: 'animate-marquee' | 'animate-marquee2';
   repeat: number;
 }
@@ -60,7 +63,7 @@ const MarqueeElements: FC<MarqueeElementsProperties> = function ({
             >
               {code.description && (
                 <span className=" text-sm font-semibold italic text-red-500">
-                  {code.description['en-US']}
+                  {code.description}
                 </span>
               )}
               <span className="mx-4  rounded-lg border-2 bg-slate-100 p-2 text-lg">

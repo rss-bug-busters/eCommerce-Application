@@ -1,26 +1,44 @@
-import { FC } from 'react';
-
-import usePromoCodes from '@hooks/promoCodes/usePromoCodes';
+import { FC, useEffect, useState } from 'react';
 import MarqueeElements from './MarqueeElements/MarqueeElements';
+import {
+  PromoCodeProperties,
+  PromoCodesProperties,
+} from './PromoCodeInterfaces/PromoCodeInterfaces';
 
 const DisplayPromoCodes: FC = function () {
-  const promoCodes = usePromoCodes();
-  const Codes = promoCodes.data?.body.results;
-  const promoCodesRepeats = 6 / (Codes?.length ?? 1);
+  const [dataCodes, setDataCodes] = useState<PromoCodeProperties[] | []>([]);
+  const getData = () => {
+    fetch('public/promoCodes/promoCodes.json', {
+      headers: {
+        'Content-Type': 'application/json',
+        Accept: 'application/json',
+      },
+    })
+      .then((response) => response.json())
+      .then((myJson: PromoCodesProperties) => setDataCodes(myJson.codes))
+      .catch((error: Error) => {
+        throw new Error('Unable to fetch PromoCodes', error);
+      });
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+  const promoCodesRepeats = 6 / (dataCodes.length ?? 1);
 
   return (
     <div className="relative flex overflow-x-hidden">
-      {Codes && (
+      {dataCodes && (
         <MarqueeElements
-          codes={Codes}
+          codes={dataCodes}
           marqueeAnimation="animate-marquee"
           repeat={promoCodesRepeats}
         />
       )}
 
-      {Codes && (
+      {dataCodes && (
         <MarqueeElements
-          codes={Codes}
+          codes={dataCodes}
           marqueeAnimation="animate-marquee2"
           repeat={promoCodesRepeats}
         />

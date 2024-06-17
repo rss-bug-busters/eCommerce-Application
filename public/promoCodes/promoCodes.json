@@ -1,0 +1,9 @@
+{
+  "codes": [
+    { "code": "POSTER15", "description": "-15%" },
+    {
+      "code": "POSTER20",
+      "description": "-20%"
+    }
+  ]
+}
