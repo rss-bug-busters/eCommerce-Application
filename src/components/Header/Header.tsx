@@ -4,6 +4,7 @@ import RoutePaths from '@utils/consts/RoutePaths';
 import { FC, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Profile from '@assets/svg/profile.svg?react';
+import BlachowoSVG from '@assets/svg/blachowo.svg?react';
 
 const Header: FC = function () {
   const { logout } = useUserQueries();
@@ -25,9 +26,10 @@ const Header: FC = function () {
   return (
     <header className="sticky top-0 z-10 flex flex-wrap items-center justify-between border-b bg-zinc-50 p-2 text-zinc-900/75 shadow-xl dark:border-none dark:bg-zinc-800 dark:text-white/75 dark:shadow-zinc-700/90">
       <Link to={RoutePaths.MAIN}>
-        <h1 className="px-2 text-3xl font-bold text-green-900 hover:text-zinc-500 dark:text-green-700">
-          Blachowo
-        </h1>
+        <div className="flex flex-row text-cyan-900 hover:text-zinc-500 dark:text-cyan-200">
+          <BlachowoSVG fill="currentColor" className="h-14 w-24" />
+          <h1 className="px-2 text-3xl font-bold ">Blachowo</h1>
+        </div>
       </Link>
       <div className="flex items-center justify-center gap-4">
         <Link to={RoutePaths.MAIN} className=" cursor-pointer font-bold hover:underline">
