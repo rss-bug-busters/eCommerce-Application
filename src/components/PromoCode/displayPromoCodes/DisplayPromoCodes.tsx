@@ -1,10 +1,10 @@
 import { FC } from 'react';
-import PromoCodes from 'public/promoCodes/PromoCodes.json';
 import MarqueeElements from './MarqueeElements/MarqueeElements';
 import { PromoCodeProperties } from './PromoCodeInterfaces/PromoCodeInterfaces';
+import promoCodes from './PromoCodes/PromoCodes';
 
 const DisplayPromoCodes: FC = function () {
-  const dataCodes: PromoCodeProperties[] = PromoCodes.codes;
+  const dataCodes: PromoCodeProperties[] = promoCodes;
   const promoCodesRepeats = 6 / dataCodes.length;
 
   return (
