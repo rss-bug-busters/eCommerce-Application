@@ -2,7 +2,7 @@ import Catalog from '@components/Catalog/Catalog';
 import { Link } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 import { useProducts } from '@hooks/product';
-import PromoCodesBox from '@components/PromoCode/displayPromoCode/displayPromoCode';
+import DisplayPromoCodes from '@components/PromoCode/displayPromoCodes/DisplayPromoCodes';
 
 function MainPage() {
   const { data } = useProducts({
@@ -12,7 +12,7 @@ function MainPage() {
 
   return (
     <div data-testid="main-page" className="grid">
-      <PromoCodesBox />
+      <DisplayPromoCodes />
       <div className="mb-9 mt-9 flex flex-col items-center">
         <h1 className="mb-4 max-w-xl text-center text-3xl font-bold">
           Crafting Comfort, Redefining Spaces. Your Home, Your Signature Style!

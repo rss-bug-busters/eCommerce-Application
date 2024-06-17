@@ -1,6 +1,6 @@
 import CartList from '@components/CartList/CartList';
 import CartTotals from '@components/CartTotals/CartTotals';
-import PromoCodesBox from '@components/PromoCode/displayPromoCode/displayPromoCode';
+import PromoCodesBox from '@components/PromoCode/PromoCodesBox/PromoCodesBox';
 import { FC } from 'react';
 import { useCart } from '@hooks/cart';
 import { Link } from 'react-router-dom';

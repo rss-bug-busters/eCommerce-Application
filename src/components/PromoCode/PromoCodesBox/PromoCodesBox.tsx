@@ -7,7 +7,7 @@ interface Inputs {
   promoCode: string;
 }
 
-const PromoCodeBox: FC = function () {
+const PromoCodesBox: FC = function () {
   const {
     register,
     handleSubmit,
@@ -58,4 +58,4 @@ const PromoCodeBox: FC = function () {
   );
 };
 
-export default PromoCodeBox;
+export default PromoCodesBox;
