@@ -3,7 +3,7 @@ import { FC } from 'react';
 import usePromoCodes from '@hooks/promoCodes/usePromoCodes';
 import MarqueeElements from './MarqueeElements/MarqueeElements';
 
-const PromoCodesBox: FC = function () {
+const DisplayPromoCodes: FC = function () {
   const promoCodes = usePromoCodes();
   const Codes = promoCodes.data?.body.results;
   const promoCodesRepeats = 6 / (Codes?.length ?? 1);
@@ -29,4 +29,4 @@ const PromoCodesBox: FC = function () {
   );
 };
 
-export default PromoCodesBox;
+export default DisplayPromoCodes;
