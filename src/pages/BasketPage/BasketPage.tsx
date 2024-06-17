@@ -1,5 +1,6 @@
 import CartList from '@components/CartList/CartList';
 import CartTotals from '@components/CartTotals/CartTotals';
+import PromoCodesBox from '@components/PromoCode/displayPromoCode/displayPromoCode';
 import { FC } from 'react';
 import { useCart } from '@hooks/cart';
 import { Link } from 'react-router-dom';
@@ -8,12 +9,6 @@ import RoutePaths from '@utils/consts/RoutePaths';
 const BasketPage: FC = function () {
   const { data } = useCart();
   const cart = data?.body;
-
-  // if (cart && cart.lineItems.length === 0) {
-  //   return <div data-testid="basket-page" className="container mx-auto p-4">
-  //
-  //   </div>;
-  // }
 
   return (
     <div data-testid="basket-page" className="container mx-auto p-4">
@@ -31,6 +26,7 @@ const BasketPage: FC = function () {
           <div className="md:col-span-4">
             <CartTotals />
           </div>
+          <PromoCodesBox />
         </div>
       ) : (
         <div className="mt-10 text-center">
