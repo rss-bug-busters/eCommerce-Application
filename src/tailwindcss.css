@@ -10,6 +10,12 @@
   @apply cursor-pointer rounded-full w-10 h-10 flex justify-center items-center;
 }
 
+.button {
+  @apply rounded-lg bg-zinc-300 p-2 shadow-md shadow-zinc-600;
+  @apply hover:translate-y-0.5 hover:bg-zinc-200 hover:transition-all;
+  @apply dark:bg-zinc-600 dark:text-zinc-100 dark:shadow-zinc-400 dark:hover:bg-zinc-700;
+}
+
 .component-box {
   @apply p-4 rounded-lg bg-zinc-100 dark:bg-zinc-800 shadow-lg shadow-zinc-300 dark:shadow-zinc-600;
 }
