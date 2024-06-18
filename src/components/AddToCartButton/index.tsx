@@ -2,31 +2,47 @@ import { useAddItemMutation, useCart, useRemoveItemMutation } from '@hooks/cart'
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
-import { ProductProjection } from '@commercetools/platform-sdk';
+import { LineItem, ProductProjection } from '@commercetools/platform-sdk';
 import Spinner from '@assets/svg/spinner.svg?react';
 
 interface AddToCartButtonProperties {
   product: ProductProjection;
 }
 
-function AddToCartButton({ product }: AddToCartButtonProperties) {
+const findItem = (id: string, items?: LineItem[]): LineItem | undefined =>
+  items?.find((item) => item.productId === id);
+
+function AddToCartButton({
+  product: {
+    id: productId,
+    masterVariant: { id: variantId },
+  },
+}: AddToCartButtonProperties) {
   const { t } = useTranslation();
-  const { data, isSuccess } = useCart();
+  const { data: { body: cart } = {} } = useCart();
   const addItemMutation = useAddItemMutation();
   const removeItemMutation = useRemoveItemMutation();
-  const [disabled, setDisabled] = useState(true);
-  const [isAddingToCart, setIsAddingToCart] = useState(true);
+  const [isButtonDisabled, setIsButtonDisabled] = useState(true);
+  const [cartItem, setCartItem] = useState<undefined | LineItem>();
+
+  useEffect(
+    () =>
+      setIsButtonDisabled(
+        !cart || addItemMutation.isPending || removeItemMutation.isPending
+      ),
+    [addItemMutation.isPending, removeItemMutation.isPending, cart]
+  );
+
+  useEffect(() => setCartItem(findItem(productId, cart?.lineItems)), [cart, productId]);
 
   const addToCartHandler = () => {
-    const cart = data?.body;
-
     if (cart) {
       addItemMutation.mutate({
         cartId: cart.id,
         cartVersion: cart.version,
-        productId: product.id,
+        productId,
         quantity: 1,
-        variantId: product.masterVariant.id,
+        variantId,
       });
 
       return;
@@ -36,47 +52,19 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
   };
 
   const removeFromCartHandler = () => {
-    const cart = data?.body;
-
-    if (cart) {
-      const item = data?.body.lineItems.find(
-        (lineItem) => lineItem.productId === product.id
-      );
-
-      if (item) {
-        removeItemMutation.mutate({
-          cartId: cart.id,
-          cartVersion: cart.version,
-          quantity: item.quantity,
-          lineItemId: item.id,
-        });
-      }
-
-      setIsAddingToCart(true);
+    if (cartItem && cart) {
+      removeItemMutation.mutate({
+        cartId: cart.id,
+        cartVersion: cart.version,
+        quantity: cartItem.quantity,
+        lineItemId: cartItem.id,
+      });
 
       return;
     }
 
-    throw new Error('Dont add to cart before cart is loaded');
+    throw new Error('Dont remove from cart before cart is loaded');
   };
-
-  useEffect(() => {
-    if (!isSuccess || addItemMutation.isPending || removeItemMutation.isPending) {
-      setDisabled(true);
-    } else {
-      setDisabled(false);
-    }
-  }, [isSuccess, addItemMutation.isPending, removeItemMutation.isPending]);
-
-  useEffect(() => {
-    const item = data?.body.lineItems.find(
-      (lineItem) => lineItem.productId === product.id
-    );
-
-    if (item) {
-      setIsAddingToCart(false);
-    }
-  }, [data, product.id]);
 
   return (
     <button
@@ -84,10 +72,10 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
       onClick={(event) => {
         event.preventDefault();
 
-        if (isAddingToCart) {
-          addToCartHandler();
-        } else {
+        if (cartItem) {
           removeFromCartHandler();
+        } else {
+          addToCartHandler();
         }
       }}
       className={clsx(
@@ -97,13 +85,11 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
         'dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800',
         'disabled:cursor-not-allowed disabled:opacity-50'
       )}
-      disabled={disabled}
+      disabled={isButtonDisabled}
     >
       <div className="flex items-center">
-        {(addItemMutation.isPending || removeItemMutation.isPending) && (
-          <Spinner className="mr-4 h-3 w-3 animate-spin" />
-        )}
-        {isAddingToCart ? t('item_card.add_to_cart') : t('item_card.remove_from_cart')}
+        {isButtonDisabled && <Spinner className="mr-4 h-3 w-3 animate-spin" />}
+        {cartItem ? t('item_card.remove_from_cart') : t('item_card.add_to_cart')}
       </div>
     </button>
   );
