@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
-import useCurrentUser from '@hooks/useCurrentUser';
+import { useCurrentUser } from '@hooks/user';
 
 interface NeedAuthProperties {
   authorization?: 'password' | 'anonymous' | 'any';

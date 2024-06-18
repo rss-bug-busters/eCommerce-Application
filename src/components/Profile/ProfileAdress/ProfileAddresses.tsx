@@ -1,5 +1,5 @@
 import { Address, Customer } from '@commercetools/platform-sdk';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import React, { ChangeEvent, FC, useEffect, useState } from 'react';
 import { FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import CheckBox from '@components/ui/CheckBox/CheckBox';
 import AddressFieldsProfile from './InputAddress/inputAddressField';

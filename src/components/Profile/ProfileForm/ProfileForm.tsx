@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import InputFieldProfile from '@components/ui/InputField/InputFieldProfile';
 import { Address, Customer } from '@commercetools/platform-sdk';
-import useUserQueries from '@services/api/hooks/useUserQueries';
+import useUserQueries from '@services/api/commercetools/hooks/useUserQueries';
 import { toast } from 'react-toastify';
 import ProfileAddress from '../ProfileAdress/ProfileAddresses';
 import { ProfileEditSchema, ProfileEditType } from './ProfileEdit.type';

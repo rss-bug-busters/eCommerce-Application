@@ -1,4 +1,4 @@
-import useProductDetails from '@hooks/useProductDetails';
+import { useProductDetails } from '@hooks/product';
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import ImageSlider from '@components/ImageSlider/ImageSlider';

@@ -1,7 +1,13 @@
-import { clearTokenCache, tokenCache } from '@services/api/utils/tokenCache';
+import {
+  clearTokenCache,
+  tokenCache,
+} from '@services/api/commercetools/utils/tokenCache';
+import {
+  buildClient,
+  BuildClientOptions,
+} from '@services/api/commercetools/utils/buildClient';
 import { HttpErrorType, TokenStore } from '@commercetools/sdk-client-v2';
-import buildClient, { BuildClientOptions } from '@services/api/utils/buildClient';
-import { projectKey } from '@services/api/options/credential';
+import { projectKey } from '@services/api/commercetools/credential';
 import { createApiBuilderFromCtpClient } from '@commercetools/platform-sdk';
 
 const sessions: {

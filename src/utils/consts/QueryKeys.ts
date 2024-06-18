@@ -1,5 +1,5 @@
 enum QueryKeys {
-  ATTRIBUTE_GROUPS = 'attribute-groups',
+  CART = 'cart',
   CATALOG_PRODUCTS = 'catalog-products',
   CATEGORY = 'category',
   PRODUCT_DETAILS = 'product-details',
