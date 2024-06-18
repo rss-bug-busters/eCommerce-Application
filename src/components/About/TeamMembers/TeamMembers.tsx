@@ -27,7 +27,7 @@ const Member: FC<MemberProperties> = function ({ person }) {
         />{' '}
         {person.gitHubName}
       </Link>
-      <p className="mt-4 text-center">{person.bio}</p>
+      <p className="text- mt-4 text-justify">{person.bio}</p>
     </div>
   );
 };
