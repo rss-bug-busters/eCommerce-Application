@@ -1,9 +1,9 @@
-import { useCart, useRemoveItemMutation, useUpdateItemMutation } from '@hooks/cart';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import { ProductProjection } from '@commercetools/platform-sdk';
 import Spinner from '@assets/svg/spinner.svg?react';
+import { useCart, useRemoveItemMutation, useUpdateItemMutation } from '@hooks/cart';
 
 interface AddToCartButtonProperties {
   product: ProductProjection;

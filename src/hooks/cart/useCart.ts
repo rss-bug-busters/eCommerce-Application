@@ -65,6 +65,7 @@ function useCart() {
           return data;
         }),
     queryKey: [QueryKeys.CART],
+    refetchOnMount: false,
   });
 }
 

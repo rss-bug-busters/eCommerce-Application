@@ -5,7 +5,6 @@ interface UseProductsOptions {
   attributes?: Record<string, string[]>;
   category?: string;
   limit?: number;
-  offset?: number;
   price?: Price;
   search?: string;
   sort?: keyof typeof SortType;

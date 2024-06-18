@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery } from '@tanstack/react-query';
 import QueryKeys from '@utils/consts/QueryKeys';
 import { useApi } from '@services/api/commercetools/hooks';
 import { useTranslation } from 'react-i18next';
@@ -17,10 +17,9 @@ const useProducts = (options?: UseProductsOptions) => {
   const { i18n } = useTranslation();
   const { language } = i18n;
   const {
-    sort: sortName,
+    sort: sortName = 'idAsk',
     category,
     search,
-    offset = 0,
     limit = 12,
     price,
     attributes,
@@ -56,8 +55,23 @@ const useProducts = (options?: UseProductsOptions) => {
 
   const facets = [...makeFilterFacets(filterAttributes, language)];
 
-  return useQuery({
-    queryFn: () =>
+  return useInfiniteQuery({
+    initialPageParam: 0,
+    getNextPageParam: (lastPage): number | undefined => {
+      const { offset: dataOffset, limit: dataLimit, count, total } = lastPage.body;
+
+      if (count < dataLimit || total === dataOffset) {
+        return undefined;
+      }
+
+      return dataOffset + dataLimit;
+    },
+    getPreviousPageParam: (firstPage): number | undefined => {
+      const { offset: dataOffset, limit: dataLimit } = firstPage.body;
+
+      return dataOffset - dataLimit < 0 ? undefined : dataOffset - dataLimit;
+    },
+    queryFn: ({ pageParam }: { pageParam: number }) =>
       api({
         needAnonymousAuth: true,
       })
@@ -66,7 +80,7 @@ const useProducts = (options?: UseProductsOptions) => {
         .get({
           queryArgs: {
             facet: facets,
-            offset,
+            offset: pageParam,
             limit,
             expand: 'productType',
             filter: filters,
@@ -82,7 +96,6 @@ const useProducts = (options?: UseProductsOptions) => {
     queryKey: [
       QueryKeys.CATALOG_PRODUCTS,
       `search:${search}`,
-      `offset:${offset}`,
       `limit:${limit}`,
       `sort:${sortName}`,
       `category:${category}`,
@@ -92,6 +105,7 @@ const useProducts = (options?: UseProductsOptions) => {
       `attributes:${JSON.stringify(attributes)}`,
     ],
     retry: false,
+    refetchOnMount: false,
   });
 };
 
