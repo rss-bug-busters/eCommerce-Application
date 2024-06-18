@@ -15,7 +15,7 @@
   @apply hover:translate-y-0.5 hover:transition-all;
   @apply focus:outline-none focus:ring-4;
   @apply dark:shadow-zinc-400;
-  @apply disabled:cursor-not-allowed disabled:opacity-50
+  @apply disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0;
 }
 
 .btn-primary {
