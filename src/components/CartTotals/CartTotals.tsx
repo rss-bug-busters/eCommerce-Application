@@ -1,17 +1,44 @@
 import { FC } from 'react';
 import { useCart } from '@hooks/cart';
 import clsx from 'clsx';
+import { useTranslation } from 'react-i18next';
 
 const CartTotals: FC = function () {
-  const cart = useCart();
+  const { data } = useCart();
+  const { i18n } = useTranslation();
+  const cart = data?.body;
+
+  if (!cart) {
+    return (
+      <div className="component-box">
+        <h2>Cart not loaded</h2>
+      </div>
+    );
+  }
+
+  const total = cart.totalPrice ?? {};
+  const totalValue = total.centAmount / 10 ** total.fractionDigits;
+
+  const priceFormatter = new Intl.NumberFormat(i18n.language, {
+    style: 'currency',
+    currency: total.currencyCode,
+  });
+  const totalFormatted = priceFormatter.format(totalValue);
+
   const discount =
-    (cart.data?.body.discountOnTotalPrice?.discountedAmount.centAmount ?? 0) / 100;
-  const total = (cart.data?.body.totalPrice.centAmount ?? 0) / 100;
-  const cartTotals = {
-    subtotal: (cart.data?.body.totalPrice.centAmount ?? 0) / 100 + discount,
-    discount,
-    total,
-  };
+    cart.lineItems.reduce((accumulator, current) => {
+      const { quantity, discountedPricePerQuantity } = current;
+      const discounted =
+        discountedPricePerQuantity?.[0]?.discountedPrice.includedDiscounts[0]
+          ?.discountedAmount.centAmount ?? 0;
+
+      return accumulator + discounted * quantity;
+    }, 0) /
+    10 ** total.fractionDigits;
+
+  const discountFormatted = priceFormatter.format(discount);
+  const subtotal = totalValue + discount;
+  const subtotalFormatted = priceFormatter.format(subtotal);
 
   return (
     <div className="component-box">
@@ -20,17 +47,17 @@ const CartTotals: FC = function () {
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Subtotal</span>
-        <span className="text-lg font-semibold">{cartTotals.subtotal.toFixed(2)}$</span>
+        <span className="text-lg font-semibold">{subtotalFormatted}</span>
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Total Discount</span>
         <span className="text-lg font-semibold">
-          {cartTotals.discount > 0 ? `-${cartTotals.discount.toFixed(2)}$` : '—'}
+          {discount > 0 ? `-${discountFormatted}` : '—'}
         </span>
       </div>
       <div className="flex justify-between p-2">
         <span className="text-lg">Total</span>
-        <span className="text-lg font-semibold">{cartTotals.total.toFixed(2)}$</span>
+        <span className="text-lg font-semibold">{totalFormatted}</span>
       </div>
       <button
         type="button"

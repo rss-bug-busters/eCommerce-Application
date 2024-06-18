@@ -7,10 +7,12 @@ import { useRemoveItemHandler } from '@hooks/cart/useRemoveItemHandler';
 import { useQueryClient } from '@tanstack/react-query';
 import QueryKeys from '@utils/consts/QueryKeys';
 import { Cart, ClientResponse, LineItem } from '@commercetools/platform-sdk';
+import Modal from '@components/ui/Modal/Modal';
 import CartItem from './CartItem/CartItem';
 
 const CartList: FC = function () {
   const [isClearing, setIsClearing] = useState(false);
+  const [isConfirmModalOpen, setIsConfirmModalOpen] = useState(false);
   const queryClient = useQueryClient();
   const { data, isError, error, isPending } = useCart();
   const cart = data?.body;
@@ -30,9 +32,9 @@ const CartList: FC = function () {
       const item = currentItems[0];
 
       await removeCartItemHandler({ item, cartVersion });
-      const updatedCart = await queryClient.fetchQuery<ClientResponse<Cart>>({
-        queryKey: [QueryKeys.CART],
-      });
+      const updatedCart = queryClient.getQueryData<ClientResponse<Cart>>([
+        QueryKeys.CART,
+      ]);
 
       await removeItemRecursive(
         updatedCart?.body.lineItems ?? [],
@@ -40,16 +42,12 @@ const CartList: FC = function () {
       );
     }
   };
-
   const clearCartHandler = async () => {
     setIsClearing(true);
     await removeItemRecursive(items, cart.version);
     setIsClearing(false);
+    setIsConfirmModalOpen(false);
   };
-
-  // useEffect(() => {
-  //   console.log(cart.data?.body);
-  // }, [cart, cart.data]);
 
   return (
     <div className="component-box">
@@ -87,17 +85,36 @@ const CartList: FC = function () {
       </table>
       <button
         type="button"
-        className={clsx(
-          'mt-4 flex items-center gap-2 rounded-lg bg-zinc-300 p-2 text-xl font-semibold',
-          'shadow-md shadow-zinc-600',
-          'hover:translate-y-0.5 hover:bg-zinc-200 hover:transition-all',
-          'dark:bg-zinc-600 dark:text-zinc-100 dark:shadow-zinc-400 dark:hover:bg-zinc-700'
-        )}
-        onClick={() => clearCartHandler()}
+        className="btn btn-primary mt-4 flex items-center gap-2 text-lg font-semibold"
+        onClick={() => setIsConfirmModalOpen(true)}
       >
         <span>Clear Shopping Cart</span>
         <Clear className={clsx('an h-6 w-6', { 'animate-spin': isClearing })} />
       </button>
+      <Modal active={isConfirmModalOpen} setActive={setIsConfirmModalOpen}>
+        <div className="p-4">
+          <h2 className="text-center text-2xl font-semibold">
+            Are you sure you want to clear the shopping cart?
+          </h2>
+          <div className="mt-4 flex justify-center gap-4">
+            <button
+              type="button"
+              className="btn btn-secondary text-xl font-semibold"
+              onClick={() => setIsConfirmModalOpen(false)}
+            >
+              <span>Cancel</span>
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary flex items-center gap-2 text-lg font-semibold"
+              onClick={() => clearCartHandler()}
+            >
+              <span>Clear</span>
+              <Clear className={clsx('an h-6 w-6', { 'animate-spin': isClearing })} />
+            </button>
+          </div>
+        </div>
+      </Modal>
     </div>
   );
 };

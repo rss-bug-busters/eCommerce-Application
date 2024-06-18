@@ -30,7 +30,10 @@ const BasketPage: FC = function () {
         </div>
       ) : (
         <div className="mt-10 text-center">
-          <Link to={RoutePaths.CATALOG} className="button text-2xl font-semibold">
+          <Link
+            to={RoutePaths.CATALOG}
+            className="btn btn-primary text-2xl font-semibold"
+          >
             ← Go to catalog
           </Link>
         </div>

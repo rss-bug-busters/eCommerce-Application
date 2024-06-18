@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { useTranslation } from 'react-i18next';
 import Trash from '@assets/svg/trash.svg?react';
@@ -17,6 +17,42 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
   const { removeCartItemHandler, isPending } = useRemoveItemHandler();
   const updateItemMutation = useUpdateItemMutation();
   const [quantity, setQuantity] = useState<number>(item.quantity);
+
+  const { price, totalPrice } = item;
+  // const discount = discountedPricePerQuantity.reduce(
+  //   (acc, curr) => {
+  //     return {
+  //       value: acc.value + curr.discountedPrice.includedDiscounts,
+  //       formatted: acc.formatted + curr.discountedPrice.formatted,
+  //       percentage: acc.percentage + curr.discountedPrice.percentage,
+  //     };
+  //   },
+  //   { value: 0, formatted: '', percentage: 0 }
+  // );
+  const priceFormatter = new Intl.NumberFormat(i18n.language, {
+    style: 'currency',
+    currency: price?.value.currencyCode,
+  });
+
+  const priceValue = price.value.centAmount / 10 ** price.value.fractionDigits;
+  const priceFormatted: string = priceFormatter.format(priceValue);
+  const isDiscounted: boolean = price.discounted !== undefined;
+  const discount = {
+    value: 0,
+    formatted: '',
+    percentage: 0,
+  };
+
+  if (price.discounted) {
+    discount.value =
+      price.discounted.value.centAmount / 10 ** price.discounted.value.fractionDigits;
+    discount.formatted = price?.discounted && priceFormatter.format(discount.value);
+    discount.percentage = Math.round((1 - priceValue / discount.value) * 100);
+  }
+
+  const totalPriceFormatted: string = priceFormatter.format(
+    totalPrice.centAmount / 10 ** totalPrice.fractionDigits
+  );
   const updateItemQuantity = (value: number) => {
     setQuantity(value);
     updateItemMutation.mutate({
@@ -37,7 +73,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
     updateItemQuantity(quantity + 1);
   };
 
-  const changeQuantityHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const changeQuantityHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const quantityValue = Number.parseInt(event.target.value, 10);
 
     if (
@@ -77,7 +113,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
       </td>
       <td className="cell">
         <span className="text-lg font-semibold">
-          {item.price.value.centAmount / 100}$
+          {isDiscounted ? discount.formatted : priceFormatted}
         </span>
       </td>
       <td className="cell">
@@ -115,9 +151,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
         </div>
       </td>
       <td className="cell">
-        <span className="text-lg font-semibold">
-          {((item.price.value.centAmount / 100) * item.quantity).toFixed(2)}$
-        </span>
+        <span className="text-lg font-semibold">{totalPriceFormatted}</span>
       </td>
     </tr>
   );
