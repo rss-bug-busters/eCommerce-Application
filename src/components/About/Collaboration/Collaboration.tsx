@@ -35,10 +35,10 @@ const Collaboration: FC = function () {
   return (
     <div className="mt-3 flex flex-col gap-3">
       <h3 className="text-2xl font-bold text-gray-700 dark:text-white">Collaboration</h3>
-      <div className="flex flex-wrap place-content-around justify-start gap-5 rounded-lg bg-slate-100 p-6  shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)] ">
+      <div className="flex flex-wrap place-content-around justify-start gap-5 rounded-lg bg-slate-100 p-6  shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)] dark:bg-gray-600">
         <div className="flex flex-wrap gap-3">
           <div>
-            <h4 className="font-bold text-gray-700 dark:text-white">
+            <h4 className="font-bold text-gray-700 dark:text-white ">
               {teamCollaboration.title}
             </h4>
             <p>{teamCollaboration.description}</p>

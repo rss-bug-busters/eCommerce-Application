@@ -8,7 +8,7 @@ interface MemberProperties {
 
 const Member: FC<MemberProperties> = function ({ person }) {
   return (
-    <div className="flex max-w-lg flex-col rounded-lg border-slate-500 bg-white p-6 shadow-lg">
+    <div className="flex max-w-lg flex-col rounded-lg border-slate-500 bg-white p-6 shadow-lg dark:bg-gray-700">
       <img
         className=" square-full absolute h-20 w-20 rounded-lg ring-2 ring-white"
         src={person.photo}
@@ -36,7 +36,7 @@ const TeamMembers: FC = function () {
   return (
     <div className="flex flex-col items-center justify-center gap-5">
       <h2 className="text-3xl font-bold text-gray-700 dark:text-white">Team Members</h2>
-      <div className=" flex flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6 shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)]">
+      <div className=" flex flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6 shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)] dark:bg-gray-400">
         {persons.map((person) => (
           <div key={`person-${Math.random().toString(36).slice(2, 9)}`}>
             <Member person={person} />
