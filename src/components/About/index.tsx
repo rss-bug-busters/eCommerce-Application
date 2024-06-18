@@ -5,33 +5,31 @@ import Collaboration from './Collaboration/Collaboration';
 import RsLogo from './RsLogo/RsLogo';
 
 const About: FC = function () {
-  const [isSelected, setSelected] = useState(true);
+  const [isSelected, setIsSelected] = useState(true);
 
   return (
     <div className="mx-5 flex flex-col items-center justify-center gap-5">
       <h1 className="text-4xl font-bold text-gray-700 dark:text-white">About Us</h1>
       <div className="flex max-w-screen-2xl flex-col gap-5">
-        {/* ---------------- */}
         <div>
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
               className={`flex items-end  rounded-md ${isSelected ? 'bg-gray-600' : 'bg-gray-800'} px-4 py-2 text-center font-semibold text-white hover:bg-gray-600 dark:bg-zinc-600 dark:hover:bg-zinc-50`}
-              onClick={() => setSelected(true)}
+              onClick={() => setIsSelected(true)}
             >
               Contribution
             </button>
             <button
               type="button"
               className={`flex items-end  rounded-md ${isSelected ? 'bg-gray-800' : 'bg-gray-600'} px-4 py-2 text-center font-semibold text-white hover:bg-gray-600 dark:bg-zinc-600 dark:hover:bg-zinc-50`}
-              onClick={() => setSelected(false)}
+              onClick={() => setIsSelected(false)}
             >
               Collaboration
             </button>
           </div>
           <div>{(isSelected && <Contribution />) || <Collaboration />}</div>
         </div>
-        {/* ===================================== */}
         <TeamMembers />
         <RsLogo />
       </div>

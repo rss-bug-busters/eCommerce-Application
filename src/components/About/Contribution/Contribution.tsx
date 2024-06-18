@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import persons from '../Persons/Persons';
+import persons from '@utils/consts/persons';
 
 const Contribution: FC = function () {
   return (

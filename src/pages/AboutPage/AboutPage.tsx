@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import About from '@components/About/about';
+import About from '@components/About';
 
 const AboutPage: FC = function () {
   return (

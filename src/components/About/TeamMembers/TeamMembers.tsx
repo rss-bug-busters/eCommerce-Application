@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import persons, { Person } from '../Persons/Persons';
+import persons, { Person } from '@utils/consts/persons';
 
 interface MemberProperties {
   person: Person;

@@ -9,6 +9,7 @@ export interface Person {
 }
 
 const persons: Person[] = [];
+
 const RemAntof: Person = {
   name: 'Anton Ramarchuk',
   role: 'Noobie',
