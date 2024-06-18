@@ -8,11 +8,9 @@ interface Inputs {
 }
 
 const PromoCodesBox: FC = function () {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Inputs>();
+  const { register, handleSubmit, watch } = useForm<Inputs>();
+
+  const promoCode = watch('promoCode');
 
   const { data } = useCart();
   const applyPromoCode = useApplyPromoCode();
@@ -36,21 +34,19 @@ const PromoCodesBox: FC = function () {
 
   return (
     <div>
-      <form onSubmit={handleSubmit(applyPromoCodeHandler)} className="flex ">
-        <div className="relative">
+      <form
+        onSubmit={handleSubmit(applyPromoCodeHandler)}
+        className="flex items-center gap-3"
+      >
+        <div className="relative ">
           <input
-            {...register('promoCode', { required: 'PromoCode is required' })}
-            placeholder="PromoCode"
-            className="w-max border-b-2"
+            {...register('promoCode')}
+            placeholder="Promo Code"
+            className="w-max rounded-lg border-b-2 border-zinc-700 bg-transparent p-2 text-lg font-semibold outline-none dark:border-zinc-300"
           />
-          {errors.promoCode && (
-            <span className="absolute left-0 top-8 w-max border-b-2 border-white text-xs text-red-600">
-              {errors.promoCode.message}
-            </span>
-          )}
         </div>
 
-        <button type="submit" className=" w-max border-b-2 font-semibold text-gray-400">
+        <button type="submit" className="btn btn-primary text-md" disabled={!promoCode}>
           Apply
         </button>
       </form>

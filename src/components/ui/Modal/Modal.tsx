@@ -20,7 +20,7 @@ const Modal: FC<ModalProperties> = function ({ active, setActive, children }) {
       tabIndex={0}
     >
       <div
-        className=" absolute max-w-md rounded-2xl bg-slate-100 p-4 "
+        className=" component-box absolute"
         onClick={(event: React.MouseEvent) => event.stopPropagation()}
         onKeyDown={(event: React.KeyboardEvent) => event.stopPropagation()}
         role="button"

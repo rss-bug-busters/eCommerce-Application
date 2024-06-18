@@ -91,21 +91,15 @@ function AddToCartButton({ product }: AddToCartButtonProperties) {
           removeFromCartHandler();
         }
       }}
-      className={clsx(
-        'rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white',
-        'hover:bg-blue-800',
-        'focus:outline-none focus:ring-4 focus:ring-blue-300',
-        'dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800',
-        'disabled:cursor-not-allowed disabled:opacity-50'
-      )}
+      className={clsx('btn btn-primary w-fit text-sm font-medium')}
       disabled={disabled}
     >
-      <div className="flex items-center">
+      <span className="flex items-center">
         {(addItemMutation.isPending || removeItemMutation.isPending) && (
           <Spinner className="mr-4 h-3 w-3 animate-spin" />
         )}
         {isAddingToCart ? t('item_card.add_to_cart') : t('item_card.remove_from_cart')}
-      </div>
+      </span>
     </button>
   );
 }
