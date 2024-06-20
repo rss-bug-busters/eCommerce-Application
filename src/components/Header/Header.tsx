@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import Profile from '@assets/svg/profile.svg?react';
 import BlachowoSVG from '@assets/svg/blachowo.svg?react';
 import BasketLink from '@components/Header/BasketLink/BasketLink';
+import ThemeSwitcher from '@components/Header/ThemeSwitcher/ThemeSwitcher';
 
 const Header: FC = function () {
   const { logout } = useUserQueries();
@@ -83,6 +84,7 @@ const Header: FC = function () {
               </Link>
             </>
           )}
+          <ThemeSwitcher />
           <BasketLink />
         </div>
       </div>
