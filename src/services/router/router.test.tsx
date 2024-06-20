@@ -4,7 +4,7 @@ import routeIsRenderedByTestId from '@tests/utils/routeIsRenderedByTestId';
 
 enum PagesTestIds {
   ABOUT = 'about-page',
-  CART = 'basket-page',
+  CART = 'cart-page',
   ERROR = 'error-page',
   LOGIN = 'login-page',
   MAIN = 'main-page',
