@@ -15,15 +15,17 @@ const About: FC = function () {
           <div className="flex flex-wrap gap-3">
             <button
               type="button"
-              className={`flex items-end  rounded-md ${isSelected ? 'bg-gray-600' : 'bg-gray-800'} px-4 py-2 text-center font-semibold text-white hover:bg-gray-600 dark:bg-zinc-600 dark:hover:bg-zinc-50`}
+              className="btn btn-primary font-semibold"
               onClick={() => setIsSelected(true)}
+              disabled={isSelected}
             >
               Contribution
             </button>
             <button
               type="button"
-              className={`flex items-end  rounded-md ${isSelected ? 'bg-gray-800' : 'bg-gray-600'} px-4 py-2 text-center font-semibold text-white hover:bg-gray-600 dark:bg-zinc-600 dark:hover:bg-zinc-50`}
+              className="btn btn-primary font-semibold"
               onClick={() => setIsSelected(false)}
+              disabled={!isSelected}
             >
               Collaboration
             </button>

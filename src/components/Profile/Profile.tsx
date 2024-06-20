@@ -2,6 +2,7 @@ import { FC, useEffect, useState } from 'react';
 import useUserQueries from '@services/api/commercetools/hooks/useUserQueries';
 import { Customer } from '@commercetools/platform-sdk';
 import ModalProfile from '@components/ui/Modal/ModalProfile';
+import { toast } from 'react-toastify';
 import ProfileForm from './ProfileForm/ProfileForm';
 import ProfileFormPassword from './ProfileModalWindows/PassowordChangeModalWindow';
 
@@ -26,14 +27,20 @@ const Profile: FC = function () {
 
         setUserData(response.body);
       } catch (error) {
-        console.error('Error fetching user data:', error);
+        if (error instanceof Error) {
+          toast.error(`Failed to fetch user data: ${error.message}`);
+        }
       }
     };
 
     if (!userData) {
       (async () => {
         await fetchUserData();
-      })().catch((error) => console.error('Failed to fetch user data:', error));
+      })().catch((error) => {
+        if (error instanceof Error) {
+          toast.error(`Failed to fetch user data: ${error.message}`);
+        }
+      });
     }
   }, [user, userData]);
 

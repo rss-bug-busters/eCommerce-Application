@@ -1,4 +1,4 @@
-import { useAddItemMutation, useCart, useRemoveItemMutation } from '@hooks/cart';
+import { useCart, useRemoveItemMutation, useUpdateItemMutation } from '@hooks/cart';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
@@ -20,7 +20,7 @@ function AddToCartButton({
 }: AddToCartButtonProperties) {
   const { t } = useTranslation();
   const { data: { body: cart } = {} } = useCart();
-  const addItemMutation = useAddItemMutation();
+  const addItemMutation = useUpdateItemMutation();
   const removeItemMutation = useRemoveItemMutation();
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
   const [cartItem, setCartItem] = useState<undefined | LineItem>();
@@ -38,6 +38,7 @@ function AddToCartButton({
   const addToCartHandler = () => {
     if (cart) {
       addItemMutation.mutate({
+        action: 'addLineItem',
         cartId: cart.id,
         cartVersion: cart.version,
         productId,
@@ -78,13 +79,7 @@ function AddToCartButton({
           addToCartHandler();
         }
       }}
-      className={clsx(
-        'rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white',
-        'hover:bg-blue-800',
-        'focus:outline-none focus:ring-4 focus:ring-blue-300',
-        'dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800',
-        'disabled:cursor-not-allowed disabled:opacity-50'
-      )}
+      className={clsx('btn btn-primary w-fit text-sm font-medium')}
       disabled={isButtonDisabled}
     >
       <div className="flex items-center">

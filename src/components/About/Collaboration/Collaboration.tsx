@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import clsx from 'clsx';
 
 const teamCollaboration = {
   title: 'Team Collaboration 🤝',
@@ -35,7 +36,13 @@ const Collaboration: FC = function () {
   return (
     <div className="mt-3 flex flex-col gap-3">
       <h3 className="text-2xl font-bold text-gray-700 dark:text-white">Collaboration</h3>
-      <div className="flex flex-wrap place-content-around justify-start gap-5 rounded-lg bg-slate-100 p-6  shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)] ">
+      <div
+        className={clsx(
+          'flex w-full flex-wrap place-content-around gap-5 rounded-lg bg-slate-100 p-6',
+          'shadow-[inset_0px_1px_52px_-20px_rgba(66,68,90,1)]',
+          'dark:bg-zinc-900 dark:shadow-[inset_0px_1px_52px_-20px_rgba(223,222,221,1)]'
+        )}
+      >
         <div className="flex flex-wrap gap-3">
           <div>
             <h4 className="font-bold text-gray-700 dark:text-white">
@@ -43,7 +50,7 @@ const Collaboration: FC = function () {
             </h4>
             <p>{teamCollaboration.description}</p>
           </div>
-          <section className="rounded-lg border-2 border-slate-300 p-2">
+          <section className="component-box">
             <h5 className="font-bold text-gray-700 dark:text-white">
               {teamCollaboration.weeklyCalls.title}
             </h5>
@@ -55,7 +62,7 @@ const Collaboration: FC = function () {
               ))}
             </ul>
           </section>
-          <section className="rounded-lg border-2 border-slate-300 p-2">
+          <section className="component-box">
             <h4 className="font-bold text-gray-700 dark:text-white">
               {teamCollaboration.collaborationPractices.title}
             </h4>
@@ -69,7 +76,7 @@ const Collaboration: FC = function () {
               ))}
             </ul>
           </section>
-          <section className="rounded-lg border-2 border-slate-300 p-2">
+          <section className="component-box">
             <h4 className="font-bold text-gray-700 dark:text-white">
               {teamCollaboration.continuousImprovement.title}
             </h4>

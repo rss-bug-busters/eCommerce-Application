@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
+import DisplayPromoCodes from '@components/PromoCode/displayPromoCodes/DisplayPromoCodes';
 
 function MainPage() {
   return (
     <div data-testid="main-page" className="grid">
+      <DisplayPromoCodes />
       <div className="mb-9 mt-9 flex flex-col items-center">
         <h1 className="mb-4 max-w-xl text-center text-3xl font-bold">
           Crafting Comfort, Redefining Spaces. Your Home, Your Signature Style!

@@ -2,6 +2,7 @@ import { ProductProjection } from '@commercetools/platform-sdk';
 import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import AddToCartButton from '@components/AddToCartButton';
+import usePriceFormatter from '@hooks/usePriceFormatter';
 
 interface Properties {
   className?: string;
@@ -15,6 +16,7 @@ const ProductInfo: FC<Properties> = function ({ product, className }) {
   const country = 'US';
 
   const chosenPrice = prices?.find((price) => price.country === country) ?? prices?.[0];
+  const { priceFormatted, isDiscounted, discount } = usePriceFormatter(chosenPrice);
 
   if (!chosenPrice) {
     return (
@@ -24,28 +26,6 @@ const ProductInfo: FC<Properties> = function ({ product, className }) {
         <p className="text-xl">{description?.[lang] ?? 'No description available'}</p>
       </div>
     );
-  }
-
-  const price = chosenPrice;
-  const priceFormatter = new Intl.NumberFormat(lang, {
-    style: 'currency',
-    currency: price?.value.currencyCode,
-  });
-
-  const priceValue = price.value.centAmount / 10 ** price.value.fractionDigits;
-  const priceFormatted: string = priceFormatter.format(priceValue);
-  const isDiscounted: boolean = price.discounted !== undefined;
-  const discount = {
-    value: 0,
-    formatted: '',
-    percentage: 0,
-  };
-
-  if (price.discounted) {
-    discount.value =
-      price.discounted.value.centAmount / 10 ** price.discounted.value.fractionDigits;
-    discount.formatted = price?.discounted && priceFormatter.format(discount.value);
-    discount.percentage = Math.round((1 - priceValue / discount.value) * 100);
   }
 
   return (
