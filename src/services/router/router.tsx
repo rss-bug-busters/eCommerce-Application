@@ -7,7 +7,7 @@ import Loader from '@components/ui/Loader/Loader';
 const ProtectedRoute = lazy(() => import('@hoc/ProtectedRoute'));
 const Layout = lazy(() => import('@pages/Layout/Layout'));
 const MainPage = lazy(() => import('@pages/MainPage/MainPage'));
-const BasketPage = lazy(() => import('@pages/BasketPage/BasketPage'));
+const BasketPage = lazy(() => import('@pages/CartPage/CartPage'));
 const AboutPage = lazy(() => import('@pages/AboutPage/AboutPage'));
 const LoginPage = lazy(() => import('@pages/LoginPage/LoginPage'));
 const ProductPage = lazy(() => import('@pages/ProductPage/ProductPage'));
@@ -79,7 +79,7 @@ const routes: RouteObject[] = [
         ),
       },
       {
-        path: RoutePaths.BASKET,
+        path: RoutePaths.CART,
         element: (
           <ProtectedRoute authorization="any">
             <BasketPage />

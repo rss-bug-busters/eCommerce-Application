@@ -6,12 +6,12 @@ import { useCart } from '@hooks/cart';
 import { Link } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
 
-const BasketPage: FC = function () {
+const CartPage: FC = function () {
   const { data } = useCart();
   const cart = data?.body;
 
   return (
-    <div data-testid="basket-page" className="container mx-auto p-4">
+    <div data-testid="cart-page" className="container mx-auto p-4">
       <h1 className="mb-4 text-center text-3xl font-bold">
         Your Cart
         {cart?.lineItems.length === 0 && (
@@ -42,4 +42,4 @@ const BasketPage: FC = function () {
   );
 };
 
-export default BasketPage;
+export default CartPage;

@@ -4,7 +4,7 @@ import routeIsRenderedByTestId from '@tests/utils/routeIsRenderedByTestId';
 
 enum PagesTestIds {
   ABOUT = 'about-page',
-  BASKET = 'basket-page',
+  CART = 'basket-page',
   ERROR = 'error-page',
   LOGIN = 'login-page',
   MAIN = 'main-page',
@@ -40,8 +40,8 @@ describe('all routes rendered', async () => {
     needAuth: true,
   });
   routeIsRenderedByTestId({
-    route: RoutePaths.BASKET,
-    testId: PagesTestIds.BASKET,
+    route: RoutePaths.CART,
+    testId: PagesTestIds.CART,
   });
   routeIsRenderedByTestId({
     route: `/${(Math.random() + 1).toString(36).slice(7)}`,

@@ -10,7 +10,7 @@ const BasketLink: FC = function () {
   const quantity = data?.body.totalLineItemQuantity;
 
   return (
-    <Link to={RoutePaths.BASKET}>
+    <Link to={RoutePaths.CART}>
       <span className="relative">
         <span className="sr-only">Basket</span>
         <Cart className="h-7 w-7" />

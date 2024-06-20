@@ -1,6 +1,6 @@
 enum RoutePaths {
   ABOUT = '/about',
-  BASKET = '/basket',
+  CART = '/cart',
   CATALOG = '/catalog',
   LOGIN = '/login',
   MAIN = '/',

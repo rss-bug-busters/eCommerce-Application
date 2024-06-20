@@ -1,11 +1,11 @@
-import { ChangeEvent, FC, useState } from 'react';
+import { ChangeEvent, FC } from 'react';
 import { Cart, LineItem } from '@commercetools/platform-sdk';
 import { useTranslation } from 'react-i18next';
 import Trash from '@assets/svg/trash.svg?react';
 import { useRemoveItemHandler } from '@hooks/cart/useRemoveItemHandler';
 import Spinner from '@assets/svg/spinner.svg?react';
 import { useUpdateItemMutation } from '@hooks/cart';
-import styles from './cartItem.module.css';
+import usePriceFormatter from '@hooks/usePriceFormatter';
 
 interface CartItemProperties {
   cart: Cart;
@@ -15,47 +15,22 @@ interface CartItemProperties {
 const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
   const { i18n } = useTranslation();
   const { removeCartItemHandler, isPending } = useRemoveItemHandler();
-  const updateItemMutation = useUpdateItemMutation();
-  const [quantity, setQuantity] = useState<number>(item.quantity);
-
-  const { price, totalPrice } = item;
-  // const discount = discountedPricePerQuantity.reduce(
-  //   (acc, curr) => {
-  //     return {
-  //       value: acc.value + curr.discountedPrice.includedDiscounts,
-  //       formatted: acc.formatted + curr.discountedPrice.formatted,
-  //       percentage: acc.percentage + curr.discountedPrice.percentage,
-  //     };
-  //   },
-  //   { value: 0, formatted: '', percentage: 0 }
-  // );
-  const priceFormatter = new Intl.NumberFormat(i18n.language, {
-    style: 'currency',
-    currency: price?.value.currencyCode,
-  });
-
-  const priceValue = price.value.centAmount / 10 ** price.value.fractionDigits;
-  const priceFormatted: string = priceFormatter.format(priceValue);
-  const isDiscounted: boolean = price.discounted !== undefined;
-  const discount = {
-    value: 0,
-    formatted: '',
-    percentage: 0,
-  };
-
-  if (price.discounted) {
-    discount.value =
-      price.discounted.value.centAmount / 10 ** price.discounted.value.fractionDigits;
-    discount.formatted = price?.discounted && priceFormatter.format(discount.value);
-    discount.percentage = Math.round((1 - priceValue / discount.value) * 100);
-  }
+  const { mutate: updateItemMutation, isPending: isUpdatePending } =
+    useUpdateItemMutation();
+  const {
+    quantity,
+    price,
+    totalPrice,
+    variant: { images },
+  } = item;
+  const { priceFormatter, isDiscounted, discount, priceFormatted } =
+    usePriceFormatter(price);
 
   const totalPriceFormatted: string = priceFormatter.format(
     totalPrice.centAmount / 10 ** totalPrice.fractionDigits
   );
   const updateItemQuantity = (value: number) => {
-    setQuantity(value);
-    updateItemMutation.mutate({
+    updateItemMutation({
       action: 'changeLineItemQuantity',
       cartId: cart.id,
       cartVersion: cart.version,
@@ -103,7 +78,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
       </td>
       <td className="cell h-20 w-20">
         <img
-          src={item.variant.images?.[0]?.url}
+          src={images?.[0]?.url}
           alt={item.name[i18n.language] ?? ''}
           className=" h-full w-full rounded-md object-cover"
         />
@@ -118,7 +93,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
       </td>
       <td className="cell">
         <div className="relative h-12 w-20 rounded-full border-2">
-          {updateItemMutation.isPending && (
+          {isUpdatePending && (
             <span className="absolute -left-2 -top-2">
               <Spinner className="h-4 w-4 animate-spin" />
             </span>
@@ -127,7 +102,7 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
             type="button"
             className="absolute -top-1 h-12 px-2 text-2xl font-semibold"
             onClick={() => decreaseQuantityHandler()}
-            disabled={updateItemMutation.isPending}
+            disabled={isUpdatePending}
           >
             <span className="">-</span>
           </button>
@@ -135,18 +110,18 @@ const CartItem: FC<CartItemProperties> = function ({ item, cart }) {
             type="button"
             className="absolute -top-1 right-0 h-12 px-2 text-lg font-semibold"
             onClick={() => increaseQuantityHandler()}
-            disabled={updateItemMutation.isPending}
+            disabled={isUpdatePending}
           >
             <span className="">+</span>
           </button>
           <input
             name="quantity"
             type="number"
-            className={`h-full w-20 bg-transparent text-center text-xl outline-none ${styles.withoutArrows}`}
+            className="without-arrows h-full w-20 bg-transparent text-center text-xl outline-none"
             min={1}
             value={quantity}
             onChange={changeQuantityHandler}
-            disabled={updateItemMutation.isPending}
+            disabled={isUpdatePending}
           />
         </div>
       </td>

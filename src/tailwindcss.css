@@ -39,3 +39,14 @@
 .cell {
   @apply p-1 py-4 lg:p-2 text-left;
 }
+
+.without-arrows {
+  appearance: textfield;
+}
+
+.without-arrows::-webkit-outer-spin-button,
+.without-arrows::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+

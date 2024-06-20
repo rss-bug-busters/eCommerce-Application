@@ -44,14 +44,16 @@ const ThemeSwitcher = function () {
       className="h-10 w-10 rounded-full bg-zinc-300 p-2 dark:bg-zinc-700"
     >
       <SunIcon
-        className={clsx('h-6 w-6 text-yellow-600 transition-all duration-1000', {
+        className={clsx('text-yellow-600 transition-all duration-500', {
           'h-0 w-0 opacity-0': theme === Theme.LIGHT,
+          'h-6 w-6': theme === Theme.DARK,
         })}
       />
 
       <MoonIcon
-        className={clsx('text-clue-700 h-6 w-6 transition-all duration-1000', {
+        className={clsx('text-clue-700 transition-all duration-500', {
           'h-0 w-0 opacity-0': theme === Theme.DARK,
+          'h-6 w-6': theme === Theme.LIGHT,
         })}
       />
 
