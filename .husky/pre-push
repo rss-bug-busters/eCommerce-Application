@@ -1,0 +1,6 @@
+echo -e "\e[1;34m[INFO]Typescript checks:\e[0m"
+yarn tsc
+echo -e "\e[1;34m[INFO]Lint:\e[0m"
+yarn lint-staged
+echo -e "\e[1;34m[INFO]Test:\e[0m"
+yarn run test:staged

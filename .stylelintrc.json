@@ -1,0 +1,24 @@
+{
+  "plugins": ["stylelint-prettier", "stylelint-order"],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-prettier/recommended",
+    "stylelint-config-idiomatic-order"
+  ],
+  "rules": {
+    "prettier/prettier": true
+  },
+  "overrides": [
+    {
+      "plugins": ["stylelint-scss"],
+      "files": ["**/*.scss"],
+      "extends": [
+        "stylelint-config-standard-scss",
+        "stylelint-config-prettier-scss",
+        "stylelint-config-idiomatic-order"
+      ],
+      "customSyntax": "postcss-scss"
+    }
+  ],
+  "ignoreFiles": ["./src/tailwindcss.css"]
+}

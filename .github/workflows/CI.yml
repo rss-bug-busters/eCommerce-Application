@@ -1,0 +1,47 @@
+name: 🧪 CI
+on:
+  pull_request:
+
+env:
+  VITE_COMMERCETOOLS_PROJECT_KEY: ${{ vars.VITE_COMMERCETOOLS_PROJECT_KEY }}
+  VITE_COMMERCETOOLS_CLIENT_ID: ${{ vars.VITE_COMMERCETOOLS_CLIENT_ID }}
+  VITE_COMMERCETOOLS_SECRET: ${{ vars.VITE_COMMERCETOOLS_SECRET }}
+  VITE_COMMERCETOOLS_SCOPE: ${{ vars.VITE_COMMERCETOOLS_SCOPE }}
+  VITE_COMMERCETOOLS_API_URL: ${{ vars.VITE_COMMERCETOOLS_API_URL }}
+  VITE_COMMERCETOOLS_AUTH_URL: ${{ vars.VITE_COMMERCETOOLS_AUTH_URL }}
+  VITE_COMMERCETOOLS_TEST_USER_EMAIL: ${{ vars.VITE_COMMERCETOOLS_TEST_USER_EMAIL }}
+  VITE_COMMERCETOOLS_TEST_USER_PASSWORD: ${{ vars.VITE_COMMERCETOOLS_TEST_USER_PASSWORD }}
+
+jobs:
+  ci:
+    name: 🧪 CI
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Get latest code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 💩 Enable Corepack before setting up Node
+        run: corepack enable
+
+      - name: 🔨 install node
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: 'package.json'
+          cache: 'yarn'
+
+      - name: 🔨 install packedge
+        run: yarn install --immutable
+
+      - name: 👍 Typescript checks
+        run: yarn tsc
+
+      - name: 🔍 ESlint
+        run: yarn lint
+
+      - name: 🔍 Stylelint
+        run: yarn stylelint
+
+      - name: 🧪 test
+        run: yarn test:staged
