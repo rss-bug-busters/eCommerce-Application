@@ -25,11 +25,11 @@ Key pages in the application include:
 #### Frontend
 
 - **React**: Utilized as the primary JavaScript library for building user interfaces, React offers a component-based architecture that facilitates the development of reusable UI components.
-- **Redux Toolkit**: RTK Query, part of Redux Toolkit, is used for managing data fetching and caching, providing a powerful and efficient solution for handling API requests and managing global state.
+- **React Query**: A library for fetching, caching, and synchronizing server state in React applications.
 - **React Router**: React Router is used for declarative routing in the application, enabling navigation between different views while maintaining a single-page architecture.
 - **Vite**: Vite is used as the frontend build tool, providing fast and efficient development and production builds through its modern bundling and hot module replacement capabilities.
 - **TypeScript**: TypeScript is employed to add static typing to JavaScript, enhancing code quality, and developer productivity by catching type-related errors during development.
-- **Sass**: Sass is chosen as the CSS preprocessor for its powerful features like variables, mixins, and nesting, enabling better organization and maintainability of stylesheets.
+- **Tailwind CSS**: Tailwind is chosen as the utility-first CSS framework for rapid UI development.
 - **ESLint, Stylelint, and Prettier**: ESLint ensures JavaScript code consistency and detects potential errors, Prettier enforces code formatting rules, and Stylelint is used for maintaining consistent styles in CSS, SCSS, and other stylesheets.
 - **Husky and lint-staged**: These tools are integrated into the project to enforce code quality standards by running ESLint, Prettier, Stylelint, and other linting tools on staged files before commits. Additionally, tests are executed during pre-push to ensure code quality and reliability.
 
