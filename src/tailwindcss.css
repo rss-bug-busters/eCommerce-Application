@@ -50,3 +50,6 @@
   appearance: none;
 }
 
+.navlink {
+  @apply cursor-pointer font-bold hover:underline ;
+}

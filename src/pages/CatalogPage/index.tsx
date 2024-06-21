@@ -13,7 +13,7 @@ function CatalogPage() {
     search,
     sort,
     category,
-    limit: 2,
+    limit: 4,
     attributes,
     price: {
       min: minPrice,
