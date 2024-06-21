@@ -4,7 +4,7 @@ import routeIsRenderedByTestId from '@tests/utils/routeIsRenderedByTestId';
 
 enum PagesTestIds {
   ABOUT = 'about-page',
-  BASKET = 'basket-page',
+  CART = 'cart-page',
   ERROR = 'error-page',
   LOGIN = 'login-page',
   MAIN = 'main-page',
@@ -40,9 +40,8 @@ describe('all routes rendered', async () => {
     needAuth: true,
   });
   routeIsRenderedByTestId({
-    route: RoutePaths.BASKET,
-    testId: PagesTestIds.BASKET,
-    needAuth: true,
+    route: RoutePaths.CART,
+    testId: PagesTestIds.CART,
   });
   routeIsRenderedByTestId({
     route: `/${(Math.random() + 1).toString(36).slice(7)}`,
@@ -54,11 +53,6 @@ describe('all routes rendered', async () => {
 describe('redirects to login from password protected routes', async () => {
   routeIsRenderedByTestId({
     route: RoutePaths.PROFILE,
-    testId: PagesTestIds.LOGIN,
-    needAuth: false,
-  });
-  routeIsRenderedByTestId({
-    route: RoutePaths.BASKET,
     testId: PagesTestIds.LOGIN,
     needAuth: false,
   });

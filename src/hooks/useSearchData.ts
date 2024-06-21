@@ -9,12 +9,11 @@ const useSearchData = () => {
     searchParameters.get('category') ?? undefined
   );
 
-  const reset = () =>
+  const resetFilters = () =>
     setSearchParameters({
       ...Object.fromEntries(searchParameters.entries()),
       minPrice: [],
       maxPrice: [],
-      search: [],
       sort: [],
       category: [],
       onlyDiscounted: [],
@@ -46,8 +45,11 @@ const useSearchData = () => {
     }
   }, [category, searchParameters, setSearchParameters]);
 
+  const page = Number.parseInt(searchParameters.get('page') ?? '0', 10);
+
   return {
-    reset,
+    page: Number.isNaN(page) ? 0 : page,
+    resetFilters,
     attributes,
     minPrice,
     maxPrice,

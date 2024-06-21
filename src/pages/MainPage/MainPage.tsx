@@ -1,16 +1,11 @@
-import Catalog from '@components/Catalog/Catalog';
 import { Link } from 'react-router-dom';
 import RoutePaths from '@utils/consts/RoutePaths';
-import useProducts from '@hooks/useProducts.ts';
+import DisplayPromoCodes from '@components/PromoCode/displayPromoCodes/DisplayPromoCodes';
 
 function MainPage() {
-  const { data } = useProducts({
-    category: '127c0510-a1eb-4809-9491-24e93aba3511',
-    limit: 4,
-  });
-
   return (
     <div data-testid="main-page" className="grid">
+      <DisplayPromoCodes />
       <div className="mb-9 mt-9 flex flex-col items-center">
         <h1 className="mb-4 max-w-xl text-center text-3xl font-bold">
           Crafting Comfort, Redefining Spaces. Your Home, Your Signature Style!
@@ -35,8 +30,6 @@ function MainPage() {
           </Link>
         </div>
       </div>
-      <h2 className="mb-2 grid text-2xl">New arrival!</h2>
-      <Catalog data={data} />
     </div>
   );
 }

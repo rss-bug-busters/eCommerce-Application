@@ -108,7 +108,8 @@
             "explicitSpread": "enforce",
             "exceptions": ["input", "select", "textarea", "img"]
           }
-        ]
+        ],
+        "unicorn/no-array-reduce": 0
       },
       "overrides": [
         {

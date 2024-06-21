@@ -1,6 +1,7 @@
 {
   "item_card": {
     "img_alt": "Product",
-    "add_to_cart": "Add to cart"
+    "add_to_cart": "Add to cart",
+    "remove_from_cart": "Remove from cart"
   }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { useDebouncedCallback } from 'use-debounce';
 import SearchSVG from '@assets/svg/search.svg?react';
 import { useSearchParams } from 'react-router-dom';
+import useSearchData from '@hooks/useSearchData.ts';
 
 export interface SearchProperties {
   className?: string;
@@ -9,12 +10,14 @@ export interface SearchProperties {
 
 function Search({ className }: SearchProperties) {
   const [searchParameters, setSearchParameters] = useSearchParams();
+  const { search } = useSearchData();
+
   const debounced = useDebouncedCallback((event: React.FormEvent<HTMLInputElement>) => {
-    const searchValue = (event.target as HTMLInputElement).value;
+    const target = event.target as HTMLInputElement;
 
     setSearchParameters({
       ...Object.fromEntries(searchParameters.entries()),
-      search: searchValue,
+      search: target.value,
     });
   }, 250);
 
@@ -33,7 +36,7 @@ function Search({ className }: SearchProperties) {
           required
           onInput={debounced}
           aria-label="search"
-          defaultValue={searchParameters.get('search') ?? undefined}
+          defaultValue={search}
         />
       </div>
     </div>

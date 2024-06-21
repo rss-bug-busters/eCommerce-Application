@@ -4,7 +4,8 @@ import routePaths from '@utils/consts/RoutePaths';
 import { useTranslation } from 'react-i18next';
 import ProgressiveImage from '@components/ui/ProgressiveImage/ProgressiveImage';
 import clsx from 'clsx';
-import usePriceInfo from '@hooks/usePriceInfo.ts';
+import AddToCartButton from '@components/AddToCartButton';
+import usePriceFormatter from '@hooks/usePriceFormatter';
 
 interface Properties {
   key?: string | number;
@@ -15,22 +16,7 @@ function ItemCard({ product }: Properties) {
   const { name, description, masterVariant, id, key } = product;
   const { price, images } = masterVariant;
   const { i18n, t } = useTranslation();
-  const { priceInfo } = usePriceInfo();
-
-  const priceFormatter = new Intl.NumberFormat(i18n.language, {
-    style: 'currency',
-    currency: price?.value.currencyCode ?? priceInfo.priceCurrency,
-  });
-
-  const priceValue: undefined | string =
-    price &&
-    priceFormatter.format(price.value.centAmount / 10 ** price.value.fractionDigits);
-
-  const discountValue: undefined | string =
-    price?.discounted &&
-    priceFormatter.format(
-      price.discounted.value.centAmount / 10 ** price.discounted.value.fractionDigits
-    );
+  const { isDiscounted, discount, priceFormatted } = usePriceFormatter(price);
 
   const descriptionValue: string = description?.[i18n.language] ?? '';
 
@@ -79,32 +65,18 @@ function ItemCard({ product }: Properties) {
               <p
                 className={clsx(
                   'font-bold text-gray-900 dark:text-white',
-                  discountValue ? 'absolute -top-4 line-through' : 'text-2xl'
+                  isDiscounted ? 'absolute -top-4 line-through' : 'text-2xl'
                 )}
               >
-                {priceValue ?? ''}
+                {priceFormatted ?? ''}
               </p>
-              {discountValue && (
+              {discount.formatted && (
                 <span className="text-2xl font-bold text-gray-900 dark:text-white">
-                  {discountValue ?? ''}
+                  {discount.formatted ?? ''}
                 </span>
               )}
             </div>
-            <button
-              type="button"
-              onClick={(event) => {
-                event.preventDefault();
-                console.log(`Add to cart ${id}`);
-              }}
-              className={clsx(
-                'rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white',
-                'hover:bg-blue-800',
-                'focus:outline-none focus:ring-4 focus:ring-blue-300',
-                'dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
-              )}
-            >
-              {t('item_card.add_to_cart')}
-            </button>
+            <AddToCartButton product={product} />
           </div>
         </div>
       </div>

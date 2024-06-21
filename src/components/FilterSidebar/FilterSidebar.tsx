@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import useCategory from '@hooks/useCategory';
+import useCategory from '@hooks/category/useCategory';
 import FilterSvg from '@assets/svg/filter.svg?react';
 import Sidebar from '@components/FilterSidebar/Sidebar';
 import clsx from 'clsx';
@@ -11,7 +11,7 @@ import {
 function FilterSidebar({
   productsResponse,
 }: {
-  productsResponse: ClientResponse<ProductProjectionPagedSearchResponse> | undefined;
+  productsResponse?: ClientResponse<ProductProjectionPagedSearchResponse>;
 }) {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const sidebarReference = useRef(null);
@@ -51,7 +51,7 @@ function FilterSidebar({
       {isSidebarOpen && (
         <div ref={sidebarReference}>
           <Sidebar
-            hide={!isSidebarOpen}
+            close={() => setIsSidebarOpen(false)}
             productsResponse={productsResponse}
             category={data?.body.results ?? []}
           />
